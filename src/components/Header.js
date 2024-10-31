@@ -9,7 +9,7 @@ function Header() {
   }
 
   return (
-    <div className="fixed l-0 t-0 w-full bg-white shadow-md">
+    <div className="fixed l-0 t-0 w-full bg-white shadow-md z-10">
       <div className="max-w-[1500px] mx-auto grid grid-cols-[2fr_5fr] px-5">
         <div className="text-[12px] font-bold text-red">
           FREE SHIPPING OVER $49 *
