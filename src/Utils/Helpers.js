@@ -12,5 +12,11 @@ export function formatPrice(price) {
     return formatCurrency(amount)
 }
 
+export function maxString(str, maxLength) {
+  if (str.length > maxLength) {
+    return str.slice(0, maxLength) + '...';
+  }
+  return str;
+}
 
   

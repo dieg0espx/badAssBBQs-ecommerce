@@ -9,8 +9,8 @@ function Header() {
   }
 
   return (
-    <div className="">
-      <div className="grid grid-cols-[2fr_5fr] px-5">
+    <div className="fixed l-0 t-0 w-full bg-white shadow-md">
+      <div className="max-w-[1500px] mx-auto grid grid-cols-[2fr_5fr] px-5">
         <div className="text-[12px] font-bold text-red">
           FREE SHIPPING OVER $49 *
         </div>
@@ -59,7 +59,7 @@ function Header() {
           </Link>
         </div>
       </div>
-      <div className="flex items-center justify-between space-x-2 mt-0 h-12 px-5">
+      <div className="max-w-[1500px] mx-auto flex items-center justify-between space-x-2 mt-0 h-12 px-5">
         <div className="flex items-center justify-between h-full">
           <img src={logo_header} className="h-full" onClick={goHome}/>
           <input
@@ -88,7 +88,7 @@ function Header() {
 
         </div>
       </div>
-      <div className="flex items-center justify-between space-x-2 -mt-2 h-12 px-5">
+      <div className=" max-w-[1500px] mx-auto flex items-center justify-between space-x-2 -mt-2 h-12 px-5">
         <Link to="/contact" className="text-[12px] font-medium hover:text-red">
             Grills & Outdoor Cooking <i class="bi bi-chevron-down"></i>
         </Link>
