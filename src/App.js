@@ -1,21 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import ProductList from './pages/ProductsList'
+import ProductList from './pages/ProductsList';
 import ProductDetails from './pages/ProductDetails';
-import  { ProductsProvider } from './context/ProductsContext'
-
+import { ProductsProvider } from './context/ProductsContext';
+import Header from './components/Header';
 
 function App() {
   return (
-    <BrowserRouter >
+    <div> 
+      <Header />
       <ProductsProvider>
         <Routes>
           <Route path="/" element={<ProductList />} />
-          <Route path="/product/:id" element={<ProductDetails />} /> Add your product details route
+          <Route path="/product/:id" element={<ProductDetails />} />
         </Routes>
       </ProductsProvider>
-    </BrowserRouter>
+    </div>
   );
 }
 
