@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext'; // Import the custom hook
 import { formatPrice } from '../Utils/Helpers'; // Assuming this is your formatting function
 import ProductImagesContainer from '../components/ProductImagesContainer';
+import Footer from '../components/Footer';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const ProductDetails = () => {
   const specifications = formatSpecifications(product.Specifications);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-white rounded-lg">
+    <div className="p-6 max-w-6xl mx-auto ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0">
           {/* Left Side - Product Image */}
           <div className="flex justify-center items-start">
@@ -99,10 +100,6 @@ const ProductDetails = () => {
             </tbody>
           </table>
         </div>
-
-
-
-
     </div>
   );
 };

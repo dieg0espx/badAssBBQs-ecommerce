@@ -225,8 +225,6 @@ function Home() {
       </div>
 
       <img src={banner7} className='w-full mx-auto mt-5' alt="Promotional Banner7"/>
-      
-      <Footer />
     </div>
   );
 }
