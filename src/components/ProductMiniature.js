@@ -22,9 +22,25 @@ function ProductMiniature({ product }) {
       >
         {maxString(product.Title, 50)}
       </p>
-      <p className="text-gray-600 text-center text-2xl mt-auto">
-        {formatCurrency(product.Price)}
-      </p>
+
+      <div className='flex justify-center items-start space-x-1'>
+        <p className="text-gray-600 text-center text-2xl mt-auto font-[600]">
+         {formatCurrency(product.Price)}
+        </p>
+        <p className="text-gray-600 text-center mt-[3px] text-decoration-line: line-through text-[12px]">
+         {formatCurrency(product.Price*1.12)}
+        </p>
+      </div>
+
+
+
+      <div className='px-2'>
+        <p className='text-green-800 mt-5 font-medium'> {product.Price > 49 ? 'Free Shipping':''} </p>
+        <p> Leaves Warehouse: </p>
+        <p className='-mt-2'> 24 Hrs </p>
+      </div>
+      <button className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red"> ADD TO CART </button>
+
     </div>
   );
 }
