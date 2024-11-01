@@ -6,7 +6,7 @@ function ProductMiniature({ product }) {
   const navigate = useNavigate(); // Initialize useNavigate to navigate
 
   const handleTitleClick = () => {
-    navigate(`/product/${product.Id}`); // Redirect to product details page
+    navigate(`/product/${product.brand}-${product.Id}`); // Redirect to product details page
   };
 
   return (
@@ -35,9 +35,9 @@ function ProductMiniature({ product }) {
 
 
       <div className='px-2'>
-        <p className='text-green-800 mt-5 font-medium'> {product.Price > 49 ? 'Free Shipping':''} </p>
-        <p> Leaves Warehouse: </p>
-        <p className='-mt-2'> 24 Hrs </p>
+        <p className='text-green-800 mt-3 font-medium'> {product.Price > 49 ? 'Free Shipping':''} </p>
+        <p className='text-gray-500'> Leaves Warehouse: </p>
+        <p className='-mt-1 text-gray-500'> 24 Hrs </p>
       </div>
       <button className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red"> ADD TO CART </button>
 
