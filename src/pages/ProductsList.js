@@ -1,36 +1,38 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useProducts } from '../context/ProductsContext';
 import ProductMiniature from '../components/ProductMiniature';
-
 import AskExpert from '../components/AsxExpert';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function ProductList() {
+  const { brand, category } = useParams(); // Retrieve brand and category from URL
+  const navigate = useNavigate();
   const { loadAllProducts } = useProducts();
   const [products, setProducts] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState(brand === 'all' ? '' : brand || '');
+  const [selectedCategory, setSelectedCategory] = useState(category === 'all' ? '' : category || '');
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 100;
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const allProducts = await loadAllProducts(); // Load all products from context
+      const allProducts = await loadAllProducts();
       setProducts(allProducts);
     };
     fetchProducts();
   }, [loadAllProducts]);
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'auto',
     });
-  },[selectedCategory])
+  }, [selectedCategory, selectedBrand, currentPage]);
 
   // Filter products based on the selected brand and category
   const filteredProducts = products.filter(product => 
-    (selectedBrand ? product.brand === selectedBrand : true) &&
-    (selectedCategory === 'All Categories' || selectedCategory === '' ? true : product.Category.includes(selectedCategory))
+    (!selectedBrand || product.brand === selectedBrand) &&
+    (!selectedCategory || selectedCategory === 'All Categories' || product.Category.includes(selectedCategory))
   );
 
   // Calculate total pages
@@ -50,14 +52,25 @@ function ProductList() {
       product.Category.forEach(cat => categorySet.add(cat));
     });
     
-    // Convert Set to Array and replace "Home" with "All Categories"
     const categoriesArray = Array.from(categorySet).map(cat => cat === 'Home' ? 'All Categories' : cat);
-    
     return categoriesArray;
   }, [products, selectedBrand]);
   
+  // Handle brand and category selection with URL update
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+    navigate(`/products/${selectedBrand || 'all'}/${category === 'All Categories' ? 'all' : category}`);
+  };
 
-  // Handle page change
+  const handleBrandChange = (brand) => {
+    setSelectedBrand(brand);
+    setSelectedCategory(''); // Reset category
+    setCurrentPage(1);
+    navigate(`/products/${brand || 'all'}/${selectedCategory || 'all'}`);
+  };
+
+  // Define handlePageChange function
   const handlePageChange = (pageNumber) => {
     window.scrollTo({
       top: 0,
@@ -73,12 +86,9 @@ function ProductList() {
         <h3 className="text-md font-semibold mb-4">Categories</h3>
         <ul>
           {categories.map((category, index) => (
-            <li key={index} >
+            <li key={index}>
               <button 
-                onClick={() => {
-                  setSelectedCategory(category);
-                  setCurrentPage(1); // Reset to first page when changing category
-                }}
+                onClick={() => handleCategoryChange(category)}
                 className={`block w-full text-left p-1 px-3 mb-2 text-[12px] ${selectedCategory === category ? 'bg-red text-white' : 'bg-gray-200'}`}
               >
                 {category}
@@ -96,11 +106,7 @@ function ProductList() {
         {/* Dropdown to select a brand */}
         <select 
           value={selectedBrand}
-          onChange={(e) => {
-            setSelectedBrand(e.target.value);
-            setSelectedCategory(''); // Reset category when changing brand
-            setCurrentPage(1); // Reset to first page when changing brand
-          }}
+          onChange={(e) => handleBrandChange(e.target.value)}
           className="mb-4 p-2 border"
         >
           <option value="">All Brands</option>
@@ -140,7 +146,6 @@ function ProductList() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

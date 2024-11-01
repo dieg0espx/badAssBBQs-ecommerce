@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import Slider from 'react-slick'; // Import the Slider component from react-slick
 import banner2 from '../images/banner2.png';
 import banner3 from '../images/banner3.png';
@@ -136,6 +137,8 @@ function Home() {
           </div>
         ))}
       </Slider>
+
+      <Link to='/products' className='block mt-10 mx-auto w-fit hover:underline hover:text-red text-[20px]'> Shop All Products </Link>
 
       <img src={banner3} className='w-full mx-auto mt-10' alt="Promotional Banner3"/>
 

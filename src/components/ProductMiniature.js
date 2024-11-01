@@ -10,7 +10,7 @@ function ProductMiniature({ product }) {
   };
 
   return (
-    <div className="border p-4 min-w-[200px] flex flex-col justify-between h-full">
+    <div className="border p-4 min-w-[200px] flex flex-col justify-between h-full hover:border-red" onClick={handleTitleClick} >
       <img
         src={product.Image}
         alt={product.Title}

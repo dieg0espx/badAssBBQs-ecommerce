@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from "react-router-dom";
 import Slider from 'react-slick'; // Import the Slider component from react-slick
 import { useParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext'; // Import the custom hook\
@@ -114,7 +115,8 @@ const ProductDetails = () => {
                 <p className="text-md ml-2">Model: {product.Model}</p>
               </div>
               <h1 className="text-3xl font-bold mb-2">{product.Title}</h1>
-              <p className='mb-5 underline'> {toCamelCase(product.brand)} </p>
+              
+              <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red">{toCamelCase(product.brand)}</Link>
               
               <p className="text-[15px] font-light text-gray-500 line-through -mb-2">
                 {formatCurrency(product.Price*1.02)}
