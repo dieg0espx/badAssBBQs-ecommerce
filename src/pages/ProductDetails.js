@@ -6,12 +6,13 @@ import { useProducts } from '../context/ProductsContext'; // Import the custom h
 import { formatCurrency, formatPrice } from '../Utils/Helpers'; // Assuming this is your formatting function
 import ProductImagesContainer from '../components/ProductImagesContainer';
 import Footer from '../components/Footer';
+import AddToCartQuantity from '../components/AddToCartQuantity';
 
 const ProductDetails = () => {
   const { loadAllProducts } = useProducts();
   const [products, setProducts] = useState([]);
   const { id } = useParams();
-  // const product = products.find((item) => {item.brand + '-' + item.Id} === parseInt(id)); // Find the product by ID
+  const [quantity, setQuantity] = useState(1);
  
 
   useEffect(() => {
@@ -47,10 +48,10 @@ const ProductDetails = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0 space-x-5">
           {/* Left Side - Product Image */}
-          <div className="flex justify-center items-start">
-            {/* <ProductImagesContainer Image={product.Image} Other_image={product.Other_image} /> */}
+          <div className="flex justify-center items-start ">
+            <ProductImagesContainer Image={product.Image} Other_image={product.Other_image} />
           </div>    
           {/* Right Side - Product Information */}
           <div className="flex flex-col justify-between mt-10">
@@ -65,6 +66,12 @@ const ProductDetails = () => {
               <p className="text-lg font-semibold text-green-600 mb-4">
                 {formatCurrency(product.Price)}
               </p>
+
+  
+              <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} />
+
+
+
             </div>
           </div>
         </div>
@@ -88,74 +95,48 @@ const ProductDetails = () => {
           </p>
         </div>
         
-        {/* Specifications - As a Table
+       
         <div className="mt-6">
-          <h2 className="text-lg font-semibold mt-5 mb-5"> Specifications </h2>
+          <h2 className="text-lg font-semibold mt-5 mb-5">Specifications</h2>
           <table className="min-w-full border-collapse border border-gray-300">
             <tbody>
-              {specifications.map((spec, index) => {
-                // Create a row for every two specifications
-                if (index % 4 === 0) {
-                  return (
-                    <tr key={index}>
-                      <td className="border border-gray-300 p-2 font-semibold">{spec.name}</td>
-                      <td className="border border-gray-300 p-2">{spec.value}</td>
-                      {specifications[index + 1] && (
-                        <>
-                          <td className="border border-gray-300 p-2 font-semibold">{specifications[index + 1].name}</td>
-                          <td className="border border-gray-300 p-2">{specifications[index + 1].value}</td>
-                        </>
-                      )}
-                    </tr>
-                  );
-                }
-                return null; 
-              })}
+              {product.Specifications
+                // Filter out empty or "Details" specifications
+                .filter(spec => {
+                  const [name] = Object.entries(spec)[0];
+                  return name && name !== "Details";
+                })
+                // Group every 2 specifications into a single row
+                .reduce((rows, spec, index, filteredSpecs) => {
+                  if (index % 2 === 0) {
+                    rows.push(filteredSpecs.slice(index, index + 2));
+                  }
+                  return rows;
+                }, [])
+                // Map each row to a table row
+                .map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {row.map((spec, cellIndex) => {
+                      const [name, value] = Object.entries(spec)[0];
+                      return (
+                        <React.Fragment key={cellIndex}>
+                          <td className="border border-gray-300 p-2 font-semibold">{name}</td>
+                          <td className="border border-gray-300 p-2">{value}</td>
+                        </React.Fragment>
+                      );
+                    })}
+                    {/* If the last row has only 1 key-value pair, add empty cells to fill the row */}
+                    {row.length < 2 && (
+                      <React.Fragment>
+                        <td className="border border-gray-300 p-2"></td>
+                        <td className="border border-gray-300 p-2"></td>
+                      </React.Fragment>
+                    )}
+                  </tr>
+                ))}
             </tbody>
           </table>
-        </div> */}
-
-<div className="mt-6">
-  <h2 className="text-lg font-semibold mt-5 mb-5">Specifications</h2>
-  <table className="min-w-full border-collapse border border-gray-300">
-    <tbody>
-      {product.Specifications
-        // Filter out empty or "Details" specifications
-        .filter(spec => {
-          const [name] = Object.entries(spec)[0];
-          return name && name !== "Details";
-        })
-        // Group every 2 specifications into a single row
-        .reduce((rows, spec, index, filteredSpecs) => {
-          if (index % 2 === 0) {
-            rows.push(filteredSpecs.slice(index, index + 2));
-          }
-          return rows;
-        }, [])
-        // Map each row to a table row
-        .map((row, rowIndex) => (
-          <tr key={rowIndex}>
-            {row.map((spec, cellIndex) => {
-              const [name, value] = Object.entries(spec)[0];
-              return (
-                <React.Fragment key={cellIndex}>
-                  <td className="border border-gray-300 p-2 font-semibold">{name}</td>
-                  <td className="border border-gray-300 p-2">{value}</td>
-                </React.Fragment>
-              );
-            })}
-            {/* If the last row has only 1 key-value pair, add empty cells to fill the row */}
-            {row.length < 2 && (
-              <React.Fragment>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
-              </React.Fragment>
-            )}
-          </tr>
-        ))}
-    </tbody>
-  </table>
-</div>
+        </div>
 
 
 

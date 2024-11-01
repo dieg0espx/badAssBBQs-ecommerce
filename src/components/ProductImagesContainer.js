@@ -5,32 +5,41 @@ const ProductImagesContainer = ({ Image, Other_image }) => {
   const [imageUrls, setImageUrls] = useState([]); // State to store image URLs
 
   useEffect(() => {
-    // Regular expression to match URLs in the Other_image string
-    const urlPattern = /(https?:\/\/[^\s]+\.jpg)/g; // Adjust regex to ensure it captures only .jpg URLs
-    const urls = Other_image.match(urlPattern); // Extract URLs
-    setImageUrls(urls || []); // Set the extracted URLs to state, defaulting to an empty array if none found
-  }, [Other_image]); // Dependency on Other_image
+    if (Other_image && typeof Other_image === 'object') {
+      const urls = Object.keys(Other_image); // Extract URLs from the object keys
+
+      // Prepend Image if not already included in Other_image
+      const allImages = !urls.includes(Image) ? [Image, ...urls] : urls;
+      setImageUrls(allImages);
+
+      // Set the last image as currentImage if available
+      setCurrentImage(allImages[allImages.length - 1]);
+    } else {
+      setImageUrls([Image]); // Use only Image if Other_image is not an object
+      setCurrentImage(Image); // Set currentImage to Image
+    }
+  }, [Image, Other_image]); // Dependency on Image and Other_image
 
   return (
-    <div className="flex">
-      <div className="flex flex-col max-h-52 overflow-y-auto p-2" style={{ maxHeight: '400px' }}>
+    <div className="flex w-full">
+      <div className="flex flex-col max-h-[450px] overflow-y-auto p-2 w-[100px] h-full scrollbar-hide">
         {/* Display the miniatures */}
         {imageUrls.map((url, index) => (
           <img
             key={index}
             src={url}
-            alt={`Thumbnail ${index + 1}`} // Alt text for accessibility
+            alt={Other_image[url] || `Thumbnail ${index + 1}`} // Use description as alt text if available
             className="w-20 h-20 object-contain mb-2 cursor-pointer rounded"
             onMouseEnter={() => setCurrentImage(url)} // Change main image on hover
           />
         ))}
       </div>
 
-      <div className="flex-shrink-0 ml-5">
+      <div className='w-full'>
         <img
           src={currentImage}
           alt="Current Product"
-          className="max-w-[400px] w-full h-auto object-contain rounded-lg" // Set width and height to 400px
+          className="w-full h-auto object-contain rounded-lg"
         />
       </div>
     </div>

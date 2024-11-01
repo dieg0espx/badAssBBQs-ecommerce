@@ -24,7 +24,7 @@ function ProductMiniature({ product }) {
       </p>
 
       <div className='flex justify-center items-start space-x-1'>
-        <p className="text-gray-600 text-center text-2xl mt-auto font-[600]">
+        <p className="text-black text-center text-2xl mt-auto font-[600]">
          {formatCurrency(product.Price)}
         </p>
         <p className="text-gray-600 text-center mt-[3px] text-decoration-line: line-through text-[12px]">
@@ -35,7 +35,7 @@ function ProductMiniature({ product }) {
 
 
       <div className='px-2'>
-        <p className='text-green-800 mt-3 font-medium'> {product.Price > 49 ? 'Free Shipping':''} </p>
+        <p className='text-green-800 mt-3 font-medium h-[25px]'> {product.Price > 49 ? 'Free Shipping':''} </p>
         <p className='text-gray-500'> Leaves Warehouse: </p>
         <p className='-mt-1 text-gray-500'> 24 Hrs </p>
       </div>
