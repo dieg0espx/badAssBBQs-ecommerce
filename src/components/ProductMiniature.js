@@ -24,7 +24,7 @@ function ProductMiniature({ product }) {
       </p>
 
       <div className='flex justify-center items-start space-x-1'>
-        <p className="text-black text-center text-2xl mt-auto font-[600]">
+        <p className="text-black text-center text-[20px] mt-auto font-[600]">
          {formatCurrency(product.Price)}
         </p>
         <p className="text-gray-600 text-center mt-[3px] text-decoration-line: line-through text-[12px]">

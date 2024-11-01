@@ -61,11 +61,26 @@ export const ProductsProvider = ({ children }) => {
     const shuffledProducts = [...allProducts].sort(() => 0.5 - Math.random());
     return shuffledProducts.slice(0, limit);
   };
-  
-  
 
+   // Function to get related products based on categories
+   const relatedProducts = async (category, amount) => {
+    const allProducts = await loadAllProducts(); // Load all products
+    const filteredCategory = category.filter(cat => cat !== "Home"); // Exclude "Home" from categories
+
+    const related = allProducts.filter(product =>
+      product.Category.some(cat => filteredCategory.includes(cat) && cat !== "Home")
+    );
+
+    // Shuffle and limit the results
+    const limit = Math.min(amount, related.length);
+    const shuffledRelated = [...related].sort(() => 0.5 - Math.random());
+
+    return shuffledRelated.slice(0, limit);
+  };
+
+  
   return (
-    <ProductsContext.Provider value={{ products, loadProductsByBrand, loadAllProducts, getRandomProducts }}>
+    <ProductsContext.Provider value={{ products, loadProductsByBrand, loadAllProducts, getRandomProducts, relatedProducts }}>
       {children}
     </ProductsContext.Provider>
   );

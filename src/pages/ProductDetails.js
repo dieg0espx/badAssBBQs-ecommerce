@@ -1,19 +1,22 @@
-// src/pages/ProductDetails.js
-
 import React, {useEffect, useState} from 'react';
+import Slider from 'react-slick'; // Import the Slider component from react-slick
 import { useParams } from 'react-router-dom';
-import { useProducts } from '../context/ProductsContext'; // Import the custom hook
+import { useProducts } from '../context/ProductsContext'; // Import the custom hook\
 import { formatCurrency, formatPrice, toCamelCase } from '../Utils/Helpers'; // Assuming this is your formatting function
 import ProductImagesContainer from '../components/ProductImagesContainer';
 import Footer from '../components/Footer';
 import AddToCartQuantity from '../components/AddToCartQuantity';
 import Categories from '../components/Categories';
+import AskExpert from '../components/AsxExpert'
+import ProductMiniature from '../components/ProductMiniature';
 
 const ProductDetails = () => {
   const { loadAllProducts } = useProducts();
+  const { relatedProducts } = useProducts();
   const [products, setProducts] = useState([]);
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
+  const [listRelated, setListRelated] = useState([])
  
 
   useEffect(() => {
@@ -28,6 +31,19 @@ const ProductDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []); // Empty dependency array to run only on mount
+
+  useEffect(() => {
+    const fetchRelatedProducts = async () => {
+      const category = ["Outdoor Kitchens", "Built-In Grills"];
+      const amount = 15;
+      const products = await relatedProducts(category, amount);
+      setListRelated(products)
+      console.log("Related Products:", products);
+    };
+  
+    fetchRelatedProducts();
+  }, []);
+
 
   const product = products.find((item) => `${item.brand}-${item.Id}` === id);
   console.log(product);
@@ -46,13 +62,47 @@ const ProductDetails = () => {
     }).filter(spec => spec.name && spec.value); // Filter out any empty specifications
   };
 
+  const settings = {
+    dots: false, // Show dots for navigation
+    infinite: true, // Infinite loop sliding
+    speed: 500, // Slide speed
+    slidesToShow: 5, // Number of slides to show at once
+    slidesToScroll: 1, // Number of slides to scroll on each navigation
+    autoplay: true, // Enable automatic sliding
+    autoplaySpeed: 3000, // Duration between slides
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3, // Show 3 slides on medium screens
+          slidesToScroll: 1,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2, // Show 2 slides on smaller screens
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1, // Show 1 slide on extra small screens
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
 
   return (
     <div className="p-6 max-w-6xl mx-auto ">
+        <Categories categories={product.Category} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0 space-x-5">
           {/* Left Side - Product Image */}
           <div className="block justify-center items-start ">
-            <Categories categories={product.Category} />
             <ProductImagesContainer Image={product.Image} Other_image={product.Other_image} />
           </div>    
           {/* Right Side - Product Information */}
@@ -84,22 +134,43 @@ const ProductDetails = () => {
 
         <hr></hr>
 
-     {/* Product Description - Below the Grid */}
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold mb-5">Description</h2>
-          <p className="text-gray-700 mt-0">
-            {product.Description.split('Legal disclaimers and warnings').map((part, index) => (
-              <React.Fragment key={index}>
-                {part}
-                {index < product.Description.split('Legal disclaimers and warnings').length - 1 && (
-                  <>
-                    <h2 className="text-lg font-semibold mt-5 mb-5">Legal disclaimers and warnings</h2>
-                  </>
-                )}
-              </React.Fragment>
-            ))}
-          </p>
+        <h2 className='text-left text-[35px] font-bold mt-5 mb-5 ml-2'> Related Products </h2>
+
+        <Slider {...settings} className='mb-10 relative z-0 mx-auto max-w-[100%]'>
+        {[...listRelated].sort(() => 0.5 - Math.random()).map((product) => (
+          <div key={product.Id} className="px-2 flex"> 
+            <ProductMiniature product={product} />
+          </div>
+        ))}
+      </Slider>
+
+
+
+
+        <hr></hr>
+
+         {/* Product Description - Below the Grid */}
+        <div className="mt-6 grid grid-cols-[auto_200px] gap-10">
+          <div>
+            <h2 className="text-lg font-semibold mb-5">Description</h2>
+            <p className="text-gray-700 mt-0">
+              {product.Description.split('Legal disclaimers and warnings').map((part, index) => (
+                <React.Fragment key={index}>
+                  {part}
+                  {index < product.Description.split('Legal disclaimers and warnings').length - 1 && (
+                    <>
+                      <h2 className="text-lg font-semibold mt-5 mb-5">Legal disclaimers and warnings</h2>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
+            </p>
+          </div>
+          <div> 
+            <AskExpert />
+          </div>
         </div>
+
         
        
         <div className="mt-6">
