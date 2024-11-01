@@ -3,10 +3,11 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { useProducts } from '../context/ProductsContext'; // Import the custom hook
-import { formatCurrency, formatPrice } from '../Utils/Helpers'; // Assuming this is your formatting function
+import { formatCurrency, formatPrice, toCamelCase } from '../Utils/Helpers'; // Assuming this is your formatting function
 import ProductImagesContainer from '../components/ProductImagesContainer';
 import Footer from '../components/Footer';
 import AddToCartQuantity from '../components/AddToCartQuantity';
+import Categories from '../components/Categories';
 
 const ProductDetails = () => {
   const { loadAllProducts } = useProducts();
@@ -50,7 +51,8 @@ const ProductDetails = () => {
     <div className="p-6 max-w-6xl mx-auto ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0 space-x-5">
           {/* Left Side - Product Image */}
-          <div className="flex justify-center items-start ">
+          <div className="block justify-center items-start ">
+            <Categories categories={product.Category} />
             <ProductImagesContainer Image={product.Image} Other_image={product.Other_image} />
           </div>    
           {/* Right Side - Product Information */}
@@ -62,15 +64,19 @@ const ProductDetails = () => {
                 <p className="text-md ml-2">Model: {product.Model}</p>
               </div>
               <h1 className="text-3xl font-bold mb-2">{product.Title}</h1>
+              <p className='mb-5 underline'> {toCamelCase(product.brand)} </p>
               
-              <p className="text-lg font-semibold text-green-600 mb-4">
+              <p className="text-[15px] font-light text-gray-500 line-through -mb-2">
+                {formatCurrency(product.Price*1.02)}
+              </p>
+
+              <p className="text-[30px] font-semibold text-black mb-4">
                 {formatCurrency(product.Price)}
               </p>
 
-  
+              <p className='font-bold'> In Stock </p>
+              <p className='text-gray-500 mb-5'> This item leaves our warehouse within 24 Hours </p>
               <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} />
-
-
 
             </div>
           </div>
