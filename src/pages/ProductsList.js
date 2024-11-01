@@ -8,7 +8,7 @@ function ProductList() {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 200;
+  const productsPerPage = 100;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,10 +18,17 @@ function ProductList() {
     fetchProducts();
   }, [loadAllProducts]);
 
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
+  },[selectedCategory])
+
   // Filter products based on the selected brand and category
   const filteredProducts = products.filter(product => 
     (selectedBrand ? product.brand === selectedBrand : true) &&
-    (selectedCategory ? product.Category.includes(selectedCategory) : true)
+    (selectedCategory === 'All Categories' || selectedCategory === '' ? true : product.Category.includes(selectedCategory))
   );
 
   // Calculate total pages
@@ -40,8 +47,13 @@ function ProductList() {
     brandProducts.forEach(product => {
       product.Category.forEach(cat => categorySet.add(cat));
     });
-    return Array.from(categorySet);
+    
+    // Convert Set to Array and replace "Home" with "All Categories"
+    const categoriesArray = Array.from(categorySet).map(cat => cat === 'Home' ? 'All Categories' : cat);
+    
+    return categoriesArray;
   }, [products, selectedBrand]);
+  
 
   // Handle page change
   const handlePageChange = (pageNumber) => {
@@ -55,33 +67,22 @@ function ProductList() {
   return (
     <div className="flex">
       {/* Sidebar for categories */}
-      <div className="w-1/4 p-4 border-r">
-        <h3 className="text-lg font-semibold mb-4">Categories</h3>
+      <div className="w-[250px] p-4 border-r">
+        <h3 className="text-md font-semibold mb-4">Categories</h3>
         <ul>
           {categories.map((category, index) => (
-            <li key={index}>
+            <li key={index} >
               <button 
                 onClick={() => {
                   setSelectedCategory(category);
                   setCurrentPage(1); // Reset to first page when changing category
                 }}
-                className={`block w-full text-left p-2 mb-2 ${selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                className={`block w-full text-left p-1 px-3 mb-2 text-[12px] ${selectedCategory === category ? 'bg-red text-white' : 'bg-gray-200'}`}
               >
                 {category}
               </button>
             </li>
           ))}
-          <li>
-            <button 
-              onClick={() => {
-                setSelectedCategory('');
-                setCurrentPage(1);
-              }}
-              className={`block w-full text-left p-2 mb-2 ${selectedCategory === '' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-            >
-              All Categories
-            </button>
-          </li>
         </ul>
       </div>
 
@@ -116,7 +117,7 @@ function ProductList() {
         </select>
 
         {/* Display products */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"> 
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> 
           {currentProducts.map((product, index) => (
             <ProductMiniature key={index} product={product} />
           ))}
@@ -128,7 +129,7 @@ function ProductList() {
             <button
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-red text-white' : 'bg-gray-200'}`}
             >
               {index + 1}
             </button>
