@@ -50,7 +50,8 @@ export const ProductsProvider = ({ children }) => {
         console.error(`Could not load products for brand ${brand}:`, error);
       }
     }
-  
+    console.log("TOT PRODUCTS: " + allProducts.length);
+    
     return allProducts.sort((a, b) => a.Id - b.Id);
   };
   

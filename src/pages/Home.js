@@ -39,7 +39,7 @@ function Home() {
 
   useEffect(() => {
     const fetchRandomProducts = async () => {
-      const products = await getRandomProducts(15);
+      const products = await getRandomProducts(30);
       console.log(products);
       
       setRandomProducts(products);
@@ -47,11 +47,6 @@ function Home() {
     fetchRandomProducts();
   }, []);
   
-
-
-
-  
-
 
   const settings = {
     dots: false, // Show dots for navigation
@@ -128,14 +123,14 @@ function Home() {
       </div>
       <h2 className='text-center text-[35px] font-bold my-10'> Promotions & Special Offers </h2>
       <Slider {...settings} className='my-2 relative z-0 mx-auto max-w-[95%]'>
-        {randomProducts.map((product) => (
+        {[...randomProducts].sort(() => 0.5 - Math.random()).map((product) => (
           <div key={product.Id} className="px-2 flex"> 
             <ProductMiniature product={product} />
           </div>
         ))}
       </Slider>
       <Slider {...settings2} className='my-2 relative z-0  mx-auto max-w-[95%]'>
-        {randomProducts.map((product) => (
+        {[...randomProducts].sort(() => 0.5 - Math.random()).map((product) => (
           <div key={product.Id} className="px-2 flex"> 
             <ProductMiniature product={product} />
           </div>
