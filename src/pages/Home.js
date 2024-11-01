@@ -31,16 +31,27 @@ import statement5 from '../images/Div [statement-icon] (5).png'
 
 import { useProducts } from '../context/ProductsContext';
 import ProductMiniature from '../components/ProductMiniature';
-import Footer from '../components/Footer';
+
 
 function Home() {
   const { getRandomProducts } = useProducts();
   const [randomProducts, setRandomProducts] = useState([]);
 
   useEffect(() => {
-    const products = getRandomProducts(15);
-    setRandomProducts(products);
-  }, [getRandomProducts]);
+    const fetchRandomProducts = async () => {
+      const products = await getRandomProducts(15);
+      console.log(products);
+      
+      setRandomProducts(products);
+    };
+    fetchRandomProducts();
+  }, []);
+  
+
+
+
+  
+
 
   const settings = {
     dots: false, // Show dots for navigation

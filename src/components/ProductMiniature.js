@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import { formatPrice, maxString } from '../Utils/Helpers';
+import { formatCurrency, formatPrice, maxString } from '../Utils/Helpers';
 
 function ProductMiniature({ product }) {
   const navigate = useNavigate(); // Initialize useNavigate to navigate
@@ -18,12 +18,12 @@ function ProductMiniature({ product }) {
       /> 
       <p 
         className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[50px] overflow-hidden text-ellipsis " 
-        onClick={handleTitleClick} // Add onClick handler
+        onClick={handleTitleClick} 
       >
         {maxString(product.Title, 50)}
       </p>
       <p className="text-gray-600 text-center text-2xl mt-auto">
-        {formatPrice(product.Price)}
+        {formatCurrency(product.Price)}
       </p>
     </div>
   );
