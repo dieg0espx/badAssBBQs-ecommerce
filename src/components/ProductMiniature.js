@@ -14,7 +14,7 @@ function ProductMiniature({ product, short }) {
       <img
         src={product.Image}
         alt={product.Title}
-        className="w-full h-32 object-contain mb-2"
+        className="w-full h-40 xl:h-32 object-contain mb-2"
       /> 
       <p 
         className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[50px] overflow-hidden text-ellipsis " 

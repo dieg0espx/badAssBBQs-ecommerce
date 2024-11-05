@@ -90,7 +90,7 @@ const ProductDetails = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1, // Show 1 slide on extra small screens
+          slidesToShow: 2, // Show 1 slide on extra small screens
           slidesToScroll: 1,
         },
       },
