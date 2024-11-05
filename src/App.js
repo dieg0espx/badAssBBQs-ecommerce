@@ -14,10 +14,9 @@ function App() {
     <div> 
       <ProductsProvider>
       <Header />
-      <div className='pt-[120px] max-w-[1400px] mx-auto'>
+      <div className='pt-0 xl:pt-[120px] max-w-[1400px] mx-auto'>
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/products" element={<ProductList />} /> */}
             <Route path="products/:brand/:category" element={<ProductList />} />
             <Route path="/product/:id" element={<ProductDetails />} />
           </Routes>

@@ -118,8 +118,8 @@ function Home() {
   };
 
   return (
-    <div className='w-full mt-5'>
-      <div className='w-full mx-auto -mt-[130px] xl:mt-0'>
+    <div className='w-full overflow-x-hidden'>
+      <div className='w-full mx-auto xl:mt-0'>
         <img src={banner2} className='w-full mx-auto' alt="Promotional Banner" onClick={()=> window.location.href ='/products/blaze/all'}/>
       </div>
       <h2 className='text-center text-[23px] xl:text-[35px]  font-bold my-10'> Promotions & Special Offers </h2>
