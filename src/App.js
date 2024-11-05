@@ -12,17 +12,17 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div> 
+      <ProductsProvider>
       <Header />
       <div className='pt-[120px] max-w-[1400px] mx-auto'>
-        <ProductsProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             {/* <Route path="/products" element={<ProductList />} /> */}
             <Route path="products/:brand/:category" element={<ProductList />} />
             <Route path="/product/:id" element={<ProductDetails />} />
           </Routes>
-        </ProductsProvider>
       </div>
+      </ProductsProvider>
       <Footer/>
     </div>
   );

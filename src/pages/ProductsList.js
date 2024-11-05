@@ -85,7 +85,7 @@ function ProductList() {
       <div className="w-[250px] p-4 border-r">
         <h3 className="text-md font-semibold mb-4">Categories</h3>
         <ul>
-          {categories.map((category, index) => (
+          {categories.sort((a, b) => a.localeCompare(b)).map((category, index) => (
             <li key={index}>
               <button 
                 onClick={() => handleCategoryChange(category)}
@@ -109,7 +109,7 @@ function ProductList() {
           onChange={(e) => handleBrandChange(e.target.value)}
           className="mb-4 p-2 border"
         >
-          <option value="">All Brands</option>
+          <option value="all">All Brands</option>
           <option value="alfresco">Alfresco</option>
           <option value="american_made_grills">American Made Grills</option>
           <option value="aog">AOG</option>
@@ -123,6 +123,10 @@ function ProductList() {
           <option value="fontana">Fontana</option>
           <option value="green_mountain">Green Mountain</option>
           <option value="napoleon">Napoleon</option>
+          <option value="american_fyre_design">American Fyre Design</option>
+          <option value="breeo">Breeo</option>
+          <option value="the_outdoor_plus">The Outdoor Plus</option>
+          <option value="twin_eagles">Twin Eagles</option>
         </select>
 
         {/* Display products */}

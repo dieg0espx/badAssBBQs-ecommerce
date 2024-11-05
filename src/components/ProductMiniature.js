@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { formatCurrency, formatPrice, maxString } from '../Utils/Helpers';
 
-function ProductMiniature({ product }) {
+function ProductMiniature({ product, short }) {
   const navigate = useNavigate(); // Initialize useNavigate to navigate
 
   const handleTitleClick = () => {
@@ -34,12 +34,12 @@ function ProductMiniature({ product }) {
 
 
 
-      <div className='px-2'>
+      <div className='px-2' style={{display: short ? 'none':'block'}}>
         <p className='text-green-800 mt-3 font-medium h-[25px]'> {product.Price > 49 ? 'Free Shipping':''} </p>
         <p className='text-gray-500'> Leaves Warehouse: </p>
         <p className='-mt-1 text-gray-500'> 24 Hrs </p>
       </div>
-      <button className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red"> ADD TO CART </button>
+      <button className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red"  style={{display: short ? 'none':'block'}}> ADD TO CART </button>
 
     </div>
   );

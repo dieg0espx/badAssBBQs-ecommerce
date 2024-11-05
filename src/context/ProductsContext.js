@@ -24,6 +24,10 @@ export const ProductsProvider = ({ children }) => {
     'fontana',
     'green_mountain',
     'napoleon',
+    'american_fyre_design', 
+    'breeo',
+    'the_outdoor_plus',
+    'twin_eagles'
   ];
 
   const [products, setProducts] = useState([]);
