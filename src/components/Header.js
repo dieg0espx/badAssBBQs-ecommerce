@@ -144,7 +144,7 @@ function Header() {
     </div>
     
     {/* MOBILE VERSION */}
-    <div className="fixed l-0 t-0 w-[100vw] bg-white z-10 block xl:hidden flex flex-col justify-center align-center items-center">
+    <div className=" w-[100vw] bg-white z-10 block xl:hidden flex flex-col justify-center align-center items-center relative z-999">
       <h2 className=" text-gray-500 font-semibold text-[15px] py-[3px] text-center w-full border-b border-gray-300 underline"> 1-877-743-2269 </h2>
       <div className="flex  w-full items-center my-[6px]">
         <div className="basis-[20%] flex justify-center">
@@ -159,7 +159,7 @@ function Header() {
       </div>
       <input className="border border-lightgray-500 px-5 rounded w-[90%] outline-0 text-[15px] py-[16px] my-[3px3" type="text" placeholder="Search in BadAssBBQS" />
       <div className="bg-red text-center flex items-center justify-center py-[7px] mt-3 w-full">
-        <Link to="/contact" className="text-[15px] text-white  font-medium">
+        <Link to="/contact" className="text-[12px] text-white  font-medium">
             Save Up to $450 on Blaze LTE + Grills & Much More <i class="bi bi-chevron-right"></i>
         </Link>
       </div>

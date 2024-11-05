@@ -119,10 +119,10 @@ function Home() {
 
   return (
     <div className='w-full mt-5'>
-      <div className='w-full mx-auto'>
+      <div className='w-full mx-auto -mt-[130px] xl:mt-0'>
         <img src={banner2} className='w-full mx-auto' alt="Promotional Banner" onClick={()=> window.location.href ='/products/blaze/all'}/>
       </div>
-      <h2 className='text-center text-[35px] font-bold my-10'> Promotions & Special Offers </h2>
+      <h2 className='text-center text-[23px] xl:text-[35px]  font-bold my-10'> Promotions & Special Offers </h2>
       <Slider {...settings} className='my-2 relative z-0 mx-auto max-w-[95%]'>
         {[...randomProducts].sort(() => 0.5 - Math.random()).map((product) => (
           <div key={product.Id} className="px-2 flex"> 
@@ -142,9 +142,9 @@ function Home() {
 
       <img src={banner3} className='w-full mx-auto mt-10' alt="Promotional Banner3"/>
 
-      <h2 className='text-center text-[35px] font-bold my-10'> Popular Departments </h2>
+      <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Departments </h2>
 
-      <div className='grid grid-cols-[1fr_1fr_1fr_1fr_1fr] w-[80%] mx-auto'>
+      <div className='grid grid-cols-[1fr_1fr_1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] w-[80%] mx-auto'>
         <div className='group mb-10'>
             <img src={department0} className='mx-auto mb-2 w-[50%]'/>
             <Link to="/products/all/Gas%20Grills" className='block text-center group-hover:text-red'> Freestanding Gas Grills </Link>
@@ -178,10 +178,6 @@ function Home() {
             <Link to="/products/all/Outdoor%20Compact%20Refrigerators" className='block text-center group-hover:text-red'> Outdoor Compact Refrigerator </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department8} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Built-In Gas Griddles & Flat Top Grills" className='block text-center group-hover:text-red'> Outdoor TVs </Link>
-        </div>
-        <div className='group mb-10'>
             <img src={department9} className='mx-auto mb-2 w-[50%]'/>
             <Link to="/products/all/all" className='block text-center group-hover:text-red'> Sales & Offers </Link>
         </div>
@@ -191,9 +187,9 @@ function Home() {
 
       <img src={banner5} className='w-full mx-auto mt-5' alt="Promotional Banner5"/>
 
-      <h2 className='text-center text-[35px] font-bold my-10'> Popular Brands </h2>
+      <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Brands </h2>
 
-      <div className='grid grid-cols-[1fr_1fr_1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
+      <div className='grid grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
         <img src={brand0} className='mx-auto -mt-3'/>
         <img src={brand1} className='mx-auto'/>
         <img src={brand2} className='mx-auto'/>
@@ -203,33 +199,33 @@ function Home() {
 
       <img src={banner6} className='w-full mx-auto mt-5' alt="Promotional Banner6"/>
 
-      <h2 className='text-center text-[35px] font-bold my-10'> Get More at BadAssBBQs </h2>
+      <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Get More at BadAssBBQs </h2>
 
-      <div className='flex space-x-10 max-w-[90%] mx-auto mb-20'>
+      <div className='grid grid-cols-[1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr]  gap-[50px] xl:gap-[20px] mx-auto mb-20 max-w-[100%] xl:max-w-[90%]'>
         <div>
             <img src={statement5} className='mx-auto'/>
             <p className='text-center font-bold'> Ask an Expert </p>
-            <p className='text-center'> Shop with our experts and buy with confidence </p>
+            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Shop with our experts and buy with confidence </p>
         </div>
         <div>
             <img src={statement4} className='mx-auto'/>
             <p className='text-center font-bold'> Free Design Sevices </p>
-            <p className='text-center'> Envision your outdoor space through free expert renderings </p>
+            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Envision your outdoor space through free expert renderings </p>
         </div>
         <div>
             <img src={statement3} className='mx-auto'/>
             <p className='text-center font-bold'> Financing Available </p>
-            <p className='text-center'> Pay over time with financing as low as 0% APR available </p>
+            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Pay over time with financing as low as 0% APR available </p>
         </div>
         <div>
             <img src={statement2} className='mx-auto'/>
             <p className='text-center font-bold'> Honest Expert Reviews </p>
-            <p className='text-center'> Shop smarter with objective, in-depth product assessments </p>
+            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Shop smarter with objective, in-depth product assessments </p>
         </div>
         <div>
             <img src={statement1} className='mx-auto'/>
             <p className='text-center font-bold'> Fast, Free Shipping </p>
-            <p className='text-center'> Receive orders in no time - at no additional cost over $49 </p>
+            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Receive orders in no time - at no additional cost over $49 </p>
         </div>
       </div>
 
