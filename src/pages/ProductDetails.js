@@ -30,8 +30,12 @@ const ProductDetails = () => {
 
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []); // Empty dependency array to run only on mount
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
+  }, [id]);
+
 
   useEffect(() => {
     const fetchRelatedProducts = async () => {
@@ -99,8 +103,16 @@ const ProductDetails = () => {
 
 
   return (
-    <div className="p-6 max-w-6xl mx-auto ">
+    <div className="p-6 max-w-6xl mx-auto overflow-x-hidden">
         <Categories categories={product.Category} />
+        
+        <div className='block xl:hidden'>
+          <p className="text-md text-gray-600 mr-2">ID: {product.Id}  <span>|</span> Model: {product.Model}</p> 
+          <h1 className="text-[20px] font-bold mb-2 leading-6">{product.Title}</h1>
+          <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red">{toCamelCase(product.brand)}</Link>
+        </div>
+
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0 space-x-5">
           {/* Left Side - Product Image */}
           <div className="block justify-center items-start ">
@@ -109,14 +121,14 @@ const ProductDetails = () => {
           {/* Right Side - Product Information */}
           <div className="flex flex-col justify-between mt-10">
             <div>
-              <div className="flex items-center">
+              <div className="items-center hidden xl:flex">
                 <p className="text-md text-gray-600 mr-2">ID: {product.Id}</p> 
                 <span>|</span>
                 <p className="text-md ml-2">Model: {product.Model}</p>
               </div>
-              <h1 className="text-3xl font-bold mb-2">{product.Title}</h1>
+              <h1 className="text-3xl font-bold mb-2 hidden xl:flex">{product.Title}</h1>
               
-              <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red">{toCamelCase(product.brand)}</Link>
+              <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red hidden xl:flex">{toCamelCase(product.brand)}</Link>
               
               <p className="text-[15px] font-light text-gray-500 line-through -mb-2">
                 {formatCurrency(product.Price*1.02)}
@@ -152,7 +164,7 @@ const ProductDetails = () => {
         <hr></hr>
 
          {/* Product Description - Below the Grid */}
-        <div className="mt-6 grid grid-cols-[auto_200px] gap-10">
+        <div className="mt-6 block xl:grid grid-cols-[auto_200px] gap-10">
           <div>
             <h2 className="text-lg font-semibold mb-5">Description</h2>
             <p className="text-gray-700 mt-0">
@@ -178,43 +190,51 @@ const ProductDetails = () => {
         <div className="mt-6">
           <h2 className="text-lg font-semibold mt-5 mb-5">Specifications</h2>
           <table className="min-w-full border-collapse border border-gray-300">
-            <tbody>
-              {product.Specifications
-                // Filter out empty or "Details" specifications
-                .filter(spec => {
-                  const [name] = Object.entries(spec)[0];
-                  return name && name !== "Details";
-                })
-                // Group every 2 specifications into a single row
-                .reduce((rows, spec, index, filteredSpecs) => {
-                  if (index % 2 === 0) {
-                    rows.push(filteredSpecs.slice(index, index + 2));
-                  }
-                  return rows;
-                }, [])
-                // Map each row to a table row
-                .map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {row.map((spec, cellIndex) => {
-                      const [name, value] = Object.entries(spec)[0];
-                      return (
-                        <React.Fragment key={cellIndex}>
-                          <td className="border border-gray-300 p-2 font-semibold">{name}</td>
-                          <td className="border border-gray-300 p-2">{value}</td>
-                        </React.Fragment>
-                      );
-                    })}
-                    {/* If the last row has only 1 key-value pair, add empty cells to fill the row */}
-                    {row.length < 2 && (
-                      <React.Fragment>
-                        <td className="border border-gray-300 p-2"></td>
-                        <td className="border border-gray-300 p-2"></td>
-                      </React.Fragment>
-                    )}
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+  <tbody>
+    {product.Specifications
+      // Filter out empty or "Details" specifications
+      .filter(spec => {
+        const [name] = Object.entries(spec)[0];
+        return name && name !== "Details";
+      })
+      // Group every 2 specifications into a single row
+      .reduce((rows, spec, index, filteredSpecs) => {
+        if (index % 2 === 0) {
+          rows.push(filteredSpecs.slice(index, index + 2));
+        }
+        return rows;
+      }, [])
+      // Map each row to a table row
+      .map((row, rowIndex) => (
+        <tr
+          key={rowIndex}
+          className="grid grid-cols-4 md:table-row" // Display as grid with 4 columns on larger screens
+        >
+          {row.map((spec, cellIndex) => {
+            const [name, value] = Object.entries(spec)[0];
+            return (
+              <React.Fragment key={cellIndex}>
+                <td className="border border-gray-300 p-2 font-semibold col-span-2 md:table-cell">
+                  {name}
+                </td>
+                <td className="border border-gray-300 p-2 col-span-2 md:table-cell">
+                  {value}
+                </td>
+              </React.Fragment>
+            );
+          })}
+          {/* If the last row has only 1 key-value pair, add empty cells to fill the row */}
+          {row.length < 2 && (
+            <React.Fragment>
+              <td className="border border-gray-300 p-2 col-span-2 md:table-cell"></td>
+              <td className="border border-gray-300 p-2 col-span-2 md:table-cell"></td>
+            </React.Fragment>
+          )}
+        </tr>
+      ))}
+  </tbody>
+</table>
+
         </div>
 
 
