@@ -10,7 +10,7 @@ function ProductMiniature({ product, short }) {
   };
 
   return (
-    <div className="border p-4 min-w-[200px] flex flex-col justify-between h-full hover:border-red" onClick={handleTitleClick} >
+    <div className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px]  min-w-[180px] flex flex-col justify-between h-full hover:border-red" onClick={handleTitleClick} >
       <img
         src={product.Image}
         alt={product.Title}
@@ -23,11 +23,11 @@ function ProductMiniature({ product, short }) {
         {maxString(product.Title, 50)}
       </p>
 
-      <div className='flex justify-center items-start space-x-1'>
-        <p className="text-black text-center text-[20px] mt-auto font-[600]">
+      <div className='flex flex-col-reverse xl:flex-row justify-center items-center xl:items-start w-[90%] mx-auto'>
+        <p className="text-black text-center text-[20px] mt-auto font-[600] mx-auto ">
          {formatCurrency(product.Price)}
         </p>
-        <p className="text-gray-600 text-center mt-[3px] text-decoration-line: line-through text-[12px]">
+        <p className="text-gray-600 text-center mt-[3px] text-decoration-line: line-through mx-auto text-[12px]">
          {formatCurrency(product.Price*1.12)}
         </p>
       </div>
@@ -39,7 +39,7 @@ function ProductMiniature({ product, short }) {
         <p className='text-gray-500'> Leaves Warehouse: </p>
         <p className='-mt-1 text-gray-500'> 24 Hrs </p>
       </div>
-      <button className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red"  style={{display: short ? 'none':'block'}}> ADD TO CART </button>
+      <button className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red w-[90%] mx-auto xl:w-full"  style={{display: short ? 'none':'block'}}> ADD TO CART </button>
 
     </div>
   );
