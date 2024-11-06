@@ -30,6 +30,8 @@ import statement3 from '../images/Div [statement-icon] (3).png'
 import statement4 from '../images/Div [statement-icon] (4).png'
 import statement5 from '../images/Div [statement-icon] (5).png'
 
+import ProductSkeleton from '../components/ProductSkeleton';
+
 import { useProducts } from '../context/ProductsContext';
 import ProductMiniature from '../components/ProductMiniature';
 
@@ -37,13 +39,14 @@ import ProductMiniature from '../components/ProductMiniature';
 function Home() {
   const { getRandomProducts } = useProducts();
   const [randomProducts, setRandomProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRandomProducts = async () => {
+      setIsLoading(true);
       const products = await getRandomProducts(30);
-      console.log(products);
-      
       setRandomProducts(products);
+      setIsLoading(false);
     };
     fetchRandomProducts();
   }, []);
@@ -63,7 +66,7 @@ function Home() {
         settings: {
           slidesToShow: 3, // Show 3 slides on medium screens
           slidesToScroll: 1,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -97,7 +100,7 @@ function Home() {
         settings: {
           slidesToShow: 3, // Show 3 slides on medium screens
           slidesToScroll: 1,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -124,18 +127,30 @@ function Home() {
       </div>
       <h2 className='text-center text-[23px] xl:text-[35px]  font-bold my-10'> Promotions & Special Offers </h2>
       <Slider {...settings} className='my-2 relative z-0 mx-auto max-w-[95%]'>
-        {[...randomProducts].sort(() => 0.5 - Math.random()).map((product) => (
-          <div key={product.Id} className="px-2 flex"> 
-            <ProductMiniature product={product} />
-          </div>
-        ))}
+        {isLoading
+          ? Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="px-2 flex">
+                <ProductSkeleton />
+              </div>
+            ))
+          : randomProducts.map((product) => (
+              <div key={product.Id} className="px-2 flex">
+                <ProductMiniature product={product} />
+              </div>
+            ))}
       </Slider>
-      <Slider {...settings2} className='my-2 relative z-0  mx-auto max-w-[95%]'>
-        {[...randomProducts].sort(() => 0.5 - Math.random()).map((product) => (
-          <div key={product.Id} className="px-2 flex"> 
-            <ProductMiniature product={product} />
-          </div>
-        ))}
+      <Slider {...settings2} className='my-2 relative z-0 mx-auto max-w-[95%]'>
+        {isLoading
+          ? Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="px-2 flex">
+                <ProductSkeleton />
+              </div>
+            ))
+          : randomProducts.map((product) => (
+              <div key={product.Id} className="px-2 flex">
+                <ProductMiniature product={product} />
+              </div>
+            ))}
       </Slider>
 
       <Link to='/products/all/all' className='block mt-10 mx-auto w-fit hover:underline hover:text-red text-[20px]'> Shop All Products </Link>
