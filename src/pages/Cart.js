@@ -26,11 +26,11 @@ function Cart() {
     <div>
       {cartItems.length === 0 ? (
       <>
-        <div className='h-[100vh] flex items-center justify-center flex-col gap-[10px]'>
+        <div className='h-[70vh] xl:h-[100vh] flex items-center justify-center flex-col gap-[10px]'>
           <i class="bi bi-cart-x text-[10vw] text-red -mt-[20%]"></i>
-          <p className='text-[30px]'> Opps, your cart seems to be empty.</p>
-          <p className='text-[30px]'> Please add some products.</p>          
-          <Link to='/products/all/all' className='text-[20px] bg-red text-white px-10 py-1 mt-5 rounded border border-red hover:bg-white hover:text-red'> View Products </Link>
+          <p className='text-[20px] xl:text-[30px]'> Opps, your cart seems to be empty.</p>
+          <p className='text-[20px] xl:text-[30px]'> Please add some products.</p>          
+          <Link to='/products/all/all' className='text-[15px] xl:text-[20px] bg-red text-white px-10 py-1 mt-5 rounded border border-red hover:bg-white hover:text-red'> View Products </Link>
         </div>
         <hr></hr>
       </>
