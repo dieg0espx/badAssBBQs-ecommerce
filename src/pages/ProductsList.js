@@ -80,9 +80,9 @@ function ProductList() {
   };
 
   return (
-    <div className="flex">
+    <div className="block xl:flex">
       {/* Sidebar for categories */}
-      <div className="w-[250px] p-4 border-r">
+      <div className="w-[250px] p-4 border-r hidden xl:block">
         <h3 className="text-md font-semibold mb-4">Categories</h3>
         <ul>
           {categories.sort((a, b) => a.localeCompare(b)).map((category, index) => (
@@ -100,14 +100,16 @@ function ProductList() {
       </div>
 
       {/* Main content area */}
-      <div className="w-3/4 p-4">
+      <div className="xl:w-3/4 p-4">
         <h2 className="text-xl font-bold mb-4">Product List</h2>
         
+
+        <div className='flex'>
         {/* Dropdown to select a brand */}
         <select 
           value={selectedBrand}
           onChange={(e) => handleBrandChange(e.target.value)}
-          className="mb-4 p-2 border"
+          className="mb-4 p-2 border w-[50%] md:w-auto bg-white rounded-none"
         >
           <option value="all">All Brands</option>
           <option value="alfresco">Alfresco</option>
@@ -129,8 +131,22 @@ function ProductList() {
           <option value="twin_eagles">Twin Eagles</option>
         </select>
 
+        {/* Dropdown to select a category */}
+        <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)} className="mb-4 p-2 border block md:hidden w-[50%]">
+          <option value="all">All Categories</option>
+          {categories.sort((a, b) => a.localeCompare(b)).map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+
+
+        </div>
+
+
         {/* Display products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> 
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> 
           {currentProducts.map((product, index) => (
             <ProductMiniature key={index} product={product} />
           ))}
