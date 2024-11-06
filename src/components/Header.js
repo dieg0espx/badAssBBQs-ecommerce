@@ -151,7 +151,7 @@ function Header() {
           <img src={logo_header} className="w-[100%] max-w-[300px]" onClick={goHome}/>
         </div>
         <div className="basis-[20%] flex justify-center">
-          <i className="bi bi-cart "></i>
+          <Link to='/cart' className="block"><i className="bi bi-cart "></i>  </Link>
         </div>
       </div>
       <input className="border border-lightgray-500 px-5 rounded w-[90%] outline-0 text-[15px] py-[16px] my-[3px3" type="text" placeholder="Search in BadAssBBQS" />
