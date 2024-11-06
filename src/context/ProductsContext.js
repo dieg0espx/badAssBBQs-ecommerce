@@ -59,12 +59,34 @@ export const ProductsProvider = ({ children }) => {
     return allProducts.sort((a, b) => a.Id - b.Id);
   };
   
+
+
   const getRandomProducts = async (num) => {
     const allProducts = await loadAllProducts(); // Get all products directly
-    const limit = Math.min(num, allProducts.length);
-    const shuffledProducts = [...allProducts].sort(() => 0.5 - Math.random());
-    return shuffledProducts.slice(0, limit);
+  
+    // Group products by brand
+    const productsByBrand = allProducts.reduce((acc, product) => {
+      if (!acc[product.brand]) {
+        acc[product.brand] = [];
+      }
+      acc[product.brand].push(product);
+      return acc;
+    }, {});
+  
+    // Select one random product per brand
+    const oneProductPerBrand = Object.values(productsByBrand).map(products => {
+      return products[Math.floor(Math.random() * products.length)];
+    });
+  
+    // Limit the selection to the desired number of products
+    const limit = Math.min(num, oneProductPerBrand.length);
+    const selectedProducts = oneProductPerBrand.sort(() => 0.5 - Math.random()).slice(0, limit);
+  
+    return selectedProducts;
   };
+  
+
+  
 
    // Function to get related products based on categories
    const relatedProducts = async (category, amount) => {
