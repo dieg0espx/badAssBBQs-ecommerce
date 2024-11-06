@@ -170,7 +170,7 @@ function Header() {
         <Link to="/cart" className="block relative">
   <i className="bi bi-cart text-[25px] text-red"></i>
   {cartQuantity > 0 && (
-    <span className="absolute top-0 right-0 bg-red text-white rounded-full h-[15px] w-[15px] flex items-center justify-center text-[10px] font-bold transform translate-x-1/2 -translate-y-1/4">
+    <span className="absolute top-0 right-0 bg-red text-white rounded-full h-[15px] w-[15px] flex items-center justify-center text-[10px] font-bold transform translate-x-1/2 -translate-y-1/3">
       {cartQuantity}
     </span>
   )}

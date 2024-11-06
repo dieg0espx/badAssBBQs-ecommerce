@@ -9,10 +9,12 @@ function Cart() {
   // const { loadAllProducts } = useProducts();
   const { cartItems, removeFromCart, updateQuantity } = useCart();
 
-  useEffect(()=>{
-    console.log(cartItems);
-    
-  },[cartItems])
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
+  }, []);
 
   const totalCost = cartItems.reduce((accumulator, item) => {
     return accumulator + item.Price * item.quantity;
