@@ -132,7 +132,7 @@ function ProductList() {
         </select>
 
         {/* Dropdown to select a category */}
-        <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)} className="mb-4 p-2 border block md:hidden w-[50%]">
+        <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)} className="mb-4 p-2 border block md:hidden w-[50%] bg-white rounded-none">
           <option value="all">All Categories</option>
           {categories.sort((a, b) => a.localeCompare(b)).map((category, index) => (
             <option key={index} value={category}>
