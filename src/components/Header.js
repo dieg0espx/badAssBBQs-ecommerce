@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo_header from "../images/logo_header.png";
+import { useCart } from "../context/CartContext";
 
 function Header() {
+  const { getTotalQuantity } = useCart();
   const [category, setCategory] = useState('')
   const [showMenu, setShowMenu] = useState(false)
+  const [cartQuantity, setCartQuantity] = useState(0)
+
 
 
   useEffect(() => {
@@ -15,6 +19,10 @@ function Header() {
     }
     return () => document.body.classList.remove('overflow-hidden');
   }, [showMenu]);
+
+  useEffect(()=> {
+    setCartQuantity(getTotalQuantity())
+  },[getTotalQuantity])
 
   const goHome =()=> {
     window.location.href='/'
@@ -98,7 +106,15 @@ function Header() {
             <p className="text-[12px] text-gray-500 font-medium"> Sign In </p>
             <p className="text-[12px] text-red font-bold -mt-1"> My Account </p>
           </div>
-          <Link to='/cart'> <i class="bi bi-cart text-[25px] text-red mr-5"></i> </Link>
+          <Link to="/cart" className="flex relative">
+            <i className="bi bi-cart text-[25px] text-red"></i>
+            {cartQuantity > 0 && (
+              <span className="absolute top-0 right-0 bg-red text-white rounded-full h-[15px] w-[15px] flex items-center justify-center text-[10px] font-bold transform translate-x-1/2 -translate-y-1/2">
+                {cartQuantity}
+              </span>
+            )}
+          </Link>
+
         </div>
       </div>
     <div onMouseLeave={()=>setCategory('')} >
@@ -151,7 +167,15 @@ function Header() {
           <img src={logo_header} className="w-[100%] max-w-[300px]" onClick={goHome}/>
         </div>
         <div className="basis-[20%] flex justify-center">
-          <Link to='/cart' className="block"><i className="bi bi-cart "></i>  </Link>
+        <Link to="/cart" className="block relative">
+  <i className="bi bi-cart text-[25px] text-red"></i>
+  {cartQuantity > 0 && (
+    <span className="absolute top-0 right-0 bg-red text-white rounded-full h-[15px] w-[15px] flex items-center justify-center text-[10px] font-bold transform translate-x-1/2 -translate-y-1/4">
+      {cartQuantity}
+    </span>
+  )}
+</Link>
+
         </div>
       </div>
       <input className="border border-lightgray-500 px-5 rounded w-[90%] outline-0 text-[15px] py-[16px] my-[3px3" type="text" placeholder="Search in BadAssBBQS" />
