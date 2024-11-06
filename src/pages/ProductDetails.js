@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import Slider from 'react-slick'; // Import the Slider component from react-slick
 import { useParams } from 'react-router-dom';
@@ -10,6 +10,7 @@ import AddToCartQuantity from '../components/AddToCartQuantity';
 import Categories from '../components/Categories';
 import AskExpert from '../components/AsxExpert'
 import ProductMiniature from '../components/ProductMiniature';
+
 
 const ProductDetails = () => {
   const { loadAllProducts } = useProducts();
@@ -140,7 +141,7 @@ const ProductDetails = () => {
 
               <p className='font-bold'> In Stock </p>
               <p className='text-gray-500 mb-5'> This item leaves our warehouse within 24 Hours </p>
-              <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} />
+              <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} product={product}/>
 
             </div>
           </div>

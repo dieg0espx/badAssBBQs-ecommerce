@@ -98,10 +98,7 @@ function Header() {
             <p className="text-[12px] text-gray-500 font-medium"> Sign In </p>
             <p className="text-[12px] text-red font-bold -mt-1"> My Account </p>
           </div>
-          <div>
-            <i class="bi bi-cart text-[25px] text-red mr-5"></i>
-          </div>
-
+          <Link to='/cart'> <i class="bi bi-cart text-[25px] text-red mr-5"></i> </Link>
         </div>
       </div>
     <div onMouseLeave={()=>setCategory('')} >
