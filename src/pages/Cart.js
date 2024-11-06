@@ -7,7 +7,7 @@ import { toCamelCase, formatCurrency } from '../Utils/Helpers'
 
 function Cart() {
   // const { loadAllProducts } = useProducts();
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
 
   useEffect(()=>{
     console.log(cartItems);
@@ -47,15 +47,17 @@ function Cart() {
              </div>
             
             <div className='grid grid-cols-[auto_2fr_1fr] items-center gap-[23px]'>
-             <input 
-               type="number" 
-               value={item.quantity} 
-               className=" text-center border rounded h-10 w-[50px]"
-             />
+            <input 
+              type="number" 
+              value={item.quantity} 
+              min="1" 
+              onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
+              className="text-center border rounded h-10 w-[50px]"
+            />
 
              <p className="text-center">{formatCurrency(item.Price)}</p>
 
-             <p> <i class="bi bi-trash3 text-gray-400 hover:text-red"></i> </p>
+             <i className="bi bi-trash3 text-gray-400 hover:text-red" onClick={() => removeFromCart(index)}></i>
             </div>
 
             </div>

@@ -27,12 +27,23 @@ export const CartProvider = ({ children }) => {
   };
 
   // Function to remove product from cart
-  const removeFromCart = (productId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
+  const removeFromCart = (index) => {
+    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
+  
+
+  const updateQuantity = (index, quantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item, i) =>
+        i === index ? { ...item, quantity: Math.max(1, quantity) } : item
+      )
+    );
+  };
+  
+  
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );
