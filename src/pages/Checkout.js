@@ -1,19 +1,39 @@
 import React, { useState } from "react";
 import AddressAutocomplete from "../components/AddressAutocomplete";
+import { toCamelCase, formatCurrency } from '../Utils/Helpers'
+import { useCart } from '../context/CartContext'; // Import the custom hook\
+
 
 const Checkout = () => {
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
   const [userInfo, setUserInfo] = useState({
     name: "",
     lastName: "",
     email: "",
     phone: "",
     address: "",
+    streetNumber: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const totalCost = cartItems.reduce((accumulator, item) => {
+    return accumulator + item.Price * item.quantity;
+  }, 0);
+
 
   const handleAddressSelect = (addressObject) => {
     setUserInfo((prevInfo) => ({
       ...prevInfo,
       address: addressObject.formatted_address,
+      streetNumber: addressObject.streetNumber,
+      city: addressObject.city,
+      state: addressObject.state,
+      postalCode: addressObject.postalCode,
+      country: addressObject.country,
     }));
   };
 
@@ -25,16 +45,55 @@ const Checkout = () => {
     }));
   };
 
-  const handlePlaceOrder = () => {
-    console.log("User Information:", userInfo);
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10,15}$/; // Adjust as needed for international formats
+    return phoneRegex.test(phone);
+  };
+
+  const handlePlaceOrder = () => {
+    let validationErrors = {};
+  
+    if (!userInfo.name) {
+      validationErrors.name = "Please enter your first name.";
+    }
+  
+    if (!userInfo.lastName) {
+      validationErrors.lastName = "Please enter your last name.";
+    }
+  
+    if (!userInfo.address) {
+      validationErrors.address = "Please enter your address.";
+    }
+  
+    if (!validateEmail(userInfo.email)) {
+      validationErrors.email = "Please enter a valid email address.";
+    }
+  
+    if (!validatePhone(userInfo.phone)) {
+      validationErrors.phone = "Please enter a valid phone number (10-15 digits).";
+    }
+  
+    setErrors(validationErrors);
+  
+    // Proceed with order placement if there are no errors
+    if (Object.keys(validationErrors).length === 0) {
+      console.log("User Information:", userInfo);
+      // Additional order placement logic here
+    }
+  };
+  
 
   return (
     <div className="flex justify-center items-center h-[80vh]">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-[90%]">
+      <div className="bg-white p-8 rounded-lg border border-gray-200 w-[90%]">
         <div className="flex justify-between">
           <p className="font-bold text-[30px] mb-[30px]">CheckOut</p>
-          <p className="font-bold text-[30px] mb-[30px]">$123,45.00</p>
+          <p className="font-bold text-[30px] mb-[30px]">{formatCurrency(totalCost)}</p>
         </div>
 
         <div className="flex gap-[30px]">
@@ -53,6 +112,7 @@ const Checkout = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded outline-none"
                   placeholder="First Name"
                 />
+                {errors.name && <p className="text-red text-sm">{errors.name}</p>}
               </div>
               <div className="mb-4 basis-[50%]">
                 <label htmlFor="lastName" className="block text-gray-700 font-semibold mb-2">
@@ -67,6 +127,8 @@ const Checkout = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded outline-none"
                   placeholder="Last Name"
                 />
+                {errors.lastName && <p className="text-red text-sm">{errors.lastName}</p>}
+
               </div>
             </div>
 
@@ -83,6 +145,7 @@ const Checkout = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded outline-none"
                 placeholder="Email Address"
               />
+              {errors.email && <p className="text-red text-sm">{errors.email}</p>}
             </div>
 
             <div className="mb-4">
@@ -98,6 +161,7 @@ const Checkout = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded outline-none"
                 placeholder="Phone Number"
               />
+              {errors.phone && <p className="text-red text-sm">{errors.phone}</p>}
             </div>
 
             <div className="mb-6">
@@ -105,6 +169,7 @@ const Checkout = () => {
                 Address
               </label>
               <AddressAutocomplete onAddressSelect={handleAddressSelect} />
+              {errors.address && <p className="text-red text-sm">{errors.address}</p>}
             </div>
           </div>
 
@@ -124,6 +189,15 @@ const Checkout = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={handlePlaceOrder}
+            className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600"
+          >
+            Place Order
+          </button>
         </div>
       </div>
     </div>

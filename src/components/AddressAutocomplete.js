@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Autocomplete, useLoadScript } from "@react-google-maps/api";
-
 const libraries = ["places"];
 
 const AddressAutocomplete = ({ onAddressSelect }) => {
@@ -15,15 +14,27 @@ const AddressAutocomplete = ({ onAddressSelect }) => {
     setAutocomplete(autocompleteInstance);
   };
 
+
   const handlePlaceChanged = () => {
     if (autocomplete) {
       const place = autocomplete.getPlace();
+      
+      const getComponent = (type) =>
+        place.address_components.find(component => component.types.includes(type))?.long_name || "";
+  
       const addressObject = {
         formatted_address: place.formatted_address,
+        streetNumber: getComponent("street_number"),
+        city: getComponent("locality"),
+        state: getComponent("administrative_area_level_1"),
+        postalCode: getComponent("postal_code"),
+        country: getComponent("country"),
       };
+  
       onAddressSelect(addressObject);
     }
   };
+  
 
   if (!isLoaded) return <div>Loading...</div>;
 
