@@ -1,7 +1,11 @@
 import React from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useNavigate } from 'react-router-dom';
+
 
 const Paypal = ({total}) => {
+    const navigate = useNavigate(); // Initialize navigate for redirection
+
     const initialOptions = {
         "client-id": "AbKKJ_keuxt7l-0XAeeZqW3rqhcfFOeb50Sy8AlpG17Hwp3IcbqXrFuGEQ1kQLn4w3zZZJCCYIfZD-Pf",
         currency: "USD",
@@ -25,6 +29,7 @@ const Paypal = ({total}) => {
         return actions.order.capture().then(function (details) {
             actions.close && actions.close();
             alert("Transaction completed by " + details.payer.name.given_name);
+            navigate('/checkout');
         });
     };
 

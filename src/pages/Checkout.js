@@ -90,16 +90,16 @@ const Checkout = () => {
   
 
   return (
-    <div className="flex justify-center items-center h-full xl:h-[80vh]">
-      <div className="bg-white p-8 rounded-lg border border-gray-200 w-[90%] ">
+    <div className="flex justify-center items-center h-full xl:h-[80vh] mt-[10px] xl:mt-0">
+      <div className="bg-white p-8 rounded border border-gray-200 w-[90%] ">
         <div className="flex flex-col xl:flex-row justify-between">
-          <p className="font-bold text-[45px] xl:text-[30px] mb-[30px] text-center xl:text-left">CheckOut</p>
-          <p className="font-bold text-[30px] mb-[30px] text-center xl:text-left">{formatCurrency(totalCost)}</p>
+          <p className="font-bold text-[45px] xl:text-[30px] mb-[0px] xl:mb-[30px] text-center xl:text-left">CheckOut</p>
+          <p className="font-bold text-[30px] mb-[50px] xl:mb-[30px] text-center xl:text-left text-gray-5 00">{formatCurrency(totalCost)}</p>
         </div>
 
         <div className="flex flex-col xl:flex-row gap-[30px]">
           <div className="basis-[50%]">
-            <div className="flex gap-[20px]">
+            <div className="flex flex-col xl:flex-row gap-[0px] xl:gap-[20px]">
               <div className="mb-4 basis-[50%]">
                 <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
                   First Name
@@ -174,7 +174,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          <div className="basis-[50%] border border-gray-200 rounded p-[20px]">
+          <div className="basis-[50%] border-0 xl:border border-gray-200 rounded p-0 xl:p-[20px]">
             <div className="flex flex-col gap-[20px] mb-[20px]">
               <button className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
                 Credit Card
