@@ -90,14 +90,14 @@ const Checkout = () => {
   
 
   return (
-    <div className="flex justify-center items-center h-[80vh]">
-      <div className="bg-white p-8 rounded-lg border border-gray-200 w-[90%]">
-        <div className="flex justify-between">
-          <p className="font-bold text-[30px] mb-[30px]">CheckOut</p>
-          <p className="font-bold text-[30px] mb-[30px]">{formatCurrency(totalCost)}</p>
+    <div className="flex justify-center items-center h-full xl:h-[80vh]">
+      <div className="bg-white p-8 rounded-lg border border-gray-200 w-[90%] ">
+        <div className="flex flex-col xl:flex-row justify-between">
+          <p className="font-bold text-[45px] xl:text-[30px] mb-[30px] text-center xl:text-left">CheckOut</p>
+          <p className="font-bold text-[30px] mb-[30px] text-center xl:text-left">{formatCurrency(totalCost)}</p>
         </div>
 
-        <div className="flex gap-[30px]">
+        <div className="flex flex-col xl:flex-row gap-[30px]">
           <div className="basis-[50%]">
             <div className="flex gap-[20px]">
               <div className="mb-4 basis-[50%]">
