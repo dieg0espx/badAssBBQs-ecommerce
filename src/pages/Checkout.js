@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddressAutocomplete from "../components/AddressAutocomplete";
 import { toCamelCase, formatCurrency } from '../Utils/Helpers'
-import { useCart } from '../context/CartContext'; // Import the custom hook\
+import { useCart } from '../context/CartContext'; // Import the custom hook
+import Paypal from '../components/Paypal'
 
 
 const Checkout = () => {
@@ -174,12 +175,9 @@ const Checkout = () => {
           </div>
 
           <div className="basis-[50%] border border-gray-200 rounded p-[20px]">
-            <div className="flex flex-col gap-[20px]">
+            <div className="flex flex-col gap-[20px] mb-[20px]">
               <button className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
                 Credit Card
-              </button>
-              <button className="bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">
-                PayPal
               </button>
               <button className="bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800">
                 Google Pay
@@ -188,6 +186,7 @@ const Checkout = () => {
                 Apple Pay
               </button>
             </div>
+            <Paypal total={totalCost}/>
           </div>
         </div>
 
