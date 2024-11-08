@@ -3,6 +3,7 @@ import AddressAutocomplete from "../components/AddressAutocomplete";
 import { toCamelCase, formatCurrency } from '../Utils/Helpers'
 import { useCart } from '../context/CartContext'; // Import the custom hook
 import Paypal from '../components/Paypal'
+import Affirm from "../components/Affirm";
 
 
 const Checkout = () => {
@@ -129,7 +130,6 @@ const Checkout = () => {
                   placeholder="Last Name"
                 />
                 {errors.lastName && <p className="text-red text-sm">{errors.lastName}</p>}
-
               </div>
             </div>
 
@@ -186,6 +186,7 @@ const Checkout = () => {
                 Apple Pay
               </button>
             </div>
+            <Affirm />
             <Paypal total={totalCost}/>
           </div>
         </div>
