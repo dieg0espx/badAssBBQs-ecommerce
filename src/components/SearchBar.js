@@ -33,6 +33,20 @@ function SearchBar() {
     window.location.href = `/product/${brand}-${id}`
   }
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (showList) {
+        setShowList(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [showList]);
+
   return (
     <div className='w-[90%] xl:min-w-full'>
       <input
