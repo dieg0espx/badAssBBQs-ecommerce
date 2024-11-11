@@ -14,17 +14,11 @@ function ProductMiniature({ product, short }) {
   const handleAddToCart = () => {
     addToCart({ ...product, quantity: 1 }); // Add product with a default quantity of 1
   };
-  
-  // useEffect(() => {
-  //   if (window.affirm) {
-  //     window.affirm.ui.refresh();
-  //   }
-  // }, []);
 
 
   return (
     <div
-      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between h-[380px] hover:border-red"
+      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between h-[385px] hover:border-red"
       onClick={handleTitleClick}
     >
       <img

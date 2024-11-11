@@ -12,6 +12,7 @@ function Header() {
   const [category, setCategory] = useState(1)
   const [showMenu, setShowMenu] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
+  const [showBrands, setShoBrands] = useState(false)
 
   useEffect(() => {
     if (showMenu) {
@@ -187,6 +188,9 @@ function Header() {
     }
   };
 
+  const mobileMenu = (link) => {
+    window.location.href = link
+  }
 
 
   return (
@@ -355,7 +359,7 @@ function Header() {
             </div>
 
             <div className="border boder-b-gray-500">
-              <div className="flex px-5 py-3">
+              <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/BBQ%20Grills%20&%20Smokers')}>
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> Grills & Outdoor Cooking </p>
                 </div>
@@ -363,7 +367,7 @@ function Header() {
                   <i class="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
-              <div className="flex px-5 py-3">
+              <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/Outdoor%20Kitchens')}>
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> Outdoor Kitchens </p>
                 </div>
@@ -371,15 +375,15 @@ function Header() {
                   <i class="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
-              <div className="flex px-5 py-3">
+              {/* <div className="flex px-5 py-3">
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> Outdoor Forniture </p>
                 </div>
                 <div className="bassis-[5%] flex items-center">
                   <i class="bi bi-chevron-compact-right text-red"></i>
                 </div>
-              </div>
-              <div className="flex px-5 py-3">
+              </div> */}
+              <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/Outdoor%20Heating%20&%20Accessories')}>
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> Outdoor Heating & More </p>
                 </div>
@@ -387,7 +391,7 @@ function Header() {
                   <i class="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
-              <div className="flex px-5 py-3">
+              <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/BBQ%20Grilling%20Tools%20&%20Accessories')}>
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> BBQ Accesories </p>
                 </div>
@@ -395,22 +399,30 @@ function Header() {
                   <i class="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
-              <div className="flex px-5 py-3">
+              <div className="flex px-5 py-3" onClick={()=>setShoBrands(!showBrands)}>
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> Brands </p>
                 </div>
-                <div className="bassis-[5%] flex items-center">
-                  <i class="bi bi-chevron-compact-right text-red"></i>
-                </div>
               </div>
-              <div className="flex px-5 py-3">
+
+              <div className="flex flex-col px-5 py-3 pl-7" style={{display: showBrands ? 'flex':'none'}}>
+                {brands.map((brand) => (
+                  <div key={brand} className="mb-[10px]">
+                    <Link to={`/products/${brand}/all`} className="flex justify-between w-[100%] m-auto text-gray-500 hover:text-red text-[18px]">
+                      <p> {formatBrandName(brand.replace('_', ' '))} </p>
+                      <i class="bi bi-chevron-compact-right"></i>
+                    </Link>
+                  </div>
+                ))}
+                </div>
+              {/* <div className="flex px-5 py-3" onClick={()=>mobileMenu('')}>
                 <div className="basis-[95%] text-gray-500 text-[18px] ">
                   <p> Sales & Offers </p>
                 </div>
                 <div className="bassis-[5%] flex items-center">
                   <i class="bi bi-chevron-compact-right text-red"></i>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="border boder-b-gray-500 ">
