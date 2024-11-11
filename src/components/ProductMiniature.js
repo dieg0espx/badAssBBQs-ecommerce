@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { formatCurrency, maxString } from '../Utils/Helpers';
 import { useCart } from '../context/CartContext'; // Import useCart for cart functions
@@ -14,10 +14,17 @@ function ProductMiniature({ product, short }) {
   const handleAddToCart = () => {
     addToCart({ ...product, quantity: 1 }); // Add product with a default quantity of 1
   };
+  
+  // useEffect(() => {
+  //   if (window.affirm) {
+  //     window.affirm.ui.refresh();
+  //   }
+  // }, []);
+
 
   return (
     <div
-      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between h-full hover:border-red"
+      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between h-[380px] hover:border-red"
       onClick={handleTitleClick}
     >
       <img
@@ -41,6 +48,8 @@ function ProductMiniature({ product, short }) {
         </p>
       </div>
 
+      {/* <p className="affirm-as-low-as text-[13px] w-[95%] mx-auto mt-[5px] block" data-page-type="product" data-amount={product.Price*100}></p> */}
+    
       <div className="px-2" style={{ display: short ? 'none' : 'block' }}>
         <p className="text-green-800 mt-3 font-medium h-[25px]">
           {product.Price > 49 ? 'Free Shipping' : ''}

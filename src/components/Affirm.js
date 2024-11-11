@@ -1,21 +1,27 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 
-const Affirm = () => {
+const Affirm = ({ orderDetails }) => {
   useEffect(() => {
     if (window.affirm) {
       window.affirm.ui.ready(() => {
-        // Affirm is ready to use
+        console.log('Affirm is ready to use');
       });
     }
   }, []);
 
-  const handleCheckout = () => {
-    if (window.affirm) {
-      const checkoutData = {
-        // Populate with your checkout data
-      };
-      window.affirm.checkout(checkoutData);
-      window.affirm.checkout.open();
+  const handleCheckout = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/affirm/create-checkout', orderDetails);
+      const { checkout_token } = response.data;
+
+      if (window.affirm && checkout_token) {
+        window.affirm.checkout({ checkout_token });
+        window.affirm.checkout.open();
+      }
+    } catch (error) {
+      console.error('Failed to initiate Affirm checkout:', error);
+      alert('There was an error initiating the Affirm checkout. Please try again.');
     }
   };
 

@@ -5,79 +5,46 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
-    
-
-    <!-- Affirm -->
-<script>
-  var _affirm_config = {
-    public_api_key: 'ENJBDHG33UOBFFPO',
-    script: 'https://cdn1-sandbox.affirm.com/js/v2/affirm.js',
-  };
-  (function (l, g, m, e, a, f, b) {
-    var d, c = l[m] || {},
-      h = document.createElement(f),
-      n = document.getElementsByTagName(f)[0],
-      k = function (a, b, c) {
-        return function () {
-          a[b]._.push([c, arguments]);
-        };
-      };
-    c[e] = k(c, e, 'set');
-    d = c[e];
-    c[a] = {};
-    c[a]._ = [];
-    d._ = [];
-    c[a][b] = k(c, a, b);
-    a = 0;
-    for (b = 'set add save post open empty reset on off trigger ready setProduct'.split(' '); a < b.length; a++) d[b[a]] = k(c, e, b[a]);
-    a = 0;
-    for (b = ['get', 'token', 'url', 'items']; a < b.length; a++) d[b[a]] = function () {};
-    h.async = !0;
-    h.src = g[f];
-    n.parentNode.insertBefore(h, n);
-    delete g[f];
-    d(g);
-    l[m] = c;
-  })(window, _affirm_config, 'affirm', 'checkout', 'ui', 'script', 'ready');
-</script>
-<!-- End Affirm -->
-
-
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <script>
+      var _affirm_config = {
+        public_api_key: 'ENJBDHG33UOBFFPO',
+        script: 'https://cdn1-sandbox.affirm.com/js/v2/affirm.js',
+      };
+      (function(l, g, m, e, a, f, b) {
+        var d, c = l[m] || {},
+          h = document.createElement(f),
+          n = document.getElementsByTagName(f)[0],
+          k = function(a, b, c) {
+            return function() {
+              a[b]._.push([c, arguments]);
+            };
+          };
+        c[e] = k(c, e, 'set');
+        d = c[e];
+        c[a] = {};
+        c[a]._ = [];
+        d._ = [];
+        c[a][b] = k(c, a, b);
+        a = 0;
+        for (b = ['set', 'add', 'save', 'post', 'open', 'empty', 'reset', 'on', 'off', 'trigger', 'ready', 'setProduct']; a < b.length; a++) d[b[a]] = k(c, e, b[a]);
+        a = 0;
+        for (b = ['get', 'token', 'url', 'items']; a < b.length; a++) d[b[a]] = function() {};
+        h.async = !0;
+        h.src = g[f];
+        n.parentNode.insertBefore(h, n);
+        delete g[f];
+        d(g);
+        l[m] = c;
+      })(window, _affirm_config, 'affirm', 'checkout', 'ui', 'script', 'ready');
+    </script>
     <title>React App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>
