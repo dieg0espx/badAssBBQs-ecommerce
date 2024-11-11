@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo_header from "../images/logo_header.png";
 import { useCart } from "../context/CartContext";
 import { useProducts } from '../context/ProductsContext';
@@ -12,6 +12,8 @@ function Header() {
   const [category, setCategory] = useState(0)
   const [showMenu, setShowMenu] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
+  const location = useLocation(); // Track location changes
+
 
   useEffect(() => {
     if (showMenu) {
@@ -186,6 +188,11 @@ function Header() {
         return <div>Unknown status</div>;
     }
   };
+
+  useEffect(() => {
+    // Close the menu whenever the location (URL) changes
+    setShowMenu(false);
+  }, [location]);
 
   const mobileMenu = (link) => {
     window.location.href = link
