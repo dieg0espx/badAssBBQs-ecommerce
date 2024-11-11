@@ -349,11 +349,11 @@ function Header() {
         <div className="bg-white basis-[80%] h-full max-w-[400px] overflow-y-scroll pb-[200px]"> 
 
             <div className="flex border boder-b-gray-500  py-[10px] px-[8px] gap-5">
-              <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center">
-                <i class="bi bi-telephone-fill"></i> <p> 1-877-743-2269 </p>
+              <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center items-center">
+                <i class="bi bi-telephone-fill"></i> <p className="text-[13px]"> 1-877-743-2269 </p>
               </div>
-              <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center">
-                <i class="bi bi-chat-left-text"></i>  <p> Live Chat </p>
+              <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center items-center">
+                <i class="bi bi-chat-left-text"></i>  <p className="text-[13px]"> Live Chat </p>
               </div>
             </div>
 
