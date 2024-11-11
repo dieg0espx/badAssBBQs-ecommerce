@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo_header from "../images/logo_header.png";
 import { useCart } from "../context/CartContext";
+import { useProducts } from '../context/ProductsContext';
+import { formatBrandName } from "../Utils/Helpers";
 
 function Header() {
   const { getTotalQuantity } = useCart();
+  const { getBrands } = useProducts();
   const [category, setCategory] = useState('')
   const [showMenu, setShowMenu] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
-
-
+  const [selectedMenu, setSelectedMenu] = useState(1)
 
   useEffect(() => {
     if (showMenu) {
@@ -27,6 +29,39 @@ function Header() {
   const goHome =()=> {
     window.location.href='/'
   }
+
+  const brands = getBrands();
+
+  const variableMenu = () => {
+    switch (selectedMenu) {
+      case 1:
+        return (
+          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-y-[20px] p-[30px] align-center items-center"> 
+            <Link to={`/products/all/all`} className="flex justify-between w-[80%] m-auto text-gray-500 hover:text-red font-[600]">
+                  <p> All Brands  </p>
+                  <i class="bi bi-chevron-right"></i>
+            </Link>
+            {brands.map((brand) => (
+              <div key={brand}>
+                <Link to={`/products/${brand}/all`} className="flex justify-between w-[80%] m-auto text-gray-500 hover:text-red font-[600]">
+                  <p> {formatBrandName(brand.replace('_', ' '))} </p>
+                  <i class="bi bi-chevron-right"></i>
+                </Link>
+              </div>
+            ))}
+          </div>
+        )
+      case 'success':
+        return <div>Success! Data has been loaded.</div>;
+      case 'error':
+        return <div>Error! Something went wrong.</div>;
+      case 'noData':
+        return <div>No data available.</div>;
+      default:
+        return <div>Unknown status</div>;
+    }
+  };
+
 
 
   return (
@@ -117,38 +152,35 @@ function Header() {
 
         </div>
       </div>
-    <div onMouseLeave={()=>setCategory('')} >
-      <div className=" max-w-[1500px] mx-auto flex items-center justify-between space-x-2 -mt-2 h-12 px-5" >
-        <button onMouseOver={()=>setCategory('Grills & Outdoor Cooking')} className="text-[12px] font-medium hover:text-red">
-            Grills & Outdoor Cooking <i class="bi bi-chevron-down"></i>
-        </button>
-        <button onMouseOver={()=>setCategory('Outdoor Kitchens')} className="text-[12px] font-medium hover:text-red">
-           Outdoor Kitchens <i class="bi bi-chevron-down"></i>
-        </button>
-        <button onMouseOver={()=>setCategory(' Outdoor Forniture')} className="text-[12px] font-medium hover:text-red">
-            Outdoor Forniture <i class="bi bi-chevron-down"></i>
-        </button>
-        <button onMouseOver={()=>setCategory('Outdoor Heating & Mor')} className="text-[12px] font-medium hover:text-red">
-            Outdoor Heating & More <i class="bi bi-chevron-down"></i>
-        </button>
-        <button onMouseOver={()=>setCategory('BBQ Accessories')} className="text-[12px] font-medium hover:text-red">
-            BBQ Accessories <i class="bi bi-chevron-down"></i>
-        </button>
-        <button onMouseOver={()=>setCategory('Brands')} className="text-[12px] font-medium hover:text-red">
-            Brands <i class="bi bi-chevron-down"></i>
-        </button>
-        <button onMouseOver={()=>setCategory('Sales & Offer')} className="text-[12px] font-medium hover:text-red">
-            Sales & Offers <i class="bi bi-chevron-down"></i>
-        </button>
+      <div onMouseLeave={()=>setCategory('')} >
+        <div className=" max-w-[1500px] mx-auto flex items-center justify-between space-x-2 -mt-2 h-12 px-5" >
+          <button onMouseOver={()=>setCategory('Grills & Outdoor Cooking')} className="text-[12px] font-medium hover:text-red">
+              Grills & Outdoor Cooking <i class="bi bi-chevron-down"></i>
+          </button>
+          <button onMouseOver={()=>setCategory('Outdoor Kitchens')} className="text-[12px] font-medium hover:text-red">
+             Outdoor Kitchens <i class="bi bi-chevron-down"></i>
+          </button>
+          <button onMouseOver={()=>setCategory(' Outdoor Forniture')} className="text-[12px] font-medium hover:text-red">
+              Outdoor Forniture <i class="bi bi-chevron-down"></i>
+          </button>
+          <button onMouseOver={()=>setCategory('Outdoor Heating & Mor')} className="text-[12px] font-medium hover:text-red">
+              Outdoor Heating & More <i class="bi bi-chevron-down"></i>
+          </button>
+          <button onMouseOver={()=>setCategory('BBQ Accessories')} className="text-[12px] font-medium hover:text-red">
+              BBQ Accessories <i class="bi bi-chevron-down"></i>
+          </button>
+          <button onMouseOver={()=>setCategory('Brands')} className="text-[12px] font-medium hover:text-red">
+              Brands <i class="bi bi-chevron-down"></i>
+          </button>
+          <button onMouseOver={()=>setCategory('Sales & Offer')} className="text-[12px] font-medium hover:text-red">
+              Sales & Offers <i class="bi bi-chevron-down"></i>
+          </button>
+        </div>
+        <div className="fixed w-full h-[230px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50 shadow-md" style={{display: category !== '' ? 'block':'none'}}>
+          {variableMenu()}
+        </div>
       </div>
-
-      <div className="fixed w-full h-[280px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50" style={{display: category !== '' ? 'block':'none'}}>
-
-      </div>
-    </div>
-    <div className="fixed b-0 l-0 w-full h-full bg-[rgba(0,0,0,0.3)] z-10" style={{display: category !== '' ? 'block':'none'}} />
-
-
+      <div className="fixed b-0 l-0 w-full h-full bg-[rgba(0,0,0,0.3)] z-10" style={{display: category !== '' ? 'block':'none'}}/>
       <div className="bg-red text-center flex items-center justify-center -mt-2  py-0.5">
         <Link to="/contact" className="text-[15px] text-white  font-medium">
             Save Up to $450 on Blaze LTE + Grills & Much More <i class="bi bi-chevron-right"></i>
@@ -168,14 +200,13 @@ function Header() {
         </div>
         <div className="basis-[20%] flex justify-center">
         <Link to="/cart" className="block relative">
-  <i className="bi bi-cart text-[25px] text-red"></i>
-  {cartQuantity > 0 && (
-    <span className="absolute top-0 right-0 bg-red text-white rounded-full h-[15px] w-[15px] flex items-center justify-center text-[10px] font-bold transform translate-x-1/2 -translate-y-1/3">
-      {cartQuantity}
-    </span>
-  )}
-</Link>
-
+          <i className="bi bi-cart text-[25px] text-red"></i>
+          {cartQuantity > 0 && (
+            <span className="absolute top-0 right-0 bg-red text-white rounded-full h-[15px] w-[15px] flex items-center justify-center text-[10px] font-bold transform translate-x-1/2 -translate-y-1/3">
+              {cartQuantity}
+            </span>
+          )}
+        </Link>
         </div>
       </div>
       <input className="border border-lightgray-500 px-5 rounded w-[90%] outline-0 text-[15px] py-[16px] my-[3px3" type="text" placeholder="Search in BadAssBBQS" />
@@ -282,9 +313,12 @@ function Header() {
 
 
         </div>
-        <div className="flex-grow" onClick={()=>setShowMenu(false)}> </div>
+        <div className="flex-grow" onClick={()=>setShowMenu(false)}> 
+        </div>
       </div>
     </div>    
+
+
   </div>
   );
 }

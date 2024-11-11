@@ -42,13 +42,6 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (window.affirm) {
-      window.affirm.ui.refresh();
-    }
-  }, []);
-
-
-  useEffect(() => {
     const fetchRandomProducts = async () => {
       setIsLoading(true);
       const products = await getRandomProducts(30);

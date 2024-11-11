@@ -104,9 +104,13 @@ export const ProductsProvider = ({ children }) => {
     return shuffledRelated.slice(0, limit);
   };
 
+  const getBrands = () => {
+    return listOfBrands;
+  };
+
   
   return (
-    <ProductsContext.Provider value={{ products, loadProductsByBrand, loadAllProducts, getRandomProducts, relatedProducts }}>
+    <ProductsContext.Provider value={{ products, loadProductsByBrand, loadAllProducts, getRandomProducts, relatedProducts, getBrands }}>
       {children}
     </ProductsContext.Provider>
   );

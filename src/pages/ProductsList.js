@@ -20,7 +20,13 @@ function ProductList() {
       setProducts(allProducts);
     };
     fetchProducts();
-  }, [loadAllProducts]);
+  }, [brand, category]); // Add `category` as a dependency
+
+  useEffect(() => {
+    setSelectedBrand(brand === 'all' ? '' : brand || '');
+    setSelectedCategory(category === 'all' ? '' : category || '');
+    setCurrentPage(1); // Reset to the first page on brand or category change
+  }, [brand, category]);
 
   useEffect(() => {
     window.scrollTo({
@@ -78,7 +84,6 @@ function ProductList() {
     });
     setCurrentPage(pageNumber);
   };
-
   return (
     <div className="block xl:flex">
       {/* Sidebar for categories */}
