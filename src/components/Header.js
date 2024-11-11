@@ -4,14 +4,14 @@ import logo_header from "../images/logo_header.png";
 import { useCart } from "../context/CartContext";
 import { useProducts } from '../context/ProductsContext';
 import { formatBrandName } from "../Utils/Helpers";
+import SubCategoryHeader from "./SubCategoryHeader";
 
 function Header() {
   const { getTotalQuantity } = useCart();
   const { getBrands } = useProducts();
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState(1)
   const [showMenu, setShowMenu] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
-  const [selectedMenu, setSelectedMenu] = useState(1)
 
   useEffect(() => {
     if (showMenu) {
@@ -33,8 +33,61 @@ function Header() {
   const brands = getBrands();
 
   const variableMenu = () => {
-    switch (selectedMenu) {
-      case 1:
+    switch (category) {
+      case 1: 
+        return (
+          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-x-[20px] p-[30px] align-center items-center"> 
+            <SubCategoryHeader 
+              title="Gas Grills" 
+              to='/products/all/Gas%20Grills' 
+              imgURL='https://cdn.shocho.co/sc-image/c/e/f/f/ceff467a3607b0ffbdd6d459b7e2d780.jpg?i10c=img.resize(width:1200,height:1200)' 
+            />
+            <SubCategoryHeader 
+              title="Kamado Grills" 
+              to='/products/all/Kamado%20Grills%20&%20Smokers' 
+              imgURL='https://cdn.shocho.co/sc-image/5/4/e/d/54edfd0aad549ca9f2e909458fde7f5d.jpg?i10c=img.resize(width:1200,height:1200)'
+            /> 
+            <SubCategoryHeader
+              title="Charcoal BBQ Grills"
+              to='/products/all/Charcoal%20BBQ%20Grills'
+              imgURL='https://cdn.shocho.co/sc-image/4/3/6/2/4362c6fea236f88648ffbda2ab95b1fe.jpg?i10c=img.resize(width:1200,height:1200)'
+            />
+            <SubCategoryHeader
+              title="Gas Griddles"
+              to="/products/all/Outdoor%20Flat%20Top%20Grills%20&%20Gas%20Griddles"
+              imgURL="https://cdn.shocho.co/sc-image/e/6/f/0/e6f05e038c22a8426662a2880c30b537.jpg"
+            />
+            <SubCategoryHeader
+              title="Outdoor Pizza Ovens"
+              to="/products/all/Outdoor%20Pizza%20Ovens"
+              imgURL="https://cdn.shocho.co/sc-image/e/b/9/d/eb9d8075deff9a694ea353b4720c6bed.jpg?i10c=img.resize(width:1200,height:1200)"
+            />
+
+          </div>
+        )
+      case 2: 
+        return (
+          <div> 
+            <SubCategoryHeader
+              title=""
+              to=""
+              imgURL=""
+            />
+          </div>
+        )
+      case 3: 
+        return (
+          <div> {category} </div>
+        )
+      case 4: 
+        return (
+          <div> {category} </div>
+        )
+      case 5: 
+        return (
+          <div> {category} </div>
+        )
+      case 6:
         return (
           <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-y-[20px] p-[30px] align-center items-center"> 
             <Link to={`/products/all/all`} className="flex justify-between w-[80%] m-auto text-gray-500 hover:text-red font-[600]">
@@ -51,12 +104,6 @@ function Header() {
             ))}
           </div>
         )
-      case 'success':
-        return <div>Success! Data has been loaded.</div>;
-      case 'error':
-        return <div>Error! Something went wrong.</div>;
-      case 'noData':
-        return <div>No data available.</div>;
       default:
         return <div>Unknown status</div>;
     }
@@ -152,35 +199,35 @@ function Header() {
 
         </div>
       </div>
-      <div onMouseLeave={()=>setCategory('')} >
+      <div onMouseLeave={()=>setCategory(0)} >
         <div className=" max-w-[1500px] mx-auto flex items-center justify-between space-x-2 -mt-2 h-12 px-5" >
-          <button onMouseOver={()=>setCategory('Grills & Outdoor Cooking')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(1)} className="text-[12px] font-medium hover:text-red">
               Grills & Outdoor Cooking <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory('Outdoor Kitchens')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(2)} className="text-[12px] font-medium hover:text-red">
              Outdoor Kitchens <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory(' Outdoor Forniture')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(3)} className="text-[12px] font-medium hover:text-red">
               Outdoor Forniture <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory('Outdoor Heating & Mor')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(4)} className="text-[12px] font-medium hover:text-red">
               Outdoor Heating & More <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory('BBQ Accessories')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(5)} className="text-[12px] font-medium hover:text-red">
               BBQ Accessories <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory('Brands')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(6)} className="text-[12px] font-medium hover:text-red">
               Brands <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory('Sales & Offer')} className="text-[12px] font-medium hover:text-red">
+          <button onMouseOver={()=>setCategory(7)} className="text-[12px] font-medium hover:text-red">
               Sales & Offers <i class="bi bi-chevron-down"></i>
           </button>
         </div>
-        <div className="fixed w-full h-[230px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50 shadow-md" style={{display: category !== '' ? 'block':'none'}}>
+        <div className="fixed w-full h-[230px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50 shadow-md" style={{display: category !== 0 ? 'block':'none'}}>
           {variableMenu()}
         </div>
       </div>
-      <div className="fixed b-0 l-0 w-full h-full bg-[rgba(0,0,0,0.3)] z-10" style={{display: category !== '' ? 'block':'none'}}/>
+      <div className="fixed b-0 l-0 w-full h-full bg-[rgba(0,0,0,0.3)] z-10" style={{display: category !== 0 ? 'block':'none'}}/>
       <div className="bg-red text-center flex items-center justify-center -mt-2  py-0.5">
         <Link to="/contact" className="text-[15px] text-white  font-medium">
             Save Up to $450 on Blaze LTE + Grills & Much More <i class="bi bi-chevron-right"></i>
