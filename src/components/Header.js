@@ -9,7 +9,7 @@ import SubCategoryHeader from "./SubCategoryHeader";
 function Header() {
   const { getTotalQuantity } = useCart();
   const { getBrands } = useProducts();
-  const [category, setCategory] = useState(1)
+  const [category, setCategory] = useState(0)
   const [showMenu, setShowMenu] = useState(false)
   const [cartQuantity, setCartQuantity] = useState(0)
   const [showBrands, setShoBrands] = useState(false)
