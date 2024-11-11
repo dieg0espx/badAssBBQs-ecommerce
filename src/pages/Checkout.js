@@ -95,7 +95,7 @@ const Checkout = () => {
      window.affirm.checkout({
       
          "merchant": {
-           "user_confirmation_url": "http://localhost:8080/api/confirm",
+           "user_confirmation_url": "https://server-badassbbqs.vercel.app/api/confirm",
            "user_cancel_url": "http://localhost:8080/cancel",
            "user_confirmation_url_action": "POST",
            "name": "Your Customer-Facing Merchant Name"
