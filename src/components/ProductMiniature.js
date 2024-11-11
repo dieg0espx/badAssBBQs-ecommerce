@@ -24,6 +24,7 @@ function ProductMiniature({ product, short }) {
       <img
         src={product.Image}
         alt={product.Title}
+        loading="lazy"
         className="w-[80%] md:w-full mx-auto h-40 xl:h-32 object-contain mb-2 "
       />
       <p

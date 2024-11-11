@@ -5,6 +5,7 @@ import { useCart } from "../context/CartContext";
 import { useProducts } from '../context/ProductsContext';
 import { formatBrandName } from "../Utils/Helpers";
 import SubCategoryHeader from "./SubCategoryHeader";
+import SearchBar from "./SearchBar";
 
 function Header() {
   const { getTotalQuantity } = useCart();
@@ -256,11 +257,7 @@ function Header() {
       <div className="max-w-[1500px] mx-auto flex items-center justify-between space-x-2 mt-0 h-12 px-5">
         <div className="flex items-center justify-between h-full">
           <img src={logo_header} className="h-full" onClick={goHome}/>
-          <input
-            className="border border-lightgray-500 px-5 rounded h-full min-w-full outline-0"
-            type="text"
-            placeholder="Search in BadAssBBQS"
-          />
+          <SearchBar />
           <i class="bi bi-search -ml-10"></i>
         </div>
         <div className="flex items-center justify-between h-full space-x-10">
@@ -344,7 +341,7 @@ function Header() {
         </Link>
         </div>
       </div>
-      <input className="border border-lightgray-500 px-5 rounded w-[90%] outline-0 text-[15px] py-[16px] my-[3px3" type="text" placeholder="Search in BadAssBBQS" />
+      <SearchBar />
       <div className="bg-red text-center flex items-center justify-center py-[7px] mt-3 w-full">
         <Link to="/contact" className="text-[12px] text-white  font-medium">
             Save Up to $450 on Blaze LTE + Grills & Much More <i class="bi bi-chevron-right"></i>
