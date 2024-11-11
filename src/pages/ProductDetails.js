@@ -52,7 +52,23 @@ const ProductDetails = () => {
 
 
   const product = products.find((item) => `${item.brand}-${item.Id}` === id);
-  console.log(product);
+
+  useEffect(()=>{
+    if(product){
+      const fetchRelatedProducts = async () => {
+        const category = product.Category.filter(cat => cat !== "Home").slice(-2);
+        const amount = 15;
+        const products = await relatedProducts(category, amount);
+        setListRelated(products)
+        console.log("Related Products:", products);
+      };
+    
+      fetchRelatedProducts();
+    }   
+  },[product])
+
+
+
   
 
 
