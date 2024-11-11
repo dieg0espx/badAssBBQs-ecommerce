@@ -28,10 +28,16 @@ function ProductMiniature({ product, short }) {
         className="w-[80%] md:w-full mx-auto h-40 xl:h-32 object-contain mb-2 "
       />
       <p
-        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto"
+        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto hidden xl:block"
         onClick={handleTitleClick}
       >
         {maxString(product.Title, 50)}
+      </p>
+      <p
+        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto block xl:hidden"
+        onClick={handleTitleClick}
+      >
+        {maxString(product.Title, 25)}
       </p>
 
       <div className="flex flex-col-reverse xl:flex-row justify-center items-center xl:items-start w-[90%] mx-auto">
@@ -46,7 +52,7 @@ function ProductMiniature({ product, short }) {
       {/* <p className="affirm-as-low-as text-[13px] w-[95%] mx-auto mt-[5px] block" data-page-type="product" data-amount={product.Price*100}></p> */}
     
       <div className="px-2" style={{ display: short ? 'none' : 'block' }}>
-        <p className="text-green-800 mt-3 font-medium h-[25px]">
+        <p className="text-green-800  font-medium h-[25px]">
           {product.Price > 49 ? 'Free Shipping' : ''}
         </p>
         <p className="text-gray-500"> Leaves Warehouse: </p>
