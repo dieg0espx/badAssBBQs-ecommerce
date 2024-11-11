@@ -67,25 +67,103 @@ function Header() {
         )
       case 2: 
         return (
-          <div> 
+          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-x-[20px] p-[30px] align-center items-center"> 
             <SubCategoryHeader
-              title=""
-              to=""
-              imgURL=""
+              title="Built-In Grills"
+              to="/products/all/Built-In%20Grills"
+              imgURL="https://cdn.shocho.co/sc-image/a/b/6/f/ab6f84b7179b7f74f1246bb2e4815e2b.jpg?i10c=img.resize(width:1200,height:1200)"
+            />
+            <SubCategoryHeader
+              title="Outdoor Kitchen Storage"
+              to="/products/all/Outdoor%20Kitchen%20Cabinets%20&%20Storage"
+              imgURL="https://cdn.shocho.co/sc-image/b/0/5/9/b0597acb7c03fedece4f56b8ae8e49e7.jpg?i10c=img.resize(width:1200,height:1200)"
+            />
+            <SubCategoryHeader
+              title="Outdoor Refrigeration"
+              to="/products/all/Outdoor%20Refrigeration"
+              imgURL="https://cdn.shocho.co/sc-image/9/2/9/b/929bcf51ea5c628a0a1bfacd2762f7b9.jpg?i10c=img.resize(width:1200,height:1200)"
+            />
+            <SubCategoryHeader
+              title="Side Burners"
+              to="/products/all/Side%20Burners%20for%20Grills%20and%20Outdoor%20Kitchens"
+              imgURL="https://cdn.shocho.co/sc-image/2/6/7/4/2674d692529adc8ea700d1a5a81eca0a.jpg?i10c=img.resize(width:1200,height:1200)"
+            />
+            <SubCategoryHeader
+              title="Outdoor Vent Hoods"
+              to="products/all/Outdoor%20Kitchen%20&%20Grill%20Ventilation"
+              imgURL="https://cdn.shocho.co/sc-image/9/7/f/0/97f0b74a5b3347aa02ae9fc7a27cefd7.jpg?i10c=img.resize(width:1200,height:1200)"
             />
           </div>
         )
       case 3: 
         return (
-          <div> {category} </div>
-        )
-      case 4: 
-        return (
-          <div> {category} </div>
+          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-x-[20px] p-[30px] align-center items-center"> 
+            <SubCategoryHeader
+              title="Patio Heaters"
+              to="/products/all/Patio%20Heaters"
+              imgURL="https://cdn.shocho.co/sc-image/2/0/f/f/20fff4d7a7844c876d05574f4d4d2aa0.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+            <SubCategoryHeader
+              title="Fire Pits"
+              to="/products/all/Outdoor%20Fire%20Pits"
+              imgURL="https://cdn.shocho.co/sc-image/2/8/8/a/288a20be2033d6efad482b6497e9a09c.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+            <SubCategoryHeader
+              title="DIY Fire Pit Kits "
+              to="/products/all/DIY%20Fire%20Pit%20Kits%20&%20Components"
+              imgURL="https://cdn.shocho.co/sc-image/0/0/b/7/00b7968391177f35c3d6208f341dbb48.jpg"
+            /> 
+            <SubCategoryHeader
+              title="Outdoor Fireplaces"
+              to="/products/all/Outdoor%20Fireplaces"
+              imgURL="https://cdn.shocho.co/sc-image/b/9/1/0/b91028ac1de99509bf63930331e097f2.jpg"
+            /> 
+            <SubCategoryHeader
+              title=""
+              to=""
+              imgURL=""
+            /> 
+          </div>
         )
       case 5: 
         return (
-          <div> {category} </div>
+          <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-x-[20px] p-[30px] align-center items-center"> 
+            <SubCategoryHeader
+              title="BBQ & Grill Covers"
+              to="/products/all/BBQ%20&%20Grill%20Covers"
+              imgURL="https://cdn.shocho.co/sc-image/4/3/e/6/43e6c2dc5e9efb69c8471f65bd6cb31c.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+            <SubCategoryHeader
+              title="Grill Attachments"
+              to="/products/all/Grill%20Attachments"
+              imgURL="https://cdn.shocho.co/sc-image/4/0/7/a/407aebbf6ac2bf3fbd24737ea3085fab.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+            <SubCategoryHeader
+              title="Charcoal, Pellets & Starters"
+              to="/products/all/Charcoal,%20Pellets%20&%20Starters"
+              imgURL="https://cdn.shocho.co/sc-image/7/a/8/5/7a85716ffb1e2d8a30a4a1d5e6d3b35a.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+            <SubCategoryHeader
+              title="Grill Thermometers"
+              to="/products/all/Grill%20Thermometers"
+              imgURL="https://cdn.shocho.co/sc-image/2/9/c/6/29c67ac2a5b7f722366ba0d931e4ef9d.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+            <SubCategoryHeader
+              title="BBQ Grilling Tools & Accessories"
+              to="/products/all/BBQ%20Grilling%20Tools%20&%20Accessories"
+              imgURL="https://cdn.shocho.co/sc-image/2/6/9/c/269c39f57c27a616e1169a26b9f949d2.jpg?i10c=img.resize(width:1200,height:1200)"
+            /> 
+          </div>
+        )
+      case 5: 
+        return (
+          <div>             
+            <SubCategoryHeader
+              title=""
+              to=""
+              imgURL=""
+            /> 
+          </div>
         )
       case 6:
         return (
@@ -207,10 +285,10 @@ function Header() {
           <button onMouseOver={()=>setCategory(2)} className="text-[12px] font-medium hover:text-red">
              Outdoor Kitchens <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory(3)} className="text-[12px] font-medium hover:text-red">
+          {/* <button onMouseOver={()=>setCategory(3)} className="text-[12px] font-medium hover:text-red">
               Outdoor Forniture <i class="bi bi-chevron-down"></i>
-          </button>
-          <button onMouseOver={()=>setCategory(4)} className="text-[12px] font-medium hover:text-red">
+          </button> */}
+          <button onMouseOver={()=>setCategory(3)} className="text-[12px] font-medium hover:text-red">
               Outdoor Heating & More <i class="bi bi-chevron-down"></i>
           </button>
           <button onMouseOver={()=>setCategory(5)} className="text-[12px] font-medium hover:text-red">
@@ -219,11 +297,11 @@ function Header() {
           <button onMouseOver={()=>setCategory(6)} className="text-[12px] font-medium hover:text-red">
               Brands <i class="bi bi-chevron-down"></i>
           </button>
-          <button onMouseOver={()=>setCategory(7)} className="text-[12px] font-medium hover:text-red">
+          {/* <button onMouseOver={()=>setCategory(7)} className="text-[12px] font-medium hover:text-red">
               Sales & Offers <i class="bi bi-chevron-down"></i>
-          </button>
+          </button> */}
         </div>
-        <div className="fixed w-full h-[230px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50 shadow-md" style={{display: category !== 0 ? 'block':'none'}}>
+        <div className="fixed w-full h-[250px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50 shadow-md" style={{display: category !== 0 ? 'block':'none'}}>
           {variableMenu()}
         </div>
       </div>
