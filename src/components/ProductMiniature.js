@@ -18,7 +18,7 @@ function ProductMiniature({ product, short }) {
 
   return (
     <div
-      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between h-[385px] hover:border-red"
+      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between max-h-[390px] hover:border-red"
       onClick={handleTitleClick}
     >
       <img
@@ -28,7 +28,7 @@ function ProductMiniature({ product, short }) {
         className="w-[80%] md:w-full mx-auto h-40 xl:h-32 object-contain mb-2 "
       />
       <p
-        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[50px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto"
+        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto"
         onClick={handleTitleClick}
       >
         {maxString(product.Title, 50)}
