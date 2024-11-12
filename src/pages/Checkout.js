@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AddressAutocomplete from "../components/AddressAutocomplete";
-import { toCamelCase, formatCurrency, formatName, formatPhoneNumber } from '../Utils/Helpers'
-import { useCart } from '../context/CartContext'; // Import the custom hook
-import Paypal from '../components/Paypal'
+import { toCamelCase, formatCurrency, formatName, formatPhoneNumber } from '../Utils/Helpers';
+import { useCart } from '../context/CartContext';
+import Paypal from '../components/Paypal';
 import Affirm from "../components/Affirm";
-
-
 
 const Checkout = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
@@ -21,11 +19,13 @@ const Checkout = () => {
     country: "",
   });
   const [errors, setErrors] = useState({});
+  const [enablePayment, setEnablePayments] = useState(false);
+  const [alertForm, setAlertForm] = useState(false);
+  const [isFormDirty, setIsFormDirty] = useState(false); // Track if the form has been interacted with
 
   const totalCost = cartItems.reduce((accumulator, item) => {
     return accumulator + item.Price * item.quantity;
   }, 0);
-
 
   const handleAddressSelect = (addressObject) => {
     setUserInfo((prevInfo) => ({
@@ -37,6 +37,7 @@ const Checkout = () => {
       postalCode: addressObject.postalCode,
       country: addressObject.country,
     }));
+    setIsFormDirty(true); // Set form as dirty after address selection
   };
 
   const handleChange = (e) => {
@@ -45,6 +46,7 @@ const Checkout = () => {
       ...prevInfo,
       [name]: value,
     }));
+    setIsFormDirty(true); // Set form as dirty on any field change
   };
 
   const validateEmail = (email) => {
@@ -53,160 +55,53 @@ const Checkout = () => {
   };
 
   const validatePhone = (phone) => {
-    const phoneRegex = /^\d{10,15}$/; // Adjust as needed for international formats
+    const phoneRegex = /^\d{10,15}$/;
     return phoneRegex.test(phone);
   };
 
-  const handlePlaceOrder = () => {
+  const validateForm = () => {
     let validationErrors = {};
-  
+
     if (!userInfo.name) {
       validationErrors.name = "Please enter your first name.";
     }
-  
+
     if (!userInfo.lastName) {
       validationErrors.lastName = "Please enter your last name.";
     }
-  
+
     if (!userInfo.address) {
       validationErrors.address = "Please enter your address.";
     }
-  
+
     if (!validateEmail(userInfo.email)) {
       validationErrors.email = "Please enter a valid email address.";
     }
-  
+
     if (!validatePhone(userInfo.phone)) {
       validationErrors.phone = "Please enter a valid phone number (10-15 digits).";
     }
-  
+
     setErrors(validationErrors);
-  
-    // Proceed with order placement if there are no errors
-    if (Object.keys(validationErrors).length === 0) {
-      console.log("User Information:", userInfo);
-      // Additional order placement logic here
-    }
-  };
-  
-  const affirm = () => {
-    if (window.affirm) {
 
-     window.affirm.checkout({
-      
-         "merchant": {
-           "user_confirmation_url": "https://server-badassbbqs.vercel.app/api/confirm",
-           "user_cancel_url": "http://localhost:8080/cancel",
-           "user_confirmation_url_action": "POST",
-           "name": "Your Customer-Facing Merchant Name"
-         },
-         "shipping":{
-           "name":{
-             "first":"Joe",
-             "last":"Doe"
-           },
-           "address":{
-             "line1":"633 Folsom St",
-             "line2":"Floor 7",
-             "city":"San Francisco",
-             "state":"CA",
-             "zipcode":"94107",
-             "country":"USA"
-           },
-           "phone_number": "4153334567",
-           "email": "joedoe@123fakestreet.com"
-         },
-         "billing":{
-           "name":{
-             "first":"Joe",
-             "last":"Doe"
-           },
-           "address":{
-             "line1":"633 Folsom St",
-             "line2":"Floor 7",
-             "city":"San Francisco",
-             "state":"CA",
-             "zipcode":"94107",
-             "country":"USA"
-           },
-           "phone_number": "4153334567",
-           "email": "joedoe@123fakestreet.com"
-         },
-         "items": [{
-           "display_name":         "Awesome Pants",
-           "sku":                  "ABC-123",
-           "unit_price":           1999,
-           "qty":                  3,
-           "item_image_url":       "http://merchantsite.com/images/awesome-pants.jpg",
-           "item_url":             "http://merchantsite.com/products/awesome-pants.html",
-           "categories": [
-               ["Home", "Bedroom"],
-               ["Home", "Furniture", "Bed"]
-           ]
-         }
-      ],
-         "discounts":{
-            "RETURN5":{
-               "discount_amount":500,
-               "discount_display_name":"Returning customer 5% discount"
-           },
-           "PRESDAY10":{
-               "discount_amount":1000,
-               "discount_display_name":"President's Day 10% off"
-         }
-      },
-      "metadata":{
-         "shipping_type":"UPS Ground",
-         "mode":"modal"
-      },
-      "order_id":"JKLMO4321",
-      "currency":"USD",  
-      "financing_program":"flyus_3z6r12r",
-      "shipping_amount":1000,
-      "tax_amount":500,
-      "total":100000
-     })
-
-     window.affirm.checkout.open()
-    } else {
-      console.error("Affirm.js has not loaded.");
-    }
+    // Check if there are no errors
+    return Object.keys(validationErrors).length === 0;
   };
 
   useEffect(() => {
-    const checkAffirm = () => {
-      if (!window.affirm) {
-        console.error("Affirm.js has not loaded. Please check the script URL.");
-      }
-    };
-    checkAffirm();
-  }, []);
-
-  useEffect(() => {
-    if (!window.affirm) {
-      const affirmScript = document.createElement("script");
-      affirmScript.src = "https://cdn1-sandbox.affirm.com/js/v2/affirm.js";
-      affirmScript.async = true;
-      affirmScript.onload = () => {
-        console.log("Affirm.js loaded");
-      };
-      document.head.appendChild(affirmScript);
+    if (isFormDirty && validateForm()) {
+      console.log("correct");
     }
-  }, []);
+  }, [userInfo]);
 
   return (
     <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
-      
-      {/* CONTAINER */}
-      <div className="bg-white p-8 rounded border border-gray-200 w-[90%]">
-        {/* TITLE */}
+      <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
         <div className="flex flex-col sm:flex-row justify-between mb-[30px]">
           <p className="font-bold text-[30px] text-center sm:text-auto">CheckOut</p> 
           <p className="font-bold text-[30px] text-center sm:text-auto">{formatCurrency(totalCost)}</p> 
         </div>
-        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
-          {/* LEFT COLUMN */}
           <div className="border border-gray-200 rounded p-[20px]">
             <div className="flex flex-col">
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Contact Information: </p>
@@ -263,19 +158,21 @@ const Checkout = () => {
               <AddressAutocomplete onAddressSelect={handleAddressSelect} />
               {errors.address && <p className="text-red text-sm">{errors.address}</p>}
             </div>
-            {/* PAYMENT METHODS */}
             <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
             <div className="grid grid-cols-1 lg:grid-cols-3  gap-[10px] ">
               <button className="bg-blue-500 text-white h-[25px] text-[13px] font-semibold rounded hover:bg-blue-600">
                 Credit Card
               </button>
-              <button className="bg-black text-white h-[25px] text-[13px] font-semibold rounded hover:bg-gray-700" onClick={affirm}>
+              <button className="bg-black text-white h-[25px] text-[13px] font-semibold rounded hover:bg-gray-700">
                 Affirm 
               </button>
-              <Paypal total={totalCost}/>
+              <div className="z-0">
+                <Paypal total={totalCost}/>
+              </div>
             </div>
+            <div className="bg-transparent w-full h-[120px] lg:h-[30px] relative -top-[130px]  lg:-top-[30px] z-20" onClick={()=>setAlertForm(true)} style={{display: enablePayment ? 'none':'block'}}/>
+            <p className="-mt-[120px] lg:-mt-[32px] text-red" style={{display: !enablePayment && alertForm ? 'block':'none'}}> Please fill the form</p>
           </div>
-          {/* RIGHT COLUMN */}
           <div className="rounded ">
             <div className="border border-gray-200 rounded px-[30px] py-[10px] mb-[10px]">
               <p className="font-semibold text-[20px] mb-[10px]"> Shipping Information: </p>
@@ -295,7 +192,7 @@ const Checkout = () => {
             <div className="h-[340px] overflow-y-scroll">
             {cartItems.map((item, index) => (
               <div key={index} className="border border-gray-200 grid grid-cols-1 lg:grid-cols-[1fr_8fr] gap-10 items-center px-[30px] py-[10px] rounded mb-[10px]">
-               <img src={item.Image} className="w-full w-[35px] object-cover m-auto" alt="Product Image"/>
+               <img src={item.Image} className="w-[35px] object-cover m-auto" alt="Product Image"/>
                <div>
                  <p className="text-[15px]">{item.Title}</p>
                  <p className="text-[15px] font-semibold">{formatCurrency(item.Price)}</p>
