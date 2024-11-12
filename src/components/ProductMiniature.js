@@ -18,7 +18,7 @@ function ProductMiniature({ product, short }) {
 
   return (
     <div
-      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between max-h-[390px] hover:border-red"
+      className="border px-[3px] py-[8px] xl:px-[5px] xl:py-[10px] min-w-[173px] flex flex-col justify-between h-[390px] hover:border-red"
       onClick={handleTitleClick}
     >
       <img
@@ -28,17 +28,12 @@ function ProductMiniature({ product, short }) {
         className="w-[80%] md:w-full mx-auto h-40 xl:h-32 object-contain mb-2 "
       />
       <p
-        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto hidden xl:block"
+        className="text-[13px]  xl:text-[15px] font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto "
         onClick={handleTitleClick}
       >
-        {maxString(product.Title, 50)}
+        {maxString(product.Title, 40)}
       </p>
-      <p
-        className="text-md font-semibold text-center mb-1 cursor-pointer hover:text-red max-h-[60px] overflow-hidden text-ellipsis w-[90%] md:w-[95%] mx-auto block xl:hidden"
-        onClick={handleTitleClick}
-      >
-        {maxString(product.Title, 25)}
-      </p>
+
 
       <div className="flex flex-col-reverse xl:flex-row justify-center items-center xl:items-start w-[90%] mx-auto">
         <p className="text-black text-center text-[20px] mt-auto font-[600] mx-auto ">
@@ -52,11 +47,11 @@ function ProductMiniature({ product, short }) {
       {/* <p className="affirm-as-low-as text-[13px] w-[95%] mx-auto mt-[5px] block" data-page-type="product" data-amount={product.Price*100}></p> */}
     
       <div className="px-2" style={{ display: short ? 'none' : 'block' }}>
-        <p className="text-green-800  font-medium h-[25px]">
+        <p className="text-[15px] text-green-800  font-medium">
           {product.Price > 49 ? 'Free Shipping' : ''}
         </p>
-        <p className="text-gray-500"> Leaves Warehouse: </p>
-        <p className="-mt-1 text-gray-500"> 24 Hrs </p>
+        <p className="text-[12px] text-gray-500"> Leaves Warehouse: </p>
+        <p className="text-[12px] -mt-1 text-gray-500"> 24 Hrs </p>
       </div>
       <button
         className="bg-red text-[12px] text-white py-1 mt-4 rounded font-bold border-2 border-transparent hover:bg-white hover:text-red hover:border-red w-[90%] mx-auto xl:w-full"

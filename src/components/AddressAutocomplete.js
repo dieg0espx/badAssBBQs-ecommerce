@@ -21,10 +21,11 @@ const AddressAutocomplete = ({ onAddressSelect }) => {
       
       const getComponent = (type) =>
         place.address_components.find(component => component.types.includes(type))?.long_name || "";
-  
+      
+
+        
       const addressObject = {
         formatted_address: place.formatted_address,
-        streetNumber: getComponent("street_number"),
         city: getComponent("locality"),
         state: getComponent("administrative_area_level_1"),
         postalCode: getComponent("postal_code"),

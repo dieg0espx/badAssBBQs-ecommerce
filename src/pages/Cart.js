@@ -35,11 +35,11 @@ function Cart() {
         <hr></hr>
       </>
       ) : (
-      <div className='p-5 xl:p-10 flex gap-[10px] flex-col xl:flex-row'>
+      <div className='p-5 xl:p-10 flex gap-[10px] flex-col lg:flex-row'>
         <div className='basis-[70%]'>
           {cartItems.map((item, index) => (
-            <div key={index} className="border border-gray-200 flex w-full flex-col xl:flex-row gap-10 items-center px-[30px] py-[20px] rounded mb-[10px]">
-             <img src={item.Image} className="w-full xl:w-[100px] object-cover" alt="Product Image"/>
+            <div key={index} className="border border-gray-200 flex w-full flex-col md:flex-row gap-10 items-center px-[30px] py-[20px] rounded mb-[10px]">
+             <img src={item.Image} className="w-full md:w-[100px] object-cover" alt="Product Image"/>
             
              <div className="flex flex-col justify-center w-full">
                <p><b>ID</b> {item.Id} | <b>MODEL</b> {item.Model}</p>

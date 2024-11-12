@@ -64,7 +64,7 @@ function Home() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3, // Show 3 slides on medium screens
+          slidesToShow: 4, // Show 3 slides on medium screens
           slidesToScroll: 1,
           dots: false,
         },
@@ -72,12 +72,12 @@ function Home() {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2, // Show 2 slides on smaller screens
+          slidesToShow: 3, // Show 2 slides on smaller screens
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 550,
         settings: {
           slidesToShow: 2, // Show 1 slide on extra small screens
           slidesToScroll: 1,
@@ -98,7 +98,7 @@ function Home() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3, // Show 3 slides on medium screens
+          slidesToShow: 4, // Show 3 slides on medium screens
           slidesToScroll: 1,
           dots: false,
         },
@@ -106,15 +106,15 @@ function Home() {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2, // Show 2 slides on smaller screens
+          slidesToShow: 3, // Show 2 slides on smaller screens
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 550,
         settings: {
           slidesToShow: 2, // Show 1 slide on extra small screens
-          slidesToScroll: 2,
+          slidesToScroll: 1,
         },
       },
     ],
@@ -159,7 +159,7 @@ function Home() {
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Departments </h2>
 
-      <div className='grid grid-cols-[1fr_1fr_1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] w-[80%] mx-auto'>
+      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr]  w-[80%] mx-auto'>
         <div className='group mb-10'>
             <img src={department0} className='mx-auto mb-2 w-[50%]'/>
             <Link to="/products/all/Gas%20Grills" className='block text-center group-hover:text-red'> Freestanding Gas Grills </Link>
@@ -204,7 +204,7 @@ function Home() {
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Brands </h2>
 
-      <div className='grid grid-cols-[1fr_1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
+      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
         <img src={brand0} className='mx-auto -mt-3'/>
         <img src={brand1} className='mx-auto'/>
         <img src={brand2} className='mx-auto'/>
@@ -216,7 +216,7 @@ function Home() {
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Get More at BadAssBBQs </h2>
 
-      <div className='grid grid-cols-[1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr]  gap-[50px] xl:gap-[20px] mx-auto mb-20 max-w-[100%] xl:max-w-[90%]'>
+      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr]  gap-[50px] xl:gap-[20px] mx-auto mb-20 max-w-[100%] xl:max-w-[90%]'>
         <div>
             <img src={statement5} className='mx-auto'/>
             <p className='text-center font-bold'> Ask an Expert </p>

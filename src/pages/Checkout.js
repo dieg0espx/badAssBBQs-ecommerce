@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import AddressAutocomplete from "../components/AddressAutocomplete";
-import { toCamelCase, formatCurrency } from '../Utils/Helpers'
+import { toCamelCase, formatCurrency, formatName, formatPhoneNumber } from '../Utils/Helpers'
 import { useCart } from '../context/CartContext'; // Import the custom hook
 import Paypal from '../components/Paypal'
 import Affirm from "../components/Affirm";
+
 
 
 const Checkout = () => {
@@ -14,7 +15,6 @@ const Checkout = () => {
     email: "",
     phone: "",
     address: "",
-    streetNumber: "",
     city: "",
     state: "",
     postalCode: "",
@@ -195,20 +195,22 @@ const Checkout = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-full xl:h-[80vh] mt-[10px] xl:mt-0">
-      <div className="bg-white p-8 rounded border border-gray-200 w-[90%] ">
-        <div className="flex flex-col xl:flex-row justify-between">
-          <p className="font-bold text-[45px] xl:text-[30px] mb-[0px] xl:mb-[30px] text-center xl:text-left">CheckOut</p>
-          <p className="font-bold text-[30px] mb-[50px] xl:mb-[30px] text-center xl:text-left text-gray-5 00">{formatCurrency(totalCost)}</p>
+    <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
+      
+      {/* CONTAINER */}
+      <div className="bg-white p-8 rounded border border-gray-200 w-[90%]">
+        {/* TITLE */}
+        <div className="flex flex-col sm:flex-row justify-between mb-[30px]">
+          <p className="font-bold text-[30px] text-center sm:text-auto">CheckOut</p> 
+          <p className="font-bold text-[30px] text-center sm:text-auto">{formatCurrency(totalCost)}</p> 
         </div>
-
-        <div className="flex flex-col xl:flex-row gap-[30px]">
-          <div className="basis-[50%]">
-            <div className="flex flex-col xl:flex-row gap-[0px] xl:gap-[20px]">
+        {/* GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
+          {/* LEFT COLUMN */}
+          <div className="border border-gray-200 rounded p-[20px]">
+            <div className="flex flex-col">
+              <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Contact Information: </p>
               <div className="mb-4 basis-[50%]">
-                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
-                  First Name
-                </label>
                 <input
                   type="text"
                   id="name"
@@ -221,9 +223,6 @@ const Checkout = () => {
                 {errors.name && <p className="text-red text-sm">{errors.name}</p>}
               </div>
               <div className="mb-4 basis-[50%]">
-                <label htmlFor="lastName" className="block text-gray-700 font-semibold mb-2">
-                  Last Name
-                </label>
                 <input
                   type="text"
                   id="lastName"
@@ -236,11 +235,7 @@ const Checkout = () => {
                 {errors.lastName && <p className="text-red text-sm">{errors.lastName}</p>}
               </div>
             </div>
-
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
-                Email
-              </label>
               <input
                 type="email"
                 id="email"
@@ -252,11 +247,7 @@ const Checkout = () => {
               />
               {errors.email && <p className="text-red text-sm">{errors.email}</p>}
             </div>
-
             <div className="mb-4">
-              <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
-                Phone Number
-              </label>
               <input
                 type="tel"
                 id="phone"
@@ -268,43 +259,51 @@ const Checkout = () => {
               />
               {errors.phone && <p className="text-red text-sm">{errors.phone}</p>}
             </div>
-
             <div className="mb-6">
-              <label htmlFor="address" className="block text-gray-700 font-semibold mb-2">
-                Address
-              </label>
               <AddressAutocomplete onAddressSelect={handleAddressSelect} />
               {errors.address && <p className="text-red text-sm">{errors.address}</p>}
             </div>
-          </div>
-
-          <div className="basis-[50%] border-0 xl:border border-gray-200 rounded p-0 xl:p-[20px]">
-            <div className="flex flex-col gap-[20px] mb-[20px]">
-              <button className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+            {/* PAYMENT METHODS */}
+            <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
+            <div className="grid grid-cols-1 lg:grid-cols-3  gap-[10px] ">
+              <button className="bg-blue-500 text-white h-[25px] text-[13px] font-semibold rounded hover:bg-blue-600">
                 Credit Card
               </button>
-              <button className="bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800">
-                Google Pay
-              </button>
-              <button className="bg-black text-white py-2 rounded-lg hover:bg-gray-700">
-                Apple Pay
-              </button>
-              <button className="bg-black text-white py-2 rounded-lg hover:bg-gray-700" onClick={affirm}>
+              <button className="bg-black text-white h-[25px] text-[13px] font-semibold rounded hover:bg-gray-700" onClick={affirm}>
                 Affirm 
               </button>
+              <Paypal total={totalCost}/>
             </div>
-            
-            <Paypal total={totalCost}/>
           </div>
-        </div>
-
-        <div className="mt-6 text-center">
-          <button
-            onClick={handlePlaceOrder}
-            className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600"
-          >
-            Place Order
-          </button>
+          {/* RIGHT COLUMN */}
+          <div className="rounded ">
+            <div className="border border-gray-200 rounded px-[30px] py-[10px] mb-[10px]">
+              <p className="font-semibold text-[20px] mb-[10px]"> Shipping Information: </p>
+              <p className="text-[15px]"> <b>Full Name</b>:  {formatName(userInfo.name, userInfo.lastName)}</p>
+              <p className="text-[15px]"> <b>Email Address</b> :  {userInfo.email} </p>
+              <p className="text-[15px]"> <b>Phone Number</b> :  {formatPhoneNumber(userInfo.phone)} </p>
+              <p className="text-[15px]"> <b>Address</b> :  {userInfo.address} </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <p className="text-[15px]"> <b>City</b> :  {userInfo.city} </p>
+                <p className="text-[15px]"> <b>State</b> :  {userInfo.state} </p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <p className="text-[15px]"> <b>Country</b> :  {userInfo.country} </p>
+                <p className="text-[15px]"> <b>Postal Code</b> :  {userInfo.postalCode} </p>
+              </div>
+            </div> 
+            <div className="h-[340px] overflow-y-scroll">
+            {cartItems.map((item, index) => (
+              <div key={index} className="border border-gray-200 grid grid-cols-1 lg:grid-cols-[1fr_8fr] gap-10 items-center px-[30px] py-[10px] rounded mb-[10px]">
+               <img src={item.Image} className="w-full w-[35px] object-cover m-auto" alt="Product Image"/>
+               <div>
+                 <p className="text-[15px]">{item.Title}</p>
+                 <p className="text-[15px] font-semibold">{formatCurrency(item.Price)}</p>
+               </div>
+              </div>
+            ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
