@@ -191,7 +191,7 @@ const Checkout = () => {
             </div> 
             <div className="h-[340px] overflow-y-scroll">
             {cartItems.map((item, index) => (
-              <div key={index} className="border border-gray-200 grid grid-cols-1 lg:grid-cols-[1fr_8fr] gap-10 items-center px-[30px] py-[10px] rounded mb-[10px]">
+              <div key={index} className="border border-gray-200 grid grid-cols-[1fr_8fr] gap-10 items-center px-[30px] py-[10px] rounded mb-[10px]">
                <img src={item.Image} className="w-[35px] object-cover m-auto" alt="Product Image"/>
                <div>
                  <p className="text-[15px]">{item.Title}</p>
