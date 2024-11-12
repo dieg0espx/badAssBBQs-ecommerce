@@ -91,6 +91,8 @@ const Checkout = () => {
   useEffect(() => {
     if (isFormDirty && validateForm()) {
       console.log("correct");
+      setEnablePayments(true)
+      setAlertForm(false)
     }
   }, [userInfo]);
 
@@ -159,7 +161,7 @@ const Checkout = () => {
               {errors.address && <p className="text-red text-sm">{errors.address}</p>}
             </div>
             <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
-            <div className="grid grid-cols-1 lg:grid-cols-3  gap-[10px] ">
+            {/* <div className="grid grid-cols-1 lg:grid-cols-3  gap-[10px] ">
               <button className="bg-blue-500 text-white h-[25px] text-[13px] font-semibold rounded hover:bg-blue-600">
                 Credit Card
               </button>
@@ -168,8 +170,9 @@ const Checkout = () => {
               </button>
               <div className="z-0">
                 <Paypal total={totalCost}/>
-              </div>
-            </div>
+              </div> 
+            </div>  */}
+            <Paypal total={totalCost}/>
             <div className="bg-transparent w-full h-[120px] lg:h-[30px] relative -top-[130px]  lg:-top-[30px] z-20" onClick={()=>setAlertForm(true)} style={{display: enablePayment ? 'none':'block'}}/>
             <p className="-mt-[120px] lg:-mt-[32px] text-red" style={{display: !enablePayment && alertForm ? 'block':'none'}}> Please fill the form</p>
           </div>

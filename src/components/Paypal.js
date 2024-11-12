@@ -29,7 +29,7 @@ const Paypal = ({total}) => {
         return actions.order.capture().then(function (details) {
             actions.close && actions.close();
             alert("Transaction completed by " + details.payer.name.given_name);
-            navigate('/checkout');
+            navigate('/checkout-authorized');
         });
     };
 
