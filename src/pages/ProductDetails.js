@@ -123,7 +123,7 @@ const ProductDetails = () => {
     <div className="p-6 max-w-6xl mx-auto overflow-x-hidden">
         <Categories categories={product.Category} />
         
-        <div className='block xl:hidden'>
+        <div className='block sm:hidden'>
           <p className="text-md text-gray-600 mr-2">ID: {product.Id}  <span>|</span> Model: {product.Model}</p> 
           <h1 className="text-[20px] font-bold mb-2 leading-6">{product.Title}</h1>
           <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red">{toCamelCase(product.brand)}</Link>
@@ -138,12 +138,12 @@ const ProductDetails = () => {
           {/* Right Side - Product Information */}
           <div className="flex flex-col justify-between mt-10">
             <div>
-              <div className="items-center hidden xl:flex">
+              <div className="items-center hidden sm:flex">
                 <p className="text-md text-gray-600 mr-2">ID: {product.Id}</p> 
                 <span>|</span>
                 <p className="text-md ml-2">Model: {product.Model}</p>
               </div>
-              <h1 className="text-3xl font-bold mb-2 hidden xl:flex">{product.Title}</h1>
+              <h1 className="text-3xl font-bold mb-2 hidden md:flex">{product.Title}</h1>
               
               <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red hidden xl:flex">{toCamelCase(product.brand)}</Link>
               
@@ -185,7 +185,7 @@ const ProductDetails = () => {
         <hr></hr>
 
          {/* Product Description - Below the Grid */}
-        <div className="mt-6 block xl:grid grid-cols-[auto_200px] gap-10">
+        <div className="mt-6 block sm:grid grid-cols-[auto_200px] gap-10">
           <div>
             <h2 className="text-lg font-semibold mb-5">Description</h2>
             <p className="text-gray-700 mt-0">
