@@ -43,12 +43,17 @@ export const CartProvider = ({ children }) => {
   const getTotalQuantity = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
+
+    // Function to clear all items from the cart
+    const clearCart = () => {
+      setCartItems([]);
+    };
   
   
   
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, getTotalQuantity }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, getTotalQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   );

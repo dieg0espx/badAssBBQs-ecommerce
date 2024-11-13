@@ -8,7 +8,7 @@ const PurchaseContext = createContext();
 // Create a provider component
 export const PurchaseProvider = ({ children }) => {
   // Import cart functionality from useCart
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
 
   // State to store user information
   const [userInfo, setUserInfo] = useState({
@@ -41,8 +41,25 @@ export const PurchaseProvider = ({ children }) => {
     })),
   };
 
+  // Method to reset cart and user info
+  const resetPurchase = () => {
+    setUserInfo({
+      name: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      country: '',
+    });
+    clearCart(); // Clear cart items
+    console.log('DATA ERASED !');
+  };
+
   return (
-    <PurchaseContext.Provider value={{ cartItems, userInfo, setUserInfo, orderData }}>
+    <PurchaseContext.Provider value={{ cartItems, userInfo, setUserInfo, orderData, resetPurchase }}>
       {children}
     </PurchaseContext.Provider>
   );
