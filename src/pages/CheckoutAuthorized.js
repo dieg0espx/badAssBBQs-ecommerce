@@ -6,11 +6,13 @@ function CheckoutAuthorized() {
   const { orderData, resetPurchase } = usePurchase();
 
   useEffect(()=>{
-      console.log(orderData);
-      sentEmailConfirmation()
-      resetPurchase()
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
+    sentEmailConfirmation()
+    resetPurchase()
   },[])
-
 
   const sentEmailConfirmation = async () => {
     try {
