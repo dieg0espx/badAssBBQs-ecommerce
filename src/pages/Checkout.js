@@ -4,24 +4,17 @@ import { toCamelCase, formatCurrency, formatName, formatPhoneNumber } from '../U
 import { useCart } from '../context/CartContext';
 import Paypal from '../components/Paypal';
 import Affirm from "../components/Affirm";
+import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accordingly
+
 
 const Checkout = () => {
+  const { userInfo, setUserInfo } = usePurchase();
   const { cartItems, removeFromCart, updateQuantity } = useCart();
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-  });
+
   const [errors, setErrors] = useState({});
   const [enablePayment, setEnablePayments] = useState(false);
   const [alertForm, setAlertForm] = useState(false);
-  const [isFormDirty, setIsFormDirty] = useState(false); // Track if the form has been interacted with
+  const [isFormDirty, setIsFormDirty] = useState(false);
 
   const totalCost = cartItems.reduce((accumulator, item) => {
     return accumulator + item.Price * item.quantity;
