@@ -44,8 +44,6 @@ function ProductMiniature({ product, short }) {
           {formatCurrency(product.Price * 1.12)}
         </p>
       </div>
-
-      {/* <p className="affirm-as-low-as text-[13px] w-[95%] mx-auto mt-[5px] block" data-page-type="product" data-amount={product.Price*100}></p> */}
     
       <div className="px-2" style={{ display: short ? 'none' : 'block' }}>
         <p className="text-[15px] text-green-800  font-medium">
