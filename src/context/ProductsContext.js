@@ -27,7 +27,10 @@ export const ProductsProvider = ({ children }) => {
     'american_fyre_design', 
     'breeo',
     'the_outdoor_plus',
-    'twin_eagles'
+    'twin_eagles', 
+    'primo',
+    'summerset',
+    'ledge_lounger'
   ];
 
   const [products, setProducts] = useState([]);

@@ -134,6 +134,11 @@ function ProductList() {
           <option value="breeo">Breeo</option>
           <option value="the_outdoor_plus">The Outdoor Plus</option>
           <option value="twin_eagles">Twin Eagles</option>
+
+          <option value="primo">Primo</option>
+          <option value="summerset">Summerset</option>
+          <option value="ledge_lounger">Ledge Lounger</option>
+
         </select>
 
         {/* Dropdown to select a category */}
