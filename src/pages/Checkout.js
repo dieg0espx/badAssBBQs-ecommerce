@@ -89,7 +89,14 @@ const Checkout = () => {
         setEnablePayments(false);
         setAlertForm(true);
     }
-};
+  };
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
+  }, []);
 
 
   return (
@@ -183,7 +190,7 @@ const Checkout = () => {
                 <p className="text-[15px]"> <b>Postal Code</b> :  {userInfo.postalCode} </p>
               </div>
             </div> 
-            <div className="h-[340px] overflow-y-scroll">
+            <div className="max-h-[340px] overflow-y-scroll">
             {cartItems.map((item, index) => (
               <div key={index} className="border border-gray-200 grid grid-cols-[1fr_8fr] gap-10 items-center px-[30px] py-[10px] rounded mb-[10px]">
                <img src={item.Image} className="w-[35px] object-cover m-auto" alt="Product Image"/>

@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react'
 import { useProducts } from '../context/ProductsContext'; // Import the custom hook\
 import { useCart } from '../context/CartContext'; // Import the custom hook\
 import { Link } from 'react-router-dom';
-import { toCamelCase, formatCurrency } from '../Utils/Helpers'
+import { toCamelCase, formatCurrency, formatBrandName } from '../Utils/Helpers'
 
 
 function Cart() {
@@ -43,7 +43,7 @@ function Cart() {
             
              <div className="flex flex-col justify-center w-full">
                <p><b>ID</b> {item.Id} | <b>MODEL</b> {item.Model}</p>
-               <p><b>Brand:</b> {toCamelCase(item.brand)}</p>
+               <p><b>Brand:</b> {formatBrandName(item.brand)}</p>
                <p>{item.Title}</p>
                <p className='text-green-800 font-semibold'>{item.Price > 49 ? 'Free Shipping' : ''}</p>
              </div>

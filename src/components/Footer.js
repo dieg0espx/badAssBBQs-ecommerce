@@ -83,8 +83,8 @@ function Footer() {
         </div> */}
         <img src={logoNegative} className='block mx-auto'/>
         <h2 className='text-center text-[20px] text-white text-center font-bold mt-5'> Talk to an expert now </h2>
-        <p className='text-white text-center text-center'> <i class="bi bi-telephone mr-5"></i> 1-855-908-2377  </p>
-        <p className='text-white text-center text-center'> <i class="bi bi-chat-left-text mr-3"></i> Chat with an Expert  </p>
+        <p className='text-white text-center text-center'> <i class="bi bi-telephone mr-5"></i> <a href="tel:877-659-2619">(877) 659-2619</a>  </p>
+        <p className='text-white text-center text-center'> <i class="bi bi-chat-left-text mr-3"></i> <a href="/contact">Chat with an Expert</a>  </p>
         <div className='grid grid-cols-[1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] w-[80%] mx-auto justify-center mt-10'>
             <Link to='/privacy-policy' className='block text-white text-center font-light mb-5 hover:underline'> Privacy Policy </Link>
             <Link to='/shipping-policy' className='block text-white text-center font-light mb-5 hover:underline'> Shipping Policy </Link>

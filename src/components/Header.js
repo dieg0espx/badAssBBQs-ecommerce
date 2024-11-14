@@ -263,7 +263,7 @@ function Header() {
         <div className="flex items-center justify-between h-full space-x-10">
           <div>
             <p className="text-[12px] text-gray-500 font-medium"> Ask an Expert </p>
-            <p className="text-[12px] text-red font-bold -mt-1"> 1-855-908-2373 </p>
+            <p className="text-[12px] text-red font-bold -mt-1"> 877-659-2619 </p>
           </div>
           <div>
             <p className="text-[12px] text-gray-500 font-medium"> Are you a pro ? </p>
@@ -322,7 +322,7 @@ function Header() {
     
     {/* MOBILE VERSION */}
     <div className=" w-[100vw] bg-white z-10 block xl:hidden flex flex-col justify-center align-center items-center relative z-999">
-      <h2 className=" text-gray-500 font-semibold text-[15px] py-[3px] text-center w-full border-b border-gray-300 underline"> 1-877-743-2269 </h2>
+      <h2 className=" text-gray-500 font-semibold text-[15px] py-[3px] text-center w-full border-b border-gray-300 underline"> <a href="tel:877-659-2619">(877) 659-2619</a> </h2>
       <div className="flex  w-full items-center my-[6px]">
         <div className="basis-[20%] flex justify-center">
           <i className={!showMenu ? "bi bi-list":"bi bi-x-lg"} onClick={()=>setShowMenu(!showMenu)}></i>
@@ -354,10 +354,10 @@ function Header() {
 
             <div className="flex border boder-b-gray-500  py-[10px] px-[8px] gap-5">
               <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center items-center">
-                <i class="bi bi-telephone-fill"></i> <p className="text-[13px]"> 1-877-743-2269 </p>
+                <i class="bi bi-telephone-fill"></i> <p className="text-[13px]"> <a href="tel:877-659-2619">(877) 659-2619</a> </p>
               </div>
               <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center items-center">
-                <i class="bi bi-chat-left-text"></i>  <p className="text-[13px]"> Live Chat </p>
+                <i class="bi bi-chat-left-text"></i>  <p className="text-[13px]"> <a href="/contact">Message</a> </p>
               </div>
             </div>
 
@@ -431,9 +431,9 @@ function Header() {
             </div> */}
 
             <h2 className="px-5 py-3 font-bold"> Customer Service Hours: </h2>
-            <p className="px-5 py-3 underline"> <i class="bi bi-telephone mr-3"></i>1-877-743-2269 </p>
-            <p className="px-5 py-3 underline"> <i class="bi bi-chat-left-text mr-3"></i>Live Chat </p>
-            <p className="px-5 py-3 underline"> <i class="bi bi-envelope mr-3"></i>Email Us </p>
+            <p className="px-5 py-3 underline"> <i class="bi bi-telephone mr-3"></i><a href="tel:877-659-2619">(877) 659-2619</a> </p>
+            <p className="px-5 py-3 underline"> <i class="bi bi-chat-left-text mr-3"></i><a href="/contact">Chat with an Expert</a> </p>
+            <p className="px-5 py-3 underline"> <i class="bi bi-envelope mr-3"></i><a href="/contact">Email Us</a> </p>
 
 
         </div>
