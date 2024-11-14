@@ -412,7 +412,7 @@ function Header() {
 
 
 
-            <div className="border boder-b-gray-500 ">
+            {/* <div className="border boder-b-gray-500 ">
               <p className="px-5 py-3 font-bold"> GET [PRO] PRICING </p>
             </div>
 
@@ -428,7 +428,7 @@ function Header() {
               <p className="px-5 py-3"> Gift Cards </p>
               <p className="px-5 py-3"> Check Order Status </p>
               <p className="px-5 py-3"> Help Center </p>
-            </div>
+            </div> */}
 
             <h2 className="px-5 py-3 font-bold"> Customer Service Hours: </h2>
             <p className="px-5 py-3 underline"> <i class="bi bi-telephone mr-3"></i>1-877-743-2269 </p>
