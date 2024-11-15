@@ -7,6 +7,8 @@ import Affirm from "../components/Affirm";
 import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accordingly
 import fakePaypal from '../images/fakePaypal.png'
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+
 
 const Checkout = () => {
   const { userInfo, setUserInfo } = usePurchase();
