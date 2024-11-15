@@ -116,7 +116,7 @@ const Checkout = () => {
   
     window.affirm.checkout({
       merchant: {
-        user_confirmation_url: "https://bad-ass-bb-qs-ecommerce.vercel.app/checkout-authorized-affirm",
+        user_confirmation_url: "https://server-badassbbqs.vercel.app/api/authorize-charge",
         user_cancel_url: "https://bad-ass-bb-qs-ecommerce.vercel.app/checkout-canceled-affirm",
         public_api_key: "ENJBDHG33UOBFFPO",
         user_confirmation_url_action: "POST",
