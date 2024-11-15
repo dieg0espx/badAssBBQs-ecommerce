@@ -5,9 +5,7 @@ import { useCart } from '../context/CartContext';
 import Paypal from '../components/Paypal';
 import Affirm from "../components/Affirm";
 import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accordingly
-import fakePaypal from '../images/fakePaypal.png'
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+import affirmLogo from '../images/affirmLogo.png'
 
 
 const Checkout = () => {
@@ -128,14 +126,13 @@ const Checkout = () => {
           last: userInfo.lastName,
         },
         address: {
-          "line1":"633 Folsom St",
-          "line2":"Floor 7",
-          "city":"San Francisco",
-          "state":"CA",
-          "zipcode":"94107",
-          "country":"USA"
+          "line1":userInfo.address,
+          "city":userInfo.city,
+          "state":userInfo.state,
+          "zipcode":userInfo.postalCode,
+          "country":userInfo.country
         },
-        phone_number: "4153334567",
+        phone_number: userInfo.phone,
         email: userInfo.email,
       },
       billing: {
@@ -144,14 +141,13 @@ const Checkout = () => {
           last: userInfo.lastName,
         },
         address: {
-          "line1":"633 Folsom St",
-          "line2":"Floor 7",
-          "city":"San Francisco",
-          "state":"CA",
-          "zipcode":"94107",
-          "country":"USA"
+          "line1":userInfo.address,
+          "city":userInfo.city,
+          "state":userInfo.state,
+          "zipcode":userInfo.postalCode,
+          "country":userInfo.country
         },
-        phone_number: "4153334567",
+        phone_number: userInfo.phone,
         email: userInfo.email,
       },
       items: itemsForAffirm,
@@ -231,10 +227,12 @@ const Checkout = () => {
               {errors.address && <p className="text-red text-sm">{errors.address}</p>}
             </div>
 
-            <div style={{display: enablePayment ? 'block':'block'}}>
+            <div style={{display: enablePayment ? 'block':'none'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
-              <Paypal total={totalCost}  className='cursor-not-allowed'/> 
-              <button onClick={()=>payWithAffirm()}> Affirm </button>
+              <div className="grid grid-cols-2 gap-[10px]">
+                <Paypal total={totalCost}  className='cursor-not-allowed'/> 
+                <img src={affirmLogo} className="border border-gray-500 rounded px-[7px] h-[44px]" onClick={()=>payWithAffirm()} />
+              </div>
             </div>
 
             <div style={{display: enablePayment ? 'none':'block'}}>

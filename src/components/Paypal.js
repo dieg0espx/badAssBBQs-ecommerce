@@ -38,9 +38,10 @@ const Paypal = ({total}) => {
                 fundingSource="paypal"
                 style={{
                     layout: "horizontal",
-                    color: "silver",
+                    color: "white",
                     shape: "rect",
-                    label: "paypal"
+                    label: "pay",
+                    height: 43
                 }}
                 createOrder={(data, actions) => createOrder(data, actions)}
                 onApprove={(data, actions) => onApprove(data, actions)}
