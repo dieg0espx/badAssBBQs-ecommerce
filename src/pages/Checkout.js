@@ -103,27 +103,6 @@ const Checkout = () => {
   }, []);
 
 
-  const [transactionId, setTransactionId] = useState(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const checkoutToken = searchParams.get("checkout_token");
-
-    if (checkoutToken) {
-      // Send checkoutToken to the backend for authorization
-      axios.post("https://server-badassbbqs.vercel.app/api/authorize-charge", { checkoutToken })
-        .then(response => {
-          setTransactionId(response.data.transactionId);
-        })
-        .catch(error => {
-          console.error("Error authorizing charge:", error);
-        });
-    }
-  }, [location]);
-
-
-
   const payWithAffirm = () => {
     const itemsForAffirm = cartItems.map(item => ({
       display_name: item.Title, // Replace 'Title' with the actual field name for product name in your data
