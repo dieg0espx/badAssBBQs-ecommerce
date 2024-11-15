@@ -99,6 +99,67 @@ const Checkout = () => {
   }, []);
 
 
+  const payWithAffirm = () => {
+    const itemsForAffirm = cartItems.map(item => ({
+      display_name: item.Title, // Replace 'Title' with the actual field name for product name in your data
+      sku: `${item.brand}-${item.Id}` || "N/A",   // Replace 'sku' with your SKU field, if available, or set a default
+      unit_price: item.Price * 100, // Multiply by 100 because Affirm expects price in cents
+      qty: item.quantity,
+      item_image_url: item.Image, // Use image URL for product
+      item_url: `https://bad-ass-bb-qs-ecommerce.vercel.app/product/${item.brand}-${item.Id}`, // Construct or use your own URL pattern
+      categories: item.Category, // Replace with appropriate categories, if available
+    }));
+  
+    window.affirm.checkout({
+      merchant: {
+        user_confirmation_url: "https://bad-ass-bb-qs-ecommerce.vercel.app/checkout-authorized-affirm",
+        user_cancel_url: "https://bad-ass-bb-qs-ecommerce.vercel.app/checkout-canceled-affirm",
+        public_api_key: "ENJBDHG33UOBFFPO",
+        user_confirmation_url_action: "POST",
+        name: "BadAssBBQs",
+      },
+      shipping: {
+        name: {
+          first: userInfo.name,
+          last: userInfo.lastName,
+        },
+        address: {
+          line1: userInfo.address,
+          city: userInfo.city,
+          state: userInfo.state,
+          zipcode: userInfo.postalCode,
+          country: userInfo.country,
+        },
+        phone_number: userInfo.phone,
+        email: userInfo.email,
+      },
+      billing: {
+        name: {
+          first: userInfo.name,
+          last: userInfo.lastName,
+        },
+        address: {
+          line1: userInfo.address,
+          city: userInfo.city,
+          state: userInfo.state,
+          zipcode: userInfo.postalCode,
+          country: userInfo.country,
+        },
+        phone_number: userInfo.phone,
+        email: userInfo.email,
+      },
+      items: itemsForAffirm,
+      order_id: "1234567890", // Replace with your unique order ID
+      currency: "USD",
+      shipping_amount: 0, // Set if there are shipping costs
+      tax_amount: 0,      // Set if there are tax costs
+      total: totalCost * 100, // Convert total to cents
+    });
+  
+    window.affirm.checkout.open();
+  };
+  
+
   return (
     <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
       <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
@@ -167,6 +228,7 @@ const Checkout = () => {
             <div style={{display: enablePayment ? 'block':'none'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
               <Paypal total={totalCost}  className='cursor-not-allowed'/> 
+              <button onClick={()=>payWithAffirm()}> Affirm </button>
             </div>
 
             <div style={{display: enablePayment ? 'none':'block'}}>
