@@ -263,16 +263,16 @@ function Header() {
         <div className="flex items-center justify-between h-full space-x-10">
           <div>
             <p className="text-[12px] text-gray-500 font-medium"> Ask an Expert </p>
-            <p className="text-[12px] text-red font-bold -mt-1"> 877-659-2619 </p>
+            <p className="text-[12px] text-red font-bold -mt-1"> <a href="tel:877-659-2619">(877) 659-2619</a> </p>
           </div>
           <div>
             <p className="text-[12px] text-gray-500 font-medium"> Are you a pro ? </p>
             <p className="text-[12px] text-red font-bold -mt-1"> Get (PRO) pricing </p>
           </div>
-          <div>
+          {/* <div>
             <p className="text-[12px] text-gray-500 font-medium"> Sign In </p>
             <p className="text-[12px] text-red font-bold -mt-1"> My Account </p>
-          </div>
+          </div> */}
           <Link to="/cart" className="flex relative">
             <i className="bi bi-cart text-[25px] text-red"></i>
             {cartQuantity > 0 && (

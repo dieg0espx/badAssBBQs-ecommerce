@@ -3,6 +3,7 @@ import { usePurchase } from '../context/PurchaseContext'; // Make sure to adjust
 import gif from '../images/gifEcommerce.gif'
 
 function CheckoutAuthorized() {
+  const serverURL = process.env.REACT_APP_SERVER_URL
   const { orderData, resetPurchase } = usePurchase();
 
   useEffect(()=>{
@@ -16,7 +17,7 @@ function CheckoutAuthorized() {
 
   const sentEmailConfirmation = async () => {
     try {
-      const response = await fetch('https://server-badassbbqs.vercel.app/newPurchase', {
+      const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

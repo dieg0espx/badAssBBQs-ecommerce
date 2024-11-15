@@ -9,13 +9,14 @@ import affirmLogo from '../images/affirmLogo.png'
 
 
 const Checkout = () => {
+  const serverURL = process.env.REACT_APP_SERVER_URL
+  const affirmPublicAPIKey= process.env.REACT_APP_PUBLIC_API_AFFIRM
   const { userInfo, setUserInfo } = usePurchase();
   const { cartItems, removeFromCart, updateQuantity } = useCart();
   const [errors, setErrors] = useState({});
   const [enablePayment, setEnablePayments] = useState(false);
   const [alertForm, setAlertForm] = useState(false);
   const [isFormDirty, setIsFormDirty] = useState(false);
-
 
 
   const totalCost = cartItems.reduce((accumulator, item) => {
@@ -114,9 +115,9 @@ const Checkout = () => {
   
     window.affirm.checkout({
       merchant: {
-        user_confirmation_url: "http://localhost:8080/api/confirm-order",
-        user_cancel_url: "https://bad-ass-bb-qs-ecommerce.vercel.app/checkout-canceled-affirm",
-        public_api_key: "ENJBDHG33UOBFFPO",
+        user_confirmation_url: `${serverURL}/api/confirm-order`,
+        user_cancel_url: `${serverURL}/checkout-canceled-affirm`,
+        public_api_key: affirmPublicAPIKey,
         user_confirmation_url_action: "POST",
         name: "BadAssBBQs",
       },

@@ -5,6 +5,7 @@ import axios from "axios";
 import gif from '../images/gifEcommerce.gif'
 
 const CheckoutConfirmation = () => {
+  const serverURL = process.env.REACT_APP_SERVER_URL
   const [transactionId, setTransactionId] = useState(null);
   const [error, setError] = useState(null);
   const location = useLocation();
@@ -26,7 +27,7 @@ const CheckoutConfirmation = () => {
     const checkoutToken = searchParams.get("checkout_token");
 
     if (checkoutToken) {
-      axios.post("http://localhost:8080/api/authorize-charge", { checkoutToken })
+      axios.post(`${serverURL}/api/authorize-charge`, { checkoutToken })
         .then(response => {
           setTransactionId(response.data.transactionId);
         })
@@ -50,7 +51,7 @@ const CheckoutConfirmation = () => {
 
   const sentEmailConfirmation = async () => {
     try {
-      const response = await fetch('https://server-badassbbqs.vercel.app/newPurchase', {
+      const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderData }),

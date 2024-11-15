@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Paypal = ({total}) => {
+    const paypalClient = process.env.REACT_APP_PAYPAL_CLIENT
     const navigate = useNavigate(); // Initialize navigate for redirection
 
     const initialOptions = {
-        "client-id": "AbKKJ_keuxt7l-0XAeeZqW3rqhcfFOeb50Sy8AlpG17Hwp3IcbqXrFuGEQ1kQLn4w3zZZJCCYIfZD-Pf",
+        "client-id": paypalClient,
         currency: "USD",
         intent: "capture"
     };
