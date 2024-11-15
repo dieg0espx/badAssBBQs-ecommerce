@@ -5,15 +5,15 @@ import { useLocation } from "react-router-dom";
 
 
 function AffirmConfirmation() {
-  const { orderData, resetPurchase } = usePurchase();
+  // const { orderData, resetPurchase } = usePurchase();
 
-  useEffect(()=>{
-    window.scrollTo({
-      top: 0,
-      behavior: 'auto',
-    });
-    resetPurchase()
-  },[])
+  // useEffect(()=>{
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'auto',
+  //   });
+  //   resetPurchase()
+  // },[])
   
   const [transactionId, setTransactionId] = useState(null);
   const location = useLocation();

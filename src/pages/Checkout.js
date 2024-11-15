@@ -124,13 +124,14 @@ const Checkout = () => {
           last: userInfo.lastName,
         },
         address: {
-          line1: userInfo.address,
-          city: userInfo.city,
-          state: userInfo.state,
-          zipcode: userInfo.postalCode,
-          country: userInfo.country,
+          "line1":"633 Folsom St",
+          "line2":"Floor 7",
+          "city":"San Francisco",
+          "state":"CA",
+          "zipcode":"94107",
+          "country":"USA"
         },
-        phone_number: userInfo.phone,
+        phone_number: "4153334567",
         email: userInfo.email,
       },
       billing: {
@@ -139,13 +140,14 @@ const Checkout = () => {
           last: userInfo.lastName,
         },
         address: {
-          line1: userInfo.address,
-          city: userInfo.city,
-          state: userInfo.state,
-          zipcode: userInfo.postalCode,
-          country: userInfo.country,
+          "line1":"633 Folsom St",
+          "line2":"Floor 7",
+          "city":"San Francisco",
+          "state":"CA",
+          "zipcode":"94107",
+          "country":"USA"
         },
-        phone_number: userInfo.phone,
+        phone_number: "4153334567",
         email: userInfo.email,
       },
       items: itemsForAffirm,
@@ -248,7 +250,7 @@ const Checkout = () => {
                 <p className="text-[15px]"> <b>State</b> :  {userInfo.state} </p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2">
-                <p className="text-[15px]"> <b>Country</b> :  {userInfo.country} </p>
+                <p className="text-[15px]"> <b>Country</b> :  {'USA'} </p>
                 <p className="text-[15px]"> <b>Postal Code</b> :  {userInfo.postalCode} </p>
               </div>
             </div> 
