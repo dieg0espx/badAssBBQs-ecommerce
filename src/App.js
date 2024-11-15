@@ -17,6 +17,7 @@ import ShippingPolicy from './pages/ShippingPolicy'
 import DefectiveProduct from './pages/DefectiveProduct';
 import ReturnPolicy from './pages/ReturnPolicy'
 import Contact from './pages/Contact';
+import OrderStatus from './pages/OrderStatus';
 
 import CheckoutConfirmation from './pages/CheckoutConfirmation';
 
@@ -45,6 +46,7 @@ function App() {
             <Route path='/defective-product' element={<DefectiveProduct />} />
             <Route path='/return-policy' element={<ReturnPolicy />} />
             <Route path='/contact' element={<Contact />} />
+            <Route path='/order-status' element={<OrderStatus />} />
             
             <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>} />
           </Routes>
