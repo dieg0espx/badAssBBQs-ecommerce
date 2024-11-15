@@ -241,7 +241,7 @@ function Header() {
             Gift Cards
           </Link>
           <Link
-            to="/contact"
+            to="/order-status"
             className="text-[10px] font-medium border-r border-black pr-2 hover:text-red"
           >
             Check Order Status
@@ -412,10 +412,13 @@ function Header() {
 
 
 
-            {/* <div className="border boder-b-gray-500 ">
-              <p className="px-5 py-3 font-bold"> GET [PRO] PRICING </p>
+           <div className="border boder-b-gray-500 px-5 py-3">
+              <Link to="/order-status">
+                  <p className="text-[18px] text-gray-500"> Order Status </p>
+              </Link>
             </div>
 
+           {/* 
             <div className="border boder-b-gray-500 ">
               <p className="px-5 py-3"> My Account </p>
             </div>
@@ -434,6 +437,8 @@ function Header() {
             <p className="px-5 py-3 underline"> <i class="bi bi-telephone mr-3"></i><a href="tel:877-659-2619">(877) 659-2619</a> </p>
             <p className="px-5 py-3 underline"> <i class="bi bi-chat-left-text mr-3"></i><a href="/contact">Chat with an Expert</a> </p>
             <p className="px-5 py-3 underline"> <i class="bi bi-envelope mr-3"></i><a href="/contact">Email Us</a> </p>
+
+            
 
 
         </div>
