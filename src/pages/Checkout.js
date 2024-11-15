@@ -116,7 +116,7 @@ const Checkout = () => {
   
     window.affirm.checkout({
       merchant: {
-        user_confirmation_url: "https://server-badassbbqs.vercel.app/api/authorize-charge",
+        user_confirmation_url: "http://localhost:8080/api/confirm-order",
         user_cancel_url: "https://bad-ass-bb-qs-ecommerce.vercel.app/checkout-canceled-affirm",
         public_api_key: "ENJBDHG33UOBFFPO",
         user_confirmation_url_action: "POST",
@@ -231,7 +231,7 @@ const Checkout = () => {
               {errors.address && <p className="text-red text-sm">{errors.address}</p>}
             </div>
 
-            <div style={{display: enablePayment ? 'block':'none'}}>
+            <div style={{display: enablePayment ? 'block':'block'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
               <Paypal total={totalCost}  className='cursor-not-allowed'/> 
               <button onClick={()=>payWithAffirm()}> Affirm </button>
