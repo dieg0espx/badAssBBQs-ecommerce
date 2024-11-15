@@ -6,7 +6,7 @@ import Paypal from '../components/Paypal';
 import Affirm from "../components/Affirm";
 import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accordingly
 import fakePaypal from '../images/fakePaypal.png'
-
+import { useLocation } from "react-router-dom";
 
 const Checkout = () => {
   const { userInfo, setUserInfo } = usePurchase();
@@ -15,6 +15,8 @@ const Checkout = () => {
   const [enablePayment, setEnablePayments] = useState(false);
   const [alertForm, setAlertForm] = useState(false);
   const [isFormDirty, setIsFormDirty] = useState(false);
+
+
 
   const totalCost = cartItems.reduce((accumulator, item) => {
     return accumulator + item.Price * item.quantity;
@@ -97,6 +99,27 @@ const Checkout = () => {
       behavior: 'auto',
     });
   }, []);
+
+
+  const [transactionId, setTransactionId] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const checkoutToken = searchParams.get("checkout_token");
+
+    if (checkoutToken) {
+      // Send checkoutToken to the backend for authorization
+      axios.post("https://server-badassbbqs.vercel.app/api/authorize-charge", { checkoutToken })
+        .then(response => {
+          setTransactionId(response.data.transactionId);
+        })
+        .catch(error => {
+          console.error("Error authorizing charge:", error);
+        });
+    }
+  }, [location]);
+
 
 
   const payWithAffirm = () => {
