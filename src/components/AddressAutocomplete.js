@@ -3,8 +3,9 @@ import { Autocomplete, useLoadScript } from "@react-google-maps/api";
 const libraries = ["places"];
 
 const AddressAutocomplete = ({ onAddressSelect }) => {
+  const GoogleApiKey = process.env.REACT_APP_GOOGLE_API
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyD9uq43MmBP42vLtAlPjgdz9V8MosUeUMM", // Replace with your Google API key
+    googleMapsApiKey: GoogleApiKey,
     libraries,
   });
 
