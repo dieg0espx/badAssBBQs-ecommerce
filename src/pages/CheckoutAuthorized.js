@@ -1,21 +1,33 @@
-import React, { useEffect } from 'react';
-import { usePurchase } from '../context/PurchaseContext'; // Make sure to adjust the path accordingly
-import gif from '../images/gifEcommerce.gif'
+import React, { useEffect, useRef } from 'react';
+import { usePurchase } from '../context/PurchaseContext';
+import { useOrdersContext } from '../context/OrdersContext';
+import gif from '../images/gifEcommerce.gif';
+import { generateOrderId } from '../Utils/Helpers';
 
 function CheckoutAuthorized() {
-  const serverURL = process.env.REACT_APP_SERVER_URL
+  const serverURL = process.env.REACT_APP_SERVER_URL;
   const { orderData, resetPurchase } = usePurchase();
+  const { addOrder } = useOrdersContext();
 
-  useEffect(()=>{
+  // Add a ref to prevent duplicate execution
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (hasRun.current) return; // Skip if it has already run
+    hasRun.current = true;
+
     window.scrollTo({
       top: 0,
       behavior: 'auto',
     });
-    sentEmailConfirmation()
-    resetPurchase()
-  },[])
 
-  const sentEmailConfirmation = async () => {
+    sendEmailConfirmation();
+    saveOrder(); // Add the order to the database
+    resetPurchase();
+  }, []);
+
+  // Function to send email confirmation
+  const sendEmailConfirmation = async () => {
     try {
       const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
@@ -30,27 +42,46 @@ function CheckoutAuthorized() {
       console.error('Error sending email confirmation:', error);
     }
   };
-  
-  
+
+  // Function to save the order to the database
+  const saveOrder = async () => {
+    console.log('Saving NEW ORDER ...');
+    
+    const newOrder = {
+      order_id: await generateOrderId(), // Generate a unique order ID
+      user: {
+        name: orderData.name,
+        email: orderData.email,
+        phone: orderData.phone,
+        address: orderData.address,
+        city: orderData.city,
+        state: orderData.state,
+        postalCode: orderData.postalCode,
+        country: orderData.country,
+      },
+      products: orderData.products,
+      payment_method: 'Paypal', 
+      status: 'Approved', 
+    };
+
+    addOrder(newOrder); // Add the order to the OrdersContext
+  };
 
   return (
     <div className="container text-center mt-5 h-[80vh] ">
-      <div className='w-[80%] m-auto mt-[10vh]'>
-          {/* <i className="bi bi-check-circle-fill text-red display-3 mb-3 text-[50px] "></i> */}
-          <img src={gif} className='m-auto scale-[1.5] z-0  relative'/>
-          <h1 className="text-red mb-3 text-[30px] -mt-[50px] z-20 relative">Thank You for Your Order!</h1>
+      <div className="w-[80%] m-auto mt-[10vh]">
+        <img src={gif} className="m-auto scale-[1.5] z-0 relative" alt="Order Complete" />
+        <h1 className="text-red mb-3 text-[30px] -mt-[50px] z-20 relative">Thank You for Your Order!</h1>
 
-          <p className="relative">
-            <strong>Your payment has been successfully processed, and your order is complete.</strong>
-          </p>
-          <p className="relative">
-            A confirmation has been sent to the email you provided.Please check your inbox for more details.
-          </p>
+        <p className="relative">
+          <strong>Your payment has been successfully processed, and your order is complete.</strong>
+        </p>
+        <p className="relative">
+          A confirmation has been sent to the email you provided. Please check your inbox for more details.
+        </p>
       </div>
     </div>
   );
 }
 
 export default CheckoutAuthorized;
-
-

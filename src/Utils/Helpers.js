@@ -65,3 +65,9 @@ export function formatPhoneNumber(phoneNumber) {
   const formattedNumber = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
   return formattedNumber;
 }
+
+
+export const generateOrderId = () => {
+  const timestamp = Date.now();
+  return timestamp.toString(36).toUpperCase(); // Convert to Base36 and uppercase
+};

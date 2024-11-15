@@ -6,6 +6,8 @@ import ProductDetails from './pages/ProductDetails';
 import { ProductsProvider } from './context/ProductsContext';
 import { CartProvider } from './context/CartContext';
 import { PurchaseProvider } from './context/PurchaseContext'; // Adjust the path
+import { OrdersProvider } from './context/OrdersContext';
+
 import Home from './pages/Home'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout';
@@ -27,6 +29,7 @@ function App() {
       <ProductsProvider>
       <CartProvider>
       <PurchaseProvider>
+      <OrdersProvider>
       <Header />
       <div className='pt-0 xl:pt-[120px] max-w-[1400px] mx-auto'>
           <Routes>
@@ -46,6 +49,7 @@ function App() {
             <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>} />
           </Routes>
       </div>
+      </OrdersProvider>
       </PurchaseProvider>
       </CartProvider >
       </ProductsProvider>

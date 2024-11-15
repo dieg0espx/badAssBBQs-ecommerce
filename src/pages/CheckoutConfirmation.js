@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { usePurchase } from '../context/PurchaseContext'; // Make sure to adjust the path accordingly
+import { useOrdersContext } from '../context/OrdersContext';
 import axios from "axios";
 import gif from '../images/gifEcommerce.gif'
+import { generateOrderId } from '../Utils/Helpers';
 
 const CheckoutConfirmation = () => {
   const serverURL = process.env.REACT_APP_SERVER_URL
@@ -11,6 +13,7 @@ const CheckoutConfirmation = () => {
   const location = useLocation();
   const { orderData: contextOrderData, resetPurchase } = usePurchase();
   const [orderData, setOrderData] = useState(contextOrderData || null);
+  const { addOrder } = useOrdersContext();
 
   useEffect(() => {
     if (!contextOrderData) {
@@ -44,6 +47,7 @@ const CheckoutConfirmation = () => {
     if (orderData) {
       console.log(orderData);
       sentEmailConfirmation();
+      saveOrder()
       resetPurchase();
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -62,6 +66,30 @@ const CheckoutConfirmation = () => {
       console.error('Error sending email confirmation:', error);
     }
   };
+
+  const saveOrder = async () => {
+    console.log('Saving NEW ORDER ...');
+    
+    const newOrder = {
+      order_id: await generateOrderId(), // Generate a unique order ID
+      user: {
+        name: orderData.name,
+        email: orderData.email,
+        phone: orderData.phone,
+        address: orderData.address,
+        city: orderData.city,
+        state: orderData.state,
+        postalCode: orderData.postalCode,
+        country: orderData.country,
+      },
+      products: orderData.products,
+      payment_method: 'Affirm', 
+      status: 'Approved', 
+    };
+
+    addOrder(newOrder); // Add the order to the OrdersContext
+  };
+
 
   return (
     <div className="container text-center mt-5 h-[80vh] ">
