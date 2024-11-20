@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import ParagraphSkeleton from './ParagraphSkeleton';
 
 
 const ProductDescription = ({ product }) => {
@@ -22,24 +23,16 @@ const ProductDescription = ({ product }) => {
   }, [product]);
   
   const loadProduct = async () => {
-    console.log(`CHECKING: ${product.brand}-${product.Id}`);
     const exists = await productExists(`${product.brand}-${product.Id}`);
     if (!exists) {
-      console.log('PRODUCT DOES NOT EXIST ...');
-      console.log('CREATING NEW DESCRIPTION ...');
       sendPromptToOpenAI(
         "Format the following text with proper punctuation and structure. Use **text** to highlight only critical details, such as key features, specifications, or essential points. Avoid overusing bold for general information. Use double newlines (\\n\\n) to indicate where line breaks are needed to improve readability. Ensure the output is easy to read, concise, and visually appealing:\n\n" +
         product.Description.split('Legal disclaimers and warnings')[0]
       );       
-    } else {
-      console.log('Product Already Exists');
-      console.log('Taking Description From Database...');
-    }
+    } 
   };
   
   async function productExists(product_id) {
-    console.log('CHECKING IF PRODUCT EXIST.....');
-    
     try {
         const { data, error } = await supabase
           .from('products') // Replace 'products' with your actual table name
@@ -54,8 +47,6 @@ const ProductDescription = ({ product }) => {
         if (error) {
           throw error; // Handle other errors
         }
-    
-        // If the product exists, call setDescription()
         setDescription(data.description);
         setLoading(false)
         return true; // Optionally, return true to indicate success
@@ -66,10 +57,7 @@ const ProductDescription = ({ product }) => {
   }
 
   const sendPromptToOpenAI = async (prompt) => {
-    console.log('SENDING PROMPT TO OPEN AI');
-    
     const apiUrl = 'https://server-badassbbqs.vercel.app/generate-text';
-
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -85,8 +73,6 @@ const ProductDescription = ({ product }) => {
       }
 
       const data = await response.json();
-      console.log('ANSWER: ');
-      console.log(data);
       setDescription(data)
       setLoading(false)
       await saveNewDescription(data)
@@ -125,8 +111,6 @@ const ProductDescription = ({ product }) => {
         </React.Fragment>
       ));
   };
-
-
   const saveNewDescription = async(newDescription) => {
     const { data, error } = await supabase
     .from('products')
@@ -134,15 +118,33 @@ const ProductDescription = ({ product }) => {
       { product_id: `${product.brand}-${product.Id}`, description: newDescription },
     ])
     .select()
-    console.log('NEW DESCRIPTION STORED ..');
   }
   
-  if (loading) return <p>Loading...</p>;
+  if (loading) 
+  return (  
+    <>
+        <ParagraphSkeleton /> 
+        <br/>
+        <ParagraphSkeleton /> 
+        <br/>
+        <ParagraphSkeleton /> 
+    </> 
+  );
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      <p className="text-gray-700 mt-0">{formatTextWithLineBreaksAndBold(description)}</p>
+        {description ? 
+          <p className="text-gray-700 mt-0">{formatTextWithLineBreaksAndBold(description)}</p>
+            :
+            <>
+                <ParagraphSkeleton /> 
+                <br/>
+                <ParagraphSkeleton /> 
+                <br/>
+                <ParagraphSkeleton /> 
+            </>
+        }
       <h2 className="text-lg font-semibold mt-5 mb-5">Legal disclaimers and warnings</h2>
       <p>{product.Description.split('Legal disclaimers and warnings')[1]}</p> 
     </div>

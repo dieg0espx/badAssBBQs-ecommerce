@@ -11,6 +11,7 @@ import Categories from '../components/Categories';
 import AskExpert from '../components/AsxExpert'
 import ProductMiniature from '../components/ProductMiniature';
 import ProductDescription from '../components/ProductDescription';
+import Loader from '../components/Loader';
 
 
 const ProductDetails = () => {
@@ -51,12 +52,8 @@ const ProductDetails = () => {
   },[product])
 
 
-
-  
-
-
   if (!product) {
-    return <p className="text-red-500">Product not found.</p>;
+    return <Loader />;
   }
 
   // Function to format specifications into a list
@@ -144,7 +141,7 @@ const ProductDetails = () => {
 
               <p className='font-bold'> In Stock </p>
               <p className='text-gray-500 mb-5'> {product.brand == 'the_outdoor_plus'? "This item leaves our warehouse within 4 - 6 weeks":"This item leaves our warehouse within 24 Hours"}  </p>
-              <p class="affirm-as-low-as mb-[20px]" data-page-type="cart" data-amount={product.Price*100}></p>
+              <p className="affirm-as-low-as mb-[20px]" data-page-type="cart" data-amount={product.Price*100}></p>
 
               <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} product={product}/>
               
@@ -176,18 +173,6 @@ const ProductDetails = () => {
           <div>
             <h2 className="text-lg font-semibold mb-5">Description</h2>
             <ProductDescription product={product}/>
-            {/* <p className="text-gray-700 mt-0">
-              {product.Description.split('Legal disclaimers and warnings').map((part, index) => (
-                <React.Fragment key={index}>
-                  {part}
-                  {index < product.Description.split('Legal disclaimers and warnings').length - 1 && (
-                    <>
-                      <h2 className="text-lg font-semibold mt-5 mb-5">Legal disclaimers and warnings</h2>
-                    </>
-                  )}
-                </React.Fragment>
-              ))}
-            </p> */}
           </div>
           <div> 
             <AskExpert />
@@ -196,7 +181,7 @@ const ProductDetails = () => {
 
         
        
-        <div className="mt-6">
+        <div className="mt-6" style={{display: product.Specifications.length > 0 ? 'block' : 'none'}}>
           <h2 className="text-lg font-semibold mt-5 mb-5">Specifications</h2>
           <table className="min-w-full border-collapse border border-gray-300">
             <tbody>

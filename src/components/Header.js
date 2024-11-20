@@ -173,13 +173,13 @@ function Header() {
           <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-y-[20px] p-[30px] align-center items-center"> 
             <Link to={`/products/all/all`} className="flex justify-between w-[80%] m-auto text-gray-500 hover:text-red font-[600]">
                   <p> All Brands  </p>
-                  <i class="bi bi-chevron-right"></i>
+                  <i className="bi bi-chevron-right"></i>
             </Link>
             {brands.map((brand) => (
               <div key={brand}>
                 <Link to={`/products/${brand}/all`} className="flex justify-between w-[80%] m-auto text-gray-500 hover:text-red font-[600]">
                   <p> {formatBrandName(brand.replace('_', ' '))} </p>
-                  <i class="bi bi-chevron-right"></i>
+                  <i className="bi bi-chevron-right"></i>
                 </Link>
               </div>
             ))}
@@ -258,7 +258,7 @@ function Header() {
         <div className="flex items-center justify-between h-full">
           <img src={logo_header} className="h-full mr-[20px]" onClick={goHome}/>
           <SearchBar />
-          <i class="bi bi-search -ml-10"></i>
+          <i className="bi bi-search -ml-10"></i>
         </div>
         <div className="flex items-center justify-between h-full space-x-10">
           <div>
@@ -287,25 +287,25 @@ function Header() {
       <div onMouseLeave={()=>setCategory(0)} >
         <div className=" max-w-[1500px] mx-auto flex items-center justify-between space-x-2 -mt-2 h-12 px-5" >
           <button onMouseOver={()=>setCategory(1)} className="text-[12px] font-medium hover:text-red">
-              Grills & Outdoor Cooking <i class="bi bi-chevron-down"></i>
+              Grills & Outdoor Cooking <i className="bi bi-chevron-down"></i>
           </button>
           <button onMouseOver={()=>setCategory(2)} className="text-[12px] font-medium hover:text-red">
-             Outdoor Kitchens <i class="bi bi-chevron-down"></i>
+             Outdoor Kitchens <i className="bi bi-chevron-down"></i>
           </button>
           {/* <button onMouseOver={()=>setCategory(3)} className="text-[12px] font-medium hover:text-red">
-              Outdoor Forniture <i class="bi bi-chevron-down"></i>
+              Outdoor Forniture <i className="bi bi-chevron-down"></i>
           </button> */}
           <button onMouseOver={()=>setCategory(3)} className="text-[12px] font-medium hover:text-red">
-              Outdoor Heating & More <i class="bi bi-chevron-down"></i>
+              Outdoor Heating & More <i className="bi bi-chevron-down"></i>
           </button>
           <button onMouseOver={()=>setCategory(5)} className="text-[12px] font-medium hover:text-red">
-              BBQ Accessories <i class="bi bi-chevron-down"></i>
+              BBQ Accessories <i className="bi bi-chevron-down"></i>
           </button>
           <button onMouseOver={()=>setCategory(6)} className="text-[12px] font-medium hover:text-red">
-              Brands <i class="bi bi-chevron-down"></i>
+              Brands <i className="bi bi-chevron-down"></i>
           </button>
           {/* <button onMouseOver={()=>setCategory(7)} className="text-[12px] font-medium hover:text-red">
-              Sales & Offers <i class="bi bi-chevron-down"></i>
+              Sales & Offers <i className="bi bi-chevron-down"></i>
           </button> */}
         </div>
         <div className="fixed w-full h-[250px] flex justify-center items-center bg-white -mt-[8px] px-5 z-50 shadow-md" style={{display: category !== 0 ? 'block':'none'}}>
@@ -315,7 +315,7 @@ function Header() {
       <div className="fixed b-0 l-0 w-full h-full bg-[rgba(0,0,0,0.3)] z-10" style={{display: category !== 0 ? 'block':'none'}}/>
       <div className="bg-red text-center flex items-center justify-center -mt-2  py-0.5">
         <Link to="/contact" className="text-[15px] text-white  font-medium">
-            Save Up to $450 on Blaze LTE + Grills & Much More <i class="bi bi-chevron-right"></i>
+            Save Up to $450 on Blaze LTE + Grills & Much More <i className="bi bi-chevron-right"></i>
         </Link>
       </div>
     </div>
@@ -344,7 +344,7 @@ function Header() {
       <SearchBar />
       <div className="bg-red text-center flex items-center justify-center py-[7px] mt-3 w-full">
         <Link to="/contact" className="text-[12px] text-white  font-medium">
-            Save Up to $450 on Blaze LTE + Grills & Much More <i class="bi bi-chevron-right"></i>
+            Save Up to $450 on Blaze LTE + Grills & Much More <i className="bi bi-chevron-right"></i>
         </Link>
       </div>
 
@@ -354,10 +354,10 @@ function Header() {
 
             <div className="flex border boder-b-gray-500  py-[10px] px-[8px] gap-5">
               <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center items-center">
-                <i class="bi bi-telephone-fill"></i> <p className="text-[13px]"> <a href="tel:877-659-2619">(877) 659-2619</a> </p>
+                <i className="bi bi-telephone-fill"></i> <p className="text-[13px]"> <a href="tel:877-659-2619">(877) 659-2619</a> </p>
               </div>
               <div className="basis-[50%] text-[15px] flex flex-row gap-3 justify-center items-center">
-                <i class="bi bi-chat-left-text"></i>  <p className="text-[13px]"> <a href="/contact">Message</a> </p>
+                <i className="bi bi-chat-left-text"></i>  <p className="text-[13px]"> <a href="/contact">Message</a> </p>
               </div>
             </div>
 
@@ -367,7 +367,7 @@ function Header() {
                   <p> Grills & Outdoor Cooking </p>
                 </div>
                 <div className="bassis-[5%] flex items-center">
-                  <i class="bi bi-chevron-compact-right text-red"></i>
+                  <i className="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
               <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/Outdoor%20Kitchens')}>
@@ -375,7 +375,7 @@ function Header() {
                   <p> Outdoor Kitchens </p>
                 </div>
                 <div className="bassis-[5%] flex items-center">
-                  <i class="bi bi-chevron-compact-right text-red"></i>
+                  <i className="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
               <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/Outdoor%20Heating%20&%20Accessories')}>
@@ -383,7 +383,7 @@ function Header() {
                   <p> Outdoor Heating & More </p>
                 </div>
                 <div className="bassis-[5%] flex items-center">
-                  <i class="bi bi-chevron-compact-right text-red"></i>
+                  <i className="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
               <div className="flex px-5 py-3" onClick={()=>mobileMenu('/products/all/BBQ%20Grilling%20Tools%20&%20Accessories')}>
@@ -391,7 +391,7 @@ function Header() {
                   <p> BBQ Accesories </p>
                 </div>
                 <div className="bassis-[5%] flex items-center">
-                  <i class="bi bi-chevron-compact-right text-red"></i>
+                  <i className="bi bi-chevron-compact-right text-red"></i>
                 </div>
               </div>
             </div>
@@ -403,7 +403,7 @@ function Header() {
                   <div key={brand}>
                     <Link to={`/products/${brand}/all`} className="flex justify-between w-[100%] m-auto text-gray-500 hover:text-red text-[18px]">
                       <p> {formatBrandName(brand.replace('_', ' '))} </p>
-                      <i class="bi bi-chevron-compact-right"></i>
+                      <i className="bi bi-chevron-compact-right"></i>
                     </Link>
                   </div>
                 ))}
@@ -434,9 +434,9 @@ function Header() {
             </div> */}
 
             <h2 className="px-5 py-3 font-bold"> Customer Service Hours: </h2>
-            <p className="px-5 py-3 underline"> <i class="bi bi-telephone mr-3"></i><a href="tel:877-659-2619">(877) 659-2619</a> </p>
-            <p className="px-5 py-3 underline"> <i class="bi bi-chat-left-text mr-3"></i><a href="/contact">Chat with an Expert</a> </p>
-            <p className="px-5 py-3 underline"> <i class="bi bi-envelope mr-3"></i><a href="/contact">Email Us</a> </p>
+            <p className="px-5 py-3 underline"> <i className="bi bi-telephone mr-3"></i><a href="tel:877-659-2619">(877) 659-2619</a> </p>
+            <p className="px-5 py-3 underline"> <i className="bi bi-chat-left-text mr-3"></i><a href="/contact">Chat with an Expert</a> </p>
+            <p className="px-5 py-3 underline"> <i className="bi bi-envelope mr-3"></i><a href="/contact">Email Us</a> </p>
 
             
 

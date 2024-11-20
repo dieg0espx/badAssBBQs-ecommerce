@@ -11,17 +11,17 @@ function AskExpert() {
         </div>
         <div className="text-left text-red ml-[15px] xl:ml-[6px] mb-2">
           <p className="flex items-center justify-start">
-            <span className="material-icons mr-2"><i class="bi bi-telephone"></i></span> <a href="tel:877-659-2619">(877) 659-2619</a>
+            <span className="material-icons mr-2"><i className="bi bi-telephone"></i></span> <a href="tel:877-659-2619">(877) 659-2619</a>
           </p>
         </div>
         <div className="text-left text-red ml-[15px] xl:ml-[6px] mb-2">
           <p className="flex items-center justify-start">
-            <span className="material-icons mr-2"><i class="bi bi-chat-left-text"></i></span> Live Chat
+            <span className="material-icons mr-2"><i className="bi bi-chat-left-text"></i></span> Live Chat
           </p>
         </div>
         <div className="text-left text-red ml-[15px] xl:ml-[6px]">
           <p className="flex items-center justify-start">
-            <span className="material-icons mr-2"><i class="bi bi-envelope"></i></span> Email an Expert
+            <span className="material-icons mr-2"><i className="bi bi-envelope"></i></span> Email an Expert
           </p>
         </div>
     </div>

@@ -13,11 +13,11 @@ function Footer() {
   return (
     <div className='w-full mt-5'>
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-10'> Why Choose BadAssBBQs </h2>
-      <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Learn more about us <i class="bi bi-chevron-right"></i> </Link>
+      <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Learn more about us <i className="bi bi-chevron-right"></i> </Link>
       <img src={banner8} className='w-full mx-auto mt-5' alt="Promotional Banner8"/>
       <img src={stars} className='block mt-10 mx-auto'/>
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-5'> What Are Our Customers Saying ? </h2>
-      <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Read Customers Reviews <i class="bi bi-chevron-right"></i> </Link>
+      <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Read Customers Reviews <i className="bi bi-chevron-right"></i> </Link>
      
       <div className='bg-[rgba(152,15,15,0.5)] pt-5 pb-[30px]'>
         <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-5'>  Join Our Email List for Sales, Recipes, Buying Guides, and More </h2>
@@ -83,8 +83,8 @@ function Footer() {
         </div> */}
         <img src={logoNegative} className='block mx-auto'/>
         <h2 className='text-center text-[20px] text-white text-center font-bold mt-5'> Talk to an expert now </h2>
-        <p className='text-white text-center text-center'> <i class="bi bi-telephone mr-5"></i> <a href="tel:877-659-2619">(877) 659-2619</a>  </p>
-        <p className='text-white text-center text-center'> <i class="bi bi-chat-left-text mr-3"></i> <a href="/contact">Chat with an Expert</a>  </p>
+        <p className='text-white text-center text-center'> <i className="bi bi-telephone mr-5"></i> <a href="tel:877-659-2619">(877) 659-2619</a>  </p>
+        <p className='text-white text-center text-center'> <i className="bi bi-chat-left-text mr-3"></i> <a href="/contact">Chat with an Expert</a>  </p>
         <div className='grid grid-cols-[1fr] xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] w-[80%] mx-auto justify-center mt-10'>
             <Link to='/privacy-policy' className='block text-white text-center font-light mb-5 hover:underline'> Privacy Policy </Link>
             <Link to='/shipping-policy' className='block text-white text-center font-light mb-5 hover:underline'> Shipping Policy </Link>
