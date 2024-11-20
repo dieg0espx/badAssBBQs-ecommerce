@@ -155,7 +155,7 @@ function Home() {
 
       <Link to='/products/all/all' className='block mt-10 mx-auto w-fit hover:underline hover:text-red text-[20px]'> Shop All Products </Link>
 
-      <img src={banner3} className='w-full mx-auto mt-10' alt="Promotional Banner3"/>
+      {/* <img src={banner3} className='w-full mx-auto mt-10' alt="Promotional Banner3"/> */}
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Departments </h2>
 
@@ -200,15 +200,15 @@ function Home() {
 
       <img src={banner4} className='w-full mx-auto mt-10' alt="Promotional Banner4"/>
 
-      <img src={banner5} className='w-full mx-auto mt-5' alt="Promotional Banner5"/>
+      {/* <img src={banner5} className='w-full mx-auto mt-5' alt="Promotional Banner5"/> */}
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Brands </h2>
 
-      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
+      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
         <img src={brand0} className='mx-auto -mt-3'/>
-        <img src={brand1} className='mx-auto'/>
+        {/* <img src={brand1} className='mx-auto'/> */}
         <img src={brand2} className='mx-auto'/>
-        <img src={brand3} className='mx-auto'/>
+        {/* <img src={brand3} className='mx-auto'/> */}
         <img src={brand4} className='mx-auto'/>
       </div>
 

@@ -156,7 +156,7 @@ const ProductDetails = () => {
               </p>
 
               <p className='font-bold'> In Stock </p>
-              <p className='text-gray-500 mb-5'> This item leaves our warehouse within 24 Hours </p>
+              <p className='text-gray-500 mb-5'> {product.brand == 'the_outdoor_plus'? "This item leaves our warehouse within 4 - 6 weeks":"This item leaves our warehouse within 24 Hours"}  </p>
               <p class="affirm-as-low-as mb-[20px]" data-page-type="cart" data-amount={product.Price*100}></p>
 
               <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} product={product}/>

@@ -11,7 +11,7 @@ function AskExpert() {
         </div>
         <div className="text-left text-red ml-[15px] xl:ml-[6px] mb-2">
           <p className="flex items-center justify-start">
-            <span className="material-icons mr-2"><i class="bi bi-telephone"></i></span> 1-855-503-0406
+            <span className="material-icons mr-2"><i class="bi bi-telephone"></i></span> <a href="tel:877-659-2619">(877) 659-2619</a>
           </p>
         </div>
         <div className="text-left text-red ml-[15px] xl:ml-[6px] mb-2">

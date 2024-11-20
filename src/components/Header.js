@@ -256,7 +256,7 @@ function Header() {
       </div>
       <div className="max-w-[1500px] mx-auto flex items-center justify-between space-x-2 mt-0 h-12 px-5">
         <div className="flex items-center justify-between h-full">
-          <img src={logo_header} className="h-full" onClick={goHome}/>
+          <img src={logo_header} className="h-full mr-[20px]" onClick={goHome}/>
           <SearchBar />
           <i class="bi bi-search -ml-10"></i>
         </div>
