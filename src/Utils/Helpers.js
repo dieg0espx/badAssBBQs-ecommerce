@@ -71,3 +71,10 @@ export const generateOrderId = () => {
   const timestamp = Date.now();
   return timestamp.toString(36).toUpperCase(); // Convert to Base36 and uppercase
 };
+
+
+export function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { year: "numeric", month: "long", day: "2-digit" };
+  return date.toLocaleDateString("en-US", options);
+}

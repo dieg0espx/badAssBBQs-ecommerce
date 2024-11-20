@@ -18,6 +18,7 @@ import DefectiveProduct from './pages/DefectiveProduct';
 import ReturnPolicy from './pages/ReturnPolicy'
 import Contact from './pages/Contact';
 import OrderStatus from './pages/OrderStatus';
+import Admin from './pages/Admin';
 
 import CheckoutConfirmation from './pages/CheckoutConfirmation';
 
@@ -49,6 +50,8 @@ function App() {
             <Route path='/order-status' element={<OrderStatus />} />
             
             <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>} />
+
+            <Route path='/admin' element={<Admin />} />
           </Routes>
       </div>
       </OrdersProvider>
