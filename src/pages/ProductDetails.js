@@ -10,6 +10,7 @@ import AddToCartQuantity from '../components/AddToCartQuantity';
 import Categories from '../components/Categories';
 import AskExpert from '../components/AsxExpert'
 import ProductMiniature from '../components/ProductMiniature';
+import ProductDescription from '../components/ProductDescription';
 
 
 const ProductDetails = () => {
@@ -29,30 +30,14 @@ const ProductDetails = () => {
     fetchProducts();
   }, [loadAllProducts]);
 
-
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'auto',
     });
   }, [id]);
-
-
-  useEffect(() => {
-    const fetchRelatedProducts = async () => {
-      const category = ["Outdoor Kitchens", "Built-In Grills"];
-      const amount = 15;
-      const products = await relatedProducts(category, amount);
-      setListRelated(products)
-      console.log("Related Products:", products);
-    };
-  
-    fetchRelatedProducts();
-  }, []);
-
-
+  // GETTING RELATED PRODUCTS
   const product = products.find((item) => `${item.brand}-${item.Id}` === id);
-
   useEffect(()=>{
     if(product){
       const fetchRelatedProducts = async () => {
@@ -60,9 +45,7 @@ const ProductDetails = () => {
         const amount = 15;
         const products = await relatedProducts(category, amount);
         setListRelated(products)
-        console.log("Related Products:", products);
       };
-    
       fetchRelatedProducts();
     }   
   },[product])
@@ -117,6 +100,10 @@ const ProductDetails = () => {
       },
     ],
   };
+
+
+
+  
 
 
   return (
@@ -188,7 +175,8 @@ const ProductDetails = () => {
         <div className="mt-6 block sm:grid grid-cols-[auto_200px] gap-10">
           <div>
             <h2 className="text-lg font-semibold mb-5">Description</h2>
-            <p className="text-gray-700 mt-0">
+            <ProductDescription product={product}/>
+            {/* <p className="text-gray-700 mt-0">
               {product.Description.split('Legal disclaimers and warnings').map((part, index) => (
                 <React.Fragment key={index}>
                   {part}
@@ -199,7 +187,7 @@ const ProductDetails = () => {
                   )}
                 </React.Fragment>
               ))}
-            </p>
+            </p> */}
           </div>
           <div> 
             <AskExpert />
@@ -211,50 +199,50 @@ const ProductDetails = () => {
         <div className="mt-6">
           <h2 className="text-lg font-semibold mt-5 mb-5">Specifications</h2>
           <table className="min-w-full border-collapse border border-gray-300">
-  <tbody>
-    {product.Specifications
-      // Filter out empty or "Details" specifications
-      .filter(spec => {
-        const [name] = Object.entries(spec)[0];
-        return name && name !== "Details";
-      })
-      // Group every 2 specifications into a single row
-      .reduce((rows, spec, index, filteredSpecs) => {
-        if (index % 2 === 0) {
-          rows.push(filteredSpecs.slice(index, index + 2));
-        }
-        return rows;
-      }, [])
-      // Map each row to a table row
-      .map((row, rowIndex) => (
-        <tr
-          key={rowIndex}
-          className="grid grid-cols-4 md:table-row" // Display as grid with 4 columns on larger screens
-        >
-          {row.map((spec, cellIndex) => {
-            const [name, value] = Object.entries(spec)[0];
-            return (
-              <React.Fragment key={cellIndex}>
-                <td className="border border-gray-300 p-2 font-semibold col-span-2 md:table-cell">
-                  {name}
-                </td>
-                <td className="border border-gray-300 p-2 col-span-2 md:table-cell">
-                  {value}
-                </td>
-              </React.Fragment>
-            );
-          })}
-          {/* If the last row has only 1 key-value pair, add empty cells to fill the row */}
-          {row.length < 2 && (
-            <React.Fragment>
-              <td className="border border-gray-300 p-2 col-span-2 md:table-cell"></td>
-              <td className="border border-gray-300 p-2 col-span-2 md:table-cell"></td>
-            </React.Fragment>
-          )}
-        </tr>
-      ))}
-  </tbody>
-</table>
+            <tbody>
+              {product.Specifications
+                // Filter out empty or "Details" specifications
+                .filter(spec => {
+                  const [name] = Object.entries(spec)[0];
+                  return name && name !== "Details";
+                })
+                // Group every 2 specifications into a single row
+                .reduce((rows, spec, index, filteredSpecs) => {
+                  if (index % 2 === 0) {
+                    rows.push(filteredSpecs.slice(index, index + 2));
+                  }
+                  return rows;
+                }, [])
+                // Map each row to a table row
+                .map((row, rowIndex) => (
+                  <tr
+                    key={rowIndex}
+                    className="grid grid-cols-4 md:table-row" // Display as grid with 4 columns on larger screens
+                  >
+                    {row.map((spec, cellIndex) => {
+                      const [name, value] = Object.entries(spec)[0];
+                      return (
+                        <React.Fragment key={cellIndex}>
+                          <td className="border border-gray-300 p-2 font-semibold col-span-2 md:table-cell">
+                            {name}
+                          </td>
+                          <td className="border border-gray-300 p-2 col-span-2 md:table-cell">
+                            {value}
+                          </td>
+                        </React.Fragment>
+                      );
+                    })}
+                    {/* If the last row has only 1 key-value pair, add empty cells to fill the row */}
+                    {row.length < 2 && (
+                      <React.Fragment>
+                        <td className="border border-gray-300 p-2 col-span-2 md:table-cell"></td>
+                        <td className="border border-gray-300 p-2 col-span-2 md:table-cell"></td>
+                      </React.Fragment>
+                    )}
+                  </tr>
+                ))}
+            </tbody>
+          </table>
 
         </div>
 
