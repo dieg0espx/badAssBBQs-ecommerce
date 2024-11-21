@@ -1,173 +1,129 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useAcceptJs } from 'react-acceptjs';
+import axios from 'axios';
+
 
 const PaymentForm = () => {
-  const [formData, setFormData] = useState({
-    cardNumber: "",
-    expirationDate: "",
-    cvv: "",
-    zipCode: "",
+  const authData = {
+    apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID,
+    clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY,
+  };
+
+  const { dispatchData, loading, error } = useAcceptJs({ authData });
+  const [cardData, setCardData] = useState({
+    cardNumber: '',
+    month: '',
+    year: '',
+    cardCode: '',
   });
-  const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    // Dynamically load Accept.js
-    const script = document.createElement("script");
-    script.src = "https://js.authorize.net/v1/Accept.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.onload = () => console.log("Accept.js loaded");
-    script.onerror = () => console.error("Error loading Accept.js");
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  const [status, setStatus] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setCardData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Processing payment...");
-
-    const { cardNumber, expirationDate, cvv, zipCode } = formData;
-
-    if (!window.Accept) {
-      setStatus("Payment processor not loaded. Please try again.");
-      return;
-    }
-
-    const [month, year] = expirationDate.split("/");
-    if (!month || !year || month.length !== 2 || year.length !== 4) {
-      setStatus("Invalid expiration date format. Use MM/YYYY.");
-      return;
-    }
-
-    // Ensure the environment variables are defined
-    if (
-      !process.env.REACT_APP_AUTHORIZE_CLIENT_KEY ||
-      !process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID
-    ) {
-      setStatus("Payment processor keys are missing. Check your environment variables.");
-      return;
-    }
-
-    const secureData = {
-      authData: {
-        clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY, // Your Client Key
-        apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID, // Your API Login ID
-      },
-      cardData: {
-        cardNumber,
-        month,
-        year,
-        cardCode: cvv,
-        zip: zipCode,
-      },
-    };
-
-    window.Accept.dispatchData(secureData, responseHandler);
-  };
-
-  const responseHandler = async (response) => {
-    if (response.messages.resultCode === "Error") {
-      setStatus(`Payment Failed: ${response.messages.message[0].text}`);
-    } else {
-      const { opaqueData } = response;
-
-      try {
-        const backendResponse = await axios.post(
-          "https://server-badassbbqs.vercel.app/api/payment", // Replace with your backend endpoint
-          {
-            opaqueData,
-            amount: "10.00", // Replace with dynamic amount if needed
-          }
-        );
-
-        if (backendResponse.status === 200) {
-          setStatus(
-            `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
-          );
-        } else {
-          throw new Error("Unexpected response from server.");
-        }
-      } catch (error) {
-        const errorMessage =
-          error.response?.data?.error || "Failed to process payment.";
-        setStatus(`Payment failed: ${errorMessage}`);
+    setStatus('Processing payment...');
+  
+    try {
+      // Validate card data before dispatching
+      if (!cardData.cardNumber || !cardData.month || !cardData.year || !cardData.cardCode) {
+        setStatus('Please fill in all required fields.');
+        return;
       }
+  
+      // Dispatch the card data to Accept.js
+      const response = await dispatchData({ cardData });
+  
+      // Check if the response is successful
+      if (response.messages.resultCode === 'Ok') {
+        const { opaqueData } = response;
+  
+        try {
+          // Send opaqueData to your backend server for further processing
+          const backendResponse = await axios.post(
+            'https://server-badassbbqs.vercel.app/api/payment', // Replace with your backend endpoint
+            {
+              opaqueData,
+              amount: '10.00', // Replace with the actual amount
+            }
+          );
+  
+          if (backendResponse.status === 200) {
+            setStatus(
+              `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
+            );
+          } else {
+            throw new Error('Unexpected backend response.');
+          }
+        } catch (backendError) {
+          const errorMessage =
+            backendError.response?.data?.error || 'Failed to process payment on the server.';
+          setStatus(`Payment failed: ${errorMessage}`);
+        }
+      } else {
+        // Handle errors returned by Accept.js
+        setStatus(`Payment failed: ${response.messages.message[0].text}`);
+      }
+    } catch (err) {
+      // Handle unexpected errors during dispatch
+      setStatus(`Payment error: ${err.message}`);
     }
   };
+  
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
-      <h2 className="text-xl font-bold mb-4">Authorize.net Payment</h2>
-      {status && (
-        <p
-          className={`mb-4 ${
-            status.includes("Failed") ? "text-red-500" : "text-green-500"
-          }`}
-        >
-          {status}
-        </p>
-      )}
+    <div>
+      <h2>Authorize.net Payment</h2>
+      {status && <p>{status}</p>}
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium">Card Number</label>
+        <div>
+          <label>Card Number</label>
           <input
             type="text"
             name="cardNumber"
-            value={formData.cardNumber}
+            value={cardData.cardNumber}
             onChange={handleChange}
             placeholder="Card Number"
-            className="w-full p-2 border rounded"
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium">Expiration Date (MM/YYYY)</label>
+        <div>
+          <label>Expiration Month (MM)</label>
           <input
             type="text"
-            name="expirationDate"
-            value={formData.expirationDate}
+            name="month"
+            value={cardData.month}
             onChange={handleChange}
-            placeholder="MM/YYYY"
-            className="w-full p-2 border rounded"
+            placeholder="MM"
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium">CVV</label>
+        <div>
+          <label>Expiration Year (YYYY)</label>
           <input
             type="text"
-            name="cvv"
-            value={formData.cvv}
+            name="year"
+            value={cardData.year}
+            onChange={handleChange}
+            placeholder="YYYY"
+            required
+          />
+        </div>
+        <div>
+          <label>CVV</label>
+          <input
+            type="text"
+            name="cardCode"
+            value={cardData.cardCode}
             onChange={handleChange}
             placeholder="CVV"
-            className="w-full p-2 border rounded"
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium">ZIP Code</label>
-          <input
-            type="text"
-            name="zipCode"
-            value={formData.zipCode}
-            onChange={handleChange}
-            placeholder="ZIP Code"
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-        >
+        <button type="submit" disabled={loading || error}>
           Pay Now
         </button>
       </form>
