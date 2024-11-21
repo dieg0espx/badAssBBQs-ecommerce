@@ -47,7 +47,7 @@ const PaymentForm = () => {
             'https://server-badassbbqs.vercel.app/api/payment', // Replace with your backend endpoint
             {
               opaqueData,
-              amount: '10.00', // Replace with the actual amount
+              amount: '100.00', // Replace with the actual amount
             }
           );
   
