@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAcceptJs } from 'react-acceptjs';
 import axios from 'axios';
-import logo from '../../images/authorizeLogo.png'
-import { toUppercase } from '../../Utils/Helpers';
+import logo from '../images/authorizeLogo.png'
+import { toUppercase } from '../Utils/Helpers';
 
 const PaymentForm = (props) => {
   const authData = {
@@ -69,7 +69,7 @@ const PaymentForm = (props) => {
         <img src={logo} className='max-w-[200px] ml-auto'/>
         {/* Credit Card Preview */}
         <div className="w-full flex items-center justify-center">
-          <div className="w-full h-[250px] bg-red text-white rounded-lg p-6 shadow-md relative">
+          <div className="w-full h-[240px] bg-red text-white rounded-lg p-6 shadow-md relative">
             {/* Card Header */}
             <div className="flex justify-between items-center">
               <div className="text-sm uppercase tracking-wide font-semibold">Credit Card</div>
@@ -130,7 +130,7 @@ const PaymentForm = (props) => {
                 name="cardNumber"
                 value={formatCardNumber(cardData.cardNumber)} // Dynamically format the value for display
                 onChange={handleChange}
-                placeholder="1234 5678 9123 0000"
+                placeholder="1234 1234 1234 1234"
                 className="w-full border-gray-300 rounded border border-gray-200 px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
                 maxLength={19} // Allows up to 16 digits plus 3 spaces
                 required

@@ -6,7 +6,7 @@ import Paypal from '../components/Paypal';
 import Affirm from "../components/Affirm";
 import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accordingly
 import affirmLogo from '../images/affirmLogo.png'
-import Authorize from '../components/AuthorizeNet/PaymentForm'
+import Authorize from '../components/PaymentForm'
 
 const Checkout = () => {
   const serverURL = process.env.REACT_APP_SERVER_URL
