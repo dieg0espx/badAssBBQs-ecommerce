@@ -8,7 +8,6 @@ import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accor
 import affirmLogo from '../images/affirmLogo.png'
 import Authorize from '../components/AuthorizeNet/PaymentForm'
 
-
 const Checkout = () => {
   const serverURL = process.env.REACT_APP_SERVER_URL
   const affirmPublicAPIKey= process.env.REACT_APP_PUBLIC_API_AFFIRM
@@ -18,6 +17,7 @@ const Checkout = () => {
   const [enablePayment, setEnablePayments] = useState(false);
   const [alertForm, setAlertForm] = useState(false);
   const [isFormDirty, setIsFormDirty] = useState(false);
+  const [popupCC, setPopupCC] = useState(true)
 
 
   const totalCost = cartItems.reduce((accumulator, item) => {
@@ -162,13 +162,16 @@ const Checkout = () => {
   
     window.affirm.checkout.open();
   };
+
+  const handleClose = (e) => {
+    if (e.target.id === 'overlay') {
+      setPopupCC(false);
+    }
+  };
   
 
   return (
     <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
-
-    {/* <Authorize /> */}
-
       <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
         <div className="flex flex-col sm:flex-row justify-between mb-[30px]">
           <p className="font-bold text-[30px] text-center sm:text-auto">CheckOut</p> 
@@ -235,16 +238,24 @@ const Checkout = () => {
             <div style={{display: enablePayment ? 'block':'none'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
               <div className="grid grid-cols-3 gap-[10px]">
-                <p className="h-[43px] bg-white text-center text-gray-800 border border-gray-500 rounded text-[15px] leading-[40px]"> <i className="bi bi-credit-card-2-front"></i> Credit Card </p>
+                <p className="h-[43px] bg-white text-center text-gray-800 border border-gray-500 rounded text-[15px] leading-[40px]" onClick={()=>setPopupCC(true)}> <i className="bi bi-credit-card-2-front"></i> Credit Card </p>
                 <Paypal total={totalCost}  className='cursor-not-allowed'/> 
                 <img src={affirmLogo} className="border border-gray-500 rounded px-[7px] h-[44px]" onClick={()=>payWithAffirm()} />
               </div>
             </div>
-
             <div style={{display: enablePayment ? 'none':'block'}}>
               <button onClick={handlePaymentClick} className="w-full px-4 py-2 mt-4 text-white bg-red rounded border border-red hover:bg-white hover:text-red" >Proceed to Payment </button>
             </div>
-            
+            {popupCC && (
+              <div id="overlay" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={handleClose}>
+                <div className="bg-white rounded-lg shadow-lg p-6 relative" onClick={(e) => e.stopPropagation()}> 
+                 <Authorize />
+                  <button className="absolute top-[15px] right-[15px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)}>
+                    <i className="bi bi-x-circle"></i>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
           <div className="rounded ">
             <div className="border border-gray-200 rounded px-[30px] py-[10px] mb-[10px]">

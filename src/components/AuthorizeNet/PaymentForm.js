@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAcceptJs } from 'react-acceptjs';
 import axios from 'axios';
 
-
 const PaymentForm = () => {
   const authData = {
     apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID,
@@ -26,133 +25,181 @@ const PaymentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('Processing payment...');
-  
     try {
-      // Validate card data before dispatching
       if (!cardData.cardNumber || !cardData.month || !cardData.year || !cardData.cardCode) {
         setStatus('Please fill in all required fields.');
         return;
       }
-  
-      // Dispatch the card data to Accept.js
+
       const response = await dispatchData({ cardData });
-  
-      // Check if the response is successful
       if (response.messages.resultCode === 'Ok') {
         const { opaqueData } = response;
-  
+
         try {
-          // Send opaqueData to your backend server for further processing
           const backendResponse = await axios.post(
-            'https://server-badassbbqs.vercel.app/api/payment', // Replace with your backend endpoint
-            {
-              opaqueData,
-              amount: '100.00', // Replace with the actual amount
-            }
+            'https://server-badassbbqs.vercel.app/api/payment',
+            { opaqueData, amount: '100.00' }
           );
-  
+
           if (backendResponse.status === 200) {
-            setStatus(
-              `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
-            );
+            setStatus(`Payment successful! Transaction ID: ${backendResponse.data.transactionId}`);
           } else {
             throw new Error('Unexpected backend response.');
           }
         } catch (backendError) {
-          const errorMessage =
-            backendError.response?.data?.error || 'Failed to process payment on the server.';
-          setStatus(`Payment failed: ${errorMessage}`);
+          setStatus(`Payment failed: ${backendError.response?.data?.error || 'Server error.'}`);
         }
       } else {
-        // Handle errors returned by Accept.js
         setStatus(`Payment failed: ${response.messages.message[0].text}`);
       }
     } catch (err) {
-      // Handle unexpected errors during dispatch
       setStatus(`Payment error: ${err.message}`);
     }
   };
-  
+
+  const formatCardNumber = (number) =>
+    number.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Authorize.net Payment</h2>
-    {status && (
-      <p
-        className={`mb-4 ${
-          status.includes("Failed") ? "text-red-500" : "text-green-500"
-        }`}
-      >
-        {status}
-      </p>
-    )}
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Card Number</label>
-        <input
-          type="text"
-          name="cardNumber"
-          value={cardData.cardNumber}
-          onChange={handleChange}
-          placeholder="Card Number"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-          required
-        />
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Expiration Month (MM)
-          </label>
-          <input
-            type="text"
-            name="month"
-            value={cardData.month}
-            onChange={handleChange}
-            placeholder="MM"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-            required
-          />
+    <div className="flex items-center justify-center px-4">
+      <div className="flex gap-[40px] flex-col w-[400px] ">
+      <h2> Authorize.Net</h2>
+        {/* Credit Card Preview */}
+        <div className="w-full flex items-center justify-center">
+          <div className="w-full h-[250px] bg-red text-white rounded-lg p-6 shadow-md relative">
+            {/* Card Header */}
+            <div className="flex justify-between items-center">
+              <div className="text-sm uppercase tracking-wide font-semibold">Credit Card</div>
+              <div className="w-10 h-6 bg-yellow-300 rounded-sm"></div> {/* Simulates a chip */}
+            </div>
+
+            {/* Card Number */}
+            <div className="text-xl font-semibold tracking-widest mt-6">
+              {cardData.cardNumber
+                ? formatCardNumber(cardData.cardNumber)
+                : '•••• •••• •••• ••••'}
+            </div>
+              
+            {/* Expiration and CVV */}
+            <div className="flex justify-between items-center mt-6">
+              <div>
+                <div className="text-xs uppercase tracking-wide">Expires</div>
+                <div className="text-sm font-medium">
+                  {cardData.month && cardData.year
+                    ? `${cardData.month}/${cardData.year.slice(-2)}`
+                    : 'MM/YY'}
+                </div>
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-wide">CVV</div>
+                <div className="text-sm font-medium">
+                  {cardData.cardCode || '•••'}
+                </div>
+              </div>
+            </div>
+                  
+            {/* Cardholder Name */}
+            <div className="absolute bottom-4 left-6">
+              <div className="text-xs uppercase tracking-wide">Cardholder</div>
+              <div className="text-sm font-medium">
+                {cardData.cardHolder || 'John Doe'}
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Expiration Year (YYYY)
-          </label>
-          <input
-            type="text"
-            name="year"
-            value={cardData.year}
-            onChange={handleChange}
-            placeholder="YYYY"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-            required
-          />
+        {/* Payment Form */}
+        <div className="w-full p-8 border border-gray-200 ">
+          {status && (
+            <p
+              className={`text-center mb-4 ${
+                status.toLowerCase().includes('failed') ? 'text-red-500' : 'text-green-500'
+              }`}
+            >
+              {status}
+            </p>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Card Number</label>
+              <input
+                type="text"
+                name="cardNumber"
+                value={cardData.cardNumber}
+                onChange={handleChange}
+                placeholder="1234 5678 9123 0000"
+                className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                maxLength={19}
+                required
+              />
+            </div>
+            <div className="flex space-x-4">
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-gray-700">Expiry Month (MM)</label>
+                <select
+                  name="month"
+                  value={cardData.month}
+                  onChange={handleChange}
+                  className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                >
+                  <option value="" disabled>Select Month</option>
+                  {[...Array(12)].map((_, index) => {
+                    const month = (index + 1).toString().padStart(2, '0');
+                    return (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-gray-700">Expiry Year (YYYY)</label>
+                <select
+                  name="year"
+                  value={cardData.year}
+                  onChange={handleChange}
+                  className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                >
+                  <option value="" disabled>Select Year</option>
+                  {Array.from({ length: 10 }, (_, index) => {
+                    const year = new Date().getFullYear() + index;
+                    return (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">CVV</label>
+              <input
+                type="text"
+                name="cardCode"
+                value={cardData.cardCode}
+                onChange={handleChange}
+                placeholder="123"
+                className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                maxLength={3}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className={`w-full py-3 text-white font-semibold rounded-lg border border-red ${
+                loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red hover:bg-white hover:text-red'
+              } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              disabled={loading || error}
+            >
+              {loading ? 'Processing...' : 'Pay Now'}
+            </button>
+          </form>
         </div>
       </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">CVV</label>
-        <input
-          type="text"
-          name="cardCode"
-          value={cardData.cardCode}
-          onChange={handleChange}
-          placeholder="CVV"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={loading || error}
-        className={`w-full py-2 px-4 text-white font-semibold rounded-lg shadow-md ${
-          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-        } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-      >
-        {loading ? "Processing..." : "Pay Now"}
-      </button>
-    </form>
-  </div>
-  
+    </div>
   );
 };
 
