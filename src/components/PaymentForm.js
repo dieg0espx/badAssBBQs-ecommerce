@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useAcceptJs } from 'react-acceptjs';
 import axios from 'axios';
+import logo from "../images/authorizeLogo.png";
+import { toUppercase } from "../Utils/Helpers";
 
 
-const PaymentForm = () => {
+
+const PaymentForm = (props) => {
   const authData = {
     apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID,
     clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY,
@@ -73,12 +76,48 @@ const PaymentForm = () => {
     }
   };
 
+  const formatCardNumber = (number) =>
+    number.replace(/\s/g, "").replace(/(\d{4})(?=\d)/g, "$1 ");
 
   return (
     <div>
-      <h2>Authorize.net Payment</h2>
+      <img src={logo} alt="Authorize Logo" className="max-w-[200px] ml-auto" />
       {status && <p>{status}</p>}
-      <form onSubmit={handleSubmit}>
+       {/* Credit Card Preview */}
+       <div className="w-full flex items-center justify-center">
+          <div className="w-full h-[230px] bg-red text-white rounded-lg p-6 shadow-2xl relative">
+            <div className="flex justify-between items-center">
+              <div className="text-sm uppercase tracking-wide font-semibold">Credit Card</div>
+              <div className="w-10 h-6 bg-yellow-300 rounded-sm"></div>
+            </div>
+            <div className="text-xl font-semibold tracking-widest mt-6">
+              {cardData.cardNumber
+                ? formatCardNumber(cardData.cardNumber)
+                : "•••• •••• •••• ••••"}
+            </div>
+            <div className="flex justify-between items-center mt-6">
+              <div>
+                <div className="text-xs uppercase tracking-wide">Expires</div>
+                <div className="text-sm font-medium">
+                  {cardData.month && cardData.year
+                    ? `${cardData.month}/${cardData.year.slice(-2)}`
+                    : "MM/YY"}
+                </div>
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-wide">CVV</div>
+                <div className="text-sm font-medium">{cardData.cardCode || "•••"}</div>
+              </div>
+            </div>
+            <div className="absolute bottom-4 left-6">
+              <div className="text-xs uppercase tracking-wide">Cardholder</div>
+              <div className="text-sm font-medium">
+                {toUppercase(props.name || "YOUR NAME")}
+              </div>
+            </div>
+          </div>
+        </div>
+      <form onSubmit={handleSubmit} className="w-full">
         <div>
           <label>Card Number</label>
           <input
@@ -123,8 +162,8 @@ const PaymentForm = () => {
             required
           />
         </div>
-        <button type="submit" disabled={loading || error}>
-          Pay Now
+        <button type="submit" className={`w-full py-3 text-white font-semibold rounded-lg border ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-red hover:bg-white hover:text-red"} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`} disabled={loading || error}>
+          {loading ? "Processing..." : "Pay Now"}
         </button>
       </form>
     </div>
