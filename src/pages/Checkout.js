@@ -167,7 +167,7 @@ const Checkout = () => {
   return (
     <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
 
-    <Authorize />
+    {/* <Authorize /> */}
 
       <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
         <div className="flex flex-col sm:flex-row justify-between mb-[30px]">
@@ -234,7 +234,8 @@ const Checkout = () => {
 
             <div style={{display: enablePayment ? 'block':'none'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
-              <div className="grid grid-cols-2 gap-[10px]">
+              <div className="grid grid-cols-3 gap-[10px]">
+                <p className="h-[43px] bg-white text-center text-gray-800 border border-gray-500 rounded text-[15px] leading-[40px]"> <i className="bi bi-credit-card-2-front"></i> Credit Card </p>
                 <Paypal total={totalCost}  className='cursor-not-allowed'/> 
                 <img src={affirmLogo} className="border border-gray-500 rounded px-[7px] h-[44px]" onClick={()=>payWithAffirm()} />
               </div>

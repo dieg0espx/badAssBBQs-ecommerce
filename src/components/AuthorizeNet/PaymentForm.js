@@ -75,59 +75,84 @@ const PaymentForm = () => {
   
 
   return (
-    <div>
-      <h2>Authorize.net Payment</h2>
-      {status && <p>{status}</p>}
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Authorize.net Payment</h2>
+    {status && (
+      <p
+        className={`mb-4 ${
+          status.includes("Failed") ? "text-red-500" : "text-green-500"
+        }`}
+      >
+        {status}
+      </p>
+    )}
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Card Number</label>
+        <input
+          type="text"
+          name="cardNumber"
+          value={cardData.cardNumber}
+          onChange={handleChange}
+          placeholder="Card Number"
+          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+          required
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
         <div>
-          <label>Card Number</label>
-          <input
-            type="text"
-            name="cardNumber"
-            value={cardData.cardNumber}
-            onChange={handleChange}
-            placeholder="Card Number"
-            required
-          />
-        </div>
-        <div>
-          <label>Expiration Month (MM)</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Expiration Month (MM)
+          </label>
           <input
             type="text"
             name="month"
             value={cardData.month}
             onChange={handleChange}
             placeholder="MM"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             required
           />
         </div>
         <div>
-          <label>Expiration Year (YYYY)</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Expiration Year (YYYY)
+          </label>
           <input
             type="text"
             name="year"
             value={cardData.year}
             onChange={handleChange}
             placeholder="YYYY"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             required
           />
         </div>
-        <div>
-          <label>CVV</label>
-          <input
-            type="text"
-            name="cardCode"
-            value={cardData.cardCode}
-            onChange={handleChange}
-            placeholder="CVV"
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading || error}>
-          Pay Now
-        </button>
-      </form>
-    </div>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">CVV</label>
+        <input
+          type="text"
+          name="cardCode"
+          value={cardData.cardCode}
+          onChange={handleChange}
+          placeholder="CVV"
+          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading || error}
+        className={`w-full py-2 px-4 text-white font-semibold rounded-lg shadow-md ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+        } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+      >
+        {loading ? "Processing..." : "Pay Now"}
+      </button>
+    </form>
+  </div>
+  
   );
 };
 
