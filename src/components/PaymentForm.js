@@ -26,7 +26,7 @@ const PaymentForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    if (e) e.preventDefault(); // Prevent default only if it's a form submission event
+    e.preventDefault(); // Prevent default only if it's a form submission event
     setStatus('Processing payment...');
   
     try {
