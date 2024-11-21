@@ -6,6 +6,7 @@ import Paypal from '../components/Paypal';
 import Affirm from "../components/Affirm";
 import {usePurchase} from '../context/PurchaseContext'; // Adjust the path accordingly
 import affirmLogo from '../images/affirmLogo.png'
+import Authorize from '../components/AuthorizeNet/PaymentForm'
 
 
 const Checkout = () => {
@@ -165,6 +166,9 @@ const Checkout = () => {
 
   return (
     <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
+
+    <Authorize />
+
       <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
         <div className="flex flex-col sm:flex-row justify-between mb-[30px]">
           <p className="font-bold text-[30px] text-center sm:text-auto">CheckOut</p> 
