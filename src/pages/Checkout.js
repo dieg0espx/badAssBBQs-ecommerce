@@ -17,7 +17,7 @@ const Checkout = () => {
   const [enablePayment, setEnablePayments] = useState(false);
   const [alertForm, setAlertForm] = useState(false);
   const [isFormDirty, setIsFormDirty] = useState(false);
-  const [popupCC, setPopupCC] = useState(true)
+  const [popupCC, setPopupCC] = useState(false)
 
 
   const totalCost = cartItems.reduce((accumulator, item) => {
@@ -170,6 +170,21 @@ const Checkout = () => {
   };
   
 
+  useEffect(() => {
+    if (popupCC) {
+      // Disable scrolling
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Enable scrolling
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup to re-enable scrolling when the component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [popupCC]);
+
   return (
     <div className="flex justify-center items-center mt-[10px] xl:mt-0 pt-[50px] mb-[80px]">
       <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
@@ -249,8 +264,8 @@ const Checkout = () => {
             {popupCC && (
               <div id="overlay" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={handleClose}>
                 <div className="bg-white rounded-lg shadow-lg p-6 relative" onClick={(e) => e.stopPropagation()}> 
-                 <Authorize />
-                  <button className="absolute top-[15px] right-[15px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)}>
+                 <Authorize name={`${userInfo.name}  ${userInfo.lastName}`}/>
+                  <button className="absolute top-[25px] left-[35px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)}>
                     <i className="bi bi-x-circle"></i>
                   </button>
                 </div>

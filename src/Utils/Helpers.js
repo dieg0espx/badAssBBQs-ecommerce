@@ -78,3 +78,10 @@ export function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "2-digit" };
   return date.toLocaleDateString("en-US", options);
 }
+
+export const toUppercase = (str) => {
+  if (typeof str !== 'string') {
+    throw new Error('Input must be a string');
+  }
+  return str.toUpperCase();
+};

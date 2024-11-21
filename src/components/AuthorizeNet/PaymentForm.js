@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useAcceptJs } from 'react-acceptjs';
 import axios from 'axios';
+import logo from '../../images/authorizeLogo.png'
+import { toUppercase } from '../../Utils/Helpers';
 
-const PaymentForm = () => {
+const PaymentForm = (props) => {
   const authData = {
     apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID,
     clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY,
@@ -58,12 +60,13 @@ const PaymentForm = () => {
   };
 
   const formatCardNumber = (number) =>
-    number.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+    number.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+  
 
   return (
     <div className="flex items-center justify-center px-4">
-      <div className="flex gap-[40px] flex-col w-[400px] ">
-      <h2> Authorize.Net</h2>
+      <div className="flex gap-[20px] flex-col w-[400px] ">
+        <img src={logo} className='max-w-[200px] ml-auto'/>
         {/* Credit Card Preview */}
         <div className="w-full flex items-center justify-center">
           <div className="w-full h-[250px] bg-red text-white rounded-lg p-6 shadow-md relative">
@@ -102,13 +105,13 @@ const PaymentForm = () => {
             <div className="absolute bottom-4 left-6">
               <div className="text-xs uppercase tracking-wide">Cardholder</div>
               <div className="text-sm font-medium">
-                {cardData.cardHolder || 'John Doe'}
+                {toUppercase(props.name)}
               </div>
             </div>
           </div>
         </div>
         {/* Payment Form */}
-        <div className="w-full p-8 border border-gray-200 ">
+        <div className="w-full p-8 border border-gray-200 rounded-md">
           {status && (
             <p
               className={`text-center mb-4 ${
@@ -119,18 +122,33 @@ const PaymentForm = () => {
             </p>
           )}
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
+            <div className="flex space-x-4">
+              <div className="w-3/4">
               <label className="block text-sm font-medium text-gray-700">Card Number</label>
               <input
                 type="text"
                 name="cardNumber"
-                value={cardData.cardNumber}
+                value={formatCardNumber(cardData.cardNumber)} // Dynamically format the value for display
                 onChange={handleChange}
                 placeholder="1234 5678 9123 0000"
-                className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
-                maxLength={19}
+                className="w-full border-gray-300 rounded border border-gray-200 px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                maxLength={19} // Allows up to 16 digits plus 3 spaces
                 required
               />
+              </div>
+              <div className="w-1/4">
+                <label className="block text-sm font-medium text-gray-700">CVV</label>
+                <input
+                  type="text"
+                  name="cardCode"
+                  value={cardData.cardCode}
+                  onChange={handleChange}
+                  placeholder="123"
+                  className="w-full border-gray-300 rounded border border-gray-200 px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                  maxLength={3}
+                  required
+                />
+              </div>
             </div>
             <div className="flex space-x-4">
               <div className="w-1/2">
@@ -139,7 +157,7 @@ const PaymentForm = () => {
                   name="month"
                   value={cardData.month}
                   onChange={handleChange}
-                  className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full border-gray-300 rounded border border-gray-200 px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 >
                   <option value="" disabled>Select Month</option>
@@ -159,7 +177,7 @@ const PaymentForm = () => {
                   name="year"
                   value={cardData.year}
                   onChange={handleChange}
-                  className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full border-gray-300 rounded border border-gray-200 px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 >
                   <option value="" disabled>Select Year</option>
@@ -173,19 +191,6 @@ const PaymentForm = () => {
                   })}
                 </select>
               </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">CVV</label>
-              <input
-                type="text"
-                name="cardCode"
-                value={cardData.cardCode}
-                onChange={handleChange}
-                placeholder="123"
-                className="w-full border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
-                maxLength={3}
-                required
-              />
             </div>
             <button
               type="submit"
