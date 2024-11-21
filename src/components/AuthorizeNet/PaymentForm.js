@@ -31,9 +31,6 @@ const PaymentForm = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log("Client Key:", process.env.REACT_APP_AUTHORIZE_CLIENT_KEY);
-console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
- 
     e.preventDefault();
     setStatus("Processing payment...");
 
@@ -45,15 +42,24 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
     }
 
     const [month, year] = expirationDate.split("/");
-    if (!month || !year) {
+    if (!month || !year || month.length !== 2 || year.length !== 4) {
       setStatus("Invalid expiration date format. Use MM/YYYY.");
+      return;
+    }
+
+    // Ensure the environment variables are defined
+    if (
+      !process.env.REACT_APP_AUTHORIZE_CLIENT_KEY ||
+      !process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID
+    ) {
+      setStatus("Payment processor keys are missing. Check your environment variables.");
       return;
     }
 
     const secureData = {
       authData: {
-        clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY, // Replace with your Client Key
-        apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID, // Replace with your API Login ID
+        clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY, // Your Client Key
+        apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID, // Your API Login ID
       },
       cardData: {
         cardNumber,
@@ -63,11 +69,6 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
         zip: zipCode,
       },
     };
-
-    if (!process.env.REACT_APP_AUTHORIZE_CLIENT_KEY || !process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID) {
-        setStatus("Payment processor keys are missing. Check your environment variables.");
-        return;
-    }
 
     window.Accept.dispatchData(secureData, responseHandler);
   };
@@ -87,9 +88,13 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
           }
         );
 
-        setStatus(
-          `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
-        );
+        if (backendResponse.status === 200) {
+          setStatus(
+            `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
+          );
+        } else {
+          throw new Error("Unexpected response from server.");
+        }
       } catch (error) {
         const errorMessage =
           error.response?.data?.error || "Failed to process payment.";
@@ -99,9 +104,17 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
       <h2 className="text-xl font-bold mb-4">Authorize.net Payment</h2>
-      {status && <p className={`mb-4 ${status.includes("Failed") ? "text-red-500" : "text-green-500"}`}>{status}</p>}
+      {status && (
+        <p
+          className={`mb-4 ${
+            status.includes("Failed") ? "text-red-500" : "text-green-500"
+          }`}
+        >
+          {status}
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium">Card Number</label>
@@ -112,6 +125,7 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
             onChange={handleChange}
             placeholder="Card Number"
             className="w-full p-2 border rounded"
+            required
           />
         </div>
         <div className="mb-4">
@@ -123,6 +137,7 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
             onChange={handleChange}
             placeholder="MM/YYYY"
             className="w-full p-2 border rounded"
+            required
           />
         </div>
         <div className="mb-4">
@@ -134,6 +149,7 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
             onChange={handleChange}
             placeholder="CVV"
             className="w-full p-2 border rounded"
+            required
           />
         </div>
         <div className="mb-4">
@@ -145,6 +161,7 @@ console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
             onChange={handleChange}
             placeholder="ZIP Code"
             className="w-full p-2 border rounded"
+            required
           />
         </div>
         <button
