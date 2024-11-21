@@ -82,7 +82,6 @@ const PaymentForm = (props) => {
   return (
     <div>
       <img src={logo} alt="Authorize Logo" className="max-w-[200px] ml-auto" />
-      {status && <p>{status}</p>}
        {/* Credit Card Preview */}
        <div className="w-full flex items-center justify-center">
           <div className="w-full h-[230px] bg-red text-white rounded-lg p-6 shadow-2xl relative">
@@ -116,51 +115,65 @@ const PaymentForm = (props) => {
               </div>
             </div>
           </div>
-        </div>
+       </div>
+       {status && <p>{status}</p>}
       <form onSubmit={handleSubmit} className="w-full">
-        <div>
-          <label>Card Number</label>
-          <input
-            type="text"
-            name="cardNumber"
-            value={cardData.cardNumber}
-            onChange={handleChange}
-            placeholder="Card Number"
-            required
-          />
-        </div>
-        <div>
-          <label>Expiration Month (MM)</label>
-          <input
-            type="text"
-            name="month"
-            value={cardData.month}
-            onChange={handleChange}
-            placeholder="MM"
-            required
-          />
-        </div>
-        <div>
-          <label>Expiration Year (YYYY)</label>
-          <input
-            type="text"
-            name="year"
-            value={cardData.year}
-            onChange={handleChange}
-            placeholder="YYYY"
-            required
-          />
-        </div>
-        <div>
-          <label>CVV</label>
-          <input
-            type="text"
-            name="cardCode"
-            value={cardData.cardCode}
-            onChange={handleChange}
-            placeholder="CVV"
-            required
-          />
+        <div className="w-full px-5 py-6 border border-gray-200 rounded-md mb-5">
+          <div className="flex space-x-4 mb-6">
+            <div className="w-3/4">
+                <label>Card Number</label>
+                <input
+                  type="tel"
+                  name="cardNumber"
+                  value={cardData.cardNumber}
+                  onChange={handleChange}
+                  placeholder="Card Number"
+                  required
+                  maxLength={16}
+                  className='w-full border border-gray-300 rounded px-4 py-2'
+                />
+            </div>
+            <div className="w-1/4">
+                <label>CVV</label>
+                <input
+                  type="text"
+                  name="cardCode"
+                  value={cardData.cardCode}
+                  onChange={handleChange}
+                  placeholder="CVV"
+                  required
+                  className='w-full border border-gray-300 rounded px-4 py-2'
+                />
+            </div>
+          </div>
+          <div className="flex space-x-4">
+            <div className="w-1/2">
+              <label>Month</label>
+              <input
+                type="tel"
+                name="month"
+                value={cardData.month}
+                onChange={handleChange}
+                placeholder="MM"
+                required
+                maxLength={2}
+                className='w-full border border-gray-300 rounded px-4 py-2'
+              />
+            </div>
+            <div className="w-1/2">
+              <label>Year</label>
+              <input
+                type="tel"
+                name="year"
+                value={cardData.year}
+                onChange={handleChange}
+                placeholder="YYYY"
+                required
+                maxLength={4}
+                className='w-full border border-gray-300 rounded px-4 py-2'
+              />
+            </div>
+          </div>
         </div>
         <button type="submit" className={`w-full py-3 text-white font-semibold rounded-lg border ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-red hover:bg-white hover:text-red"} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`} disabled={loading || error}>
           {loading ? "Processing..." : "Pay Now"}
