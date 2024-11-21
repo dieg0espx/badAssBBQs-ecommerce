@@ -118,10 +118,10 @@ const PaymentForm = (props) => {
        </div>
        {status && <p>{status}</p>}
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="w-full px-5 py-6 border border-gray-200 rounded-md mb-5">
+        <div className="w-full px-5 py-6 border border-gray-200 rounded-md mb-5 mt-5">
           <div className="flex space-x-4 mb-6">
-            <div className="w-3/4">
-                <label>Card Number</label>
+            <div className="w-full">
+                <label className='block text-center text-[12px] text-gray-400 mb-[5px]'>Card Number</label>
                 <input
                   type="tel"
                   name="cardNumber"
@@ -130,25 +130,13 @@ const PaymentForm = (props) => {
                   placeholder="Card Number"
                   required
                   maxLength={16}
-                  className='w-full border border-gray-300 rounded px-4 py-2'
-                />
-            </div>
-            <div className="w-1/4">
-                <label>CVV</label>
-                <input
-                  type="text"
-                  name="cardCode"
-                  value={cardData.cardCode}
-                  onChange={handleChange}
-                  placeholder="CVV"
-                  required
-                  className='w-full border border-gray-300 rounded px-4 py-2'
+                  className='w-full border border-gray-300 rounded px-4 py-2 text-center'
                 />
             </div>
           </div>
-          <div className="flex space-x-4">
-            <div className="w-1/2">
-              <label>Month</label>
+          <div className="flex space-x-4 w-full">
+            <div className="w-1/3">
+              <label className='block text-center text-[12px] text-gray-400 mb-[5px]'>Exp Month</label>
               <input
                 type="tel"
                 name="month"
@@ -157,11 +145,11 @@ const PaymentForm = (props) => {
                 placeholder="MM"
                 required
                 maxLength={2}
-                className='w-full border border-gray-300 rounded px-4 py-2'
+                className='w-full border border-gray-300 rounded px-4 py-2 text-center'
               />
             </div>
-            <div className="w-1/2">
-              <label>Year</label>
+            <div className="w-1/3">
+              <label className='block text-center text-[12px] text-gray-400 mb-[5px]'>Exp Year</label>
               <input
                 type="tel"
                 name="year"
@@ -170,8 +158,20 @@ const PaymentForm = (props) => {
                 placeholder="YYYY"
                 required
                 maxLength={4}
-                className='w-full border border-gray-300 rounded px-4 py-2'
+                className='w-full border border-gray-300 rounded px-4 py-2 text-center'
               />
+            </div>
+            <div className="w-1/3">
+               <label className='block text-center text-[12px] text-gray-400 mb-[5px]'>CVV</label>
+                <input
+                  type="text"
+                  name="cardCode"
+                  value={cardData.cardCode}
+                  onChange={handleChange}
+                  placeholder="CVV"
+                  required
+                  className='w-full border border-gray-300 rounded px-4 py-2 text-center'
+                />
             </div>
           </div>
         </div>
