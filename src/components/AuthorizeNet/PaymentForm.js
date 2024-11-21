@@ -31,6 +31,9 @@ const PaymentForm = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log("Client Key:", process.env.REACT_APP_AUTHORIZE_CLIENT_KEY);
+console.log("API Login ID:", process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID);
+ 
     e.preventDefault();
     setStatus("Processing payment...");
 
