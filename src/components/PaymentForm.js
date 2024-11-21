@@ -287,8 +287,8 @@ const PaymentForm = (props) => {
     }
   };
 
-  const formatCardNumber = (number) =>
-  number.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+  // const formatCardNumber = (number) =>
+  // number.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
 
 
   return (
@@ -307,7 +307,7 @@ const PaymentForm = (props) => {
             {/* Card Number */}
             <div className="text-xl font-semibold tracking-widest mt-6">
               {cardData.cardNumber
-                ? formatCardNumber(cardData.cardNumber)
+                ? (cardData.cardNumber)
                 : '•••• •••• •••• ••••'}
             </div>
        
@@ -351,7 +351,7 @@ const PaymentForm = (props) => {
               <input
                 type="tel"
                 name="cardNumber"
-                value={formatCardNumber(cardData.cardNumber)} // Dynamically format the value for display
+                value={cardData.cardNumber} // Dynamically format the value for display
                 onChange={handleChange}
                 placeholder="1234 1234 1234 1234"
                 className="w-full border-gray-300 rounded border border-gray-200 px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500"
