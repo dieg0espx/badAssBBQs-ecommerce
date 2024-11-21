@@ -49,8 +49,8 @@ const PaymentForm = () => {
 
     const secureData = {
       authData: {
-        clientKey: "7eX9TZjE53aWRze8QYgw8b65crNH5RnKyW5Gv7yLfwYBWd58bRnH3G6dM47RVpMw", // Replace with your Client Key
-        apiLoginID: "9m9vHj3M958D", // Replace with your API Login ID
+        clientKey: process.env.REACT_APP_AUTHORIZE_CLIENT_KEY, // Replace with your Client Key
+        apiLoginID: process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID, // Replace with your API Login ID
       },
       cardData: {
         cardNumber,
