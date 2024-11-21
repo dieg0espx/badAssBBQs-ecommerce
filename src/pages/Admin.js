@@ -257,12 +257,15 @@ function Admin() {
                 {sidebar && currentOrder && (
                 <>
                     {/* Order Information */}
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-[5px]">
                         <b>Order ID: </b>
                         <span className="text-blue-600">{currentOrder.order_id}</span>
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-sm text-gray-600">
                         <b>Created:</b> {formatDate(currentOrder.created_at)}
+                    </p>
+                    <p className="text-sm text-gray-600 mb-4">
+                        <b>Payment Method:</b> {currentOrder.payment_method}
                     </p>
                     <hr className="border-t border-gray-200 my-4" />
                     {/* User Information */}
