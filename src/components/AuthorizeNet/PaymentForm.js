@@ -61,6 +61,11 @@ const PaymentForm = () => {
       },
     };
 
+    if (!process.env.REACT_APP_AUTHORIZE_CLIENT_KEY || !process.env.REACT_APP_AUTHORIZE_API_LOGIN_ID) {
+        setStatus("Payment processor keys are missing. Check your environment variables.");
+        return;
+    }
+
     window.Accept.dispatchData(secureData, responseHandler);
   };
 
