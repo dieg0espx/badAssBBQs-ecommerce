@@ -252,26 +252,31 @@ const Checkout = () => {
 
             <div style={{display: enablePayment ? 'block':'none'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
-              <div className="grid grid-cols-3 gap-[10px]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
                 <p className="h-[43px] bg-white text-center text-gray-800 border border-gray-500 rounded text-[15px] leading-[40px]" onClick={()=>setPopupCC(true)}> <i className="bi bi-credit-card-2-front"></i> Credit Card </p>
                 <Paypal total={totalCost}  className='cursor-not-allowed'/> 
-                <img src={affirmLogo} className="border border-gray-500 rounded px-[7px] h-[44px]" onClick={()=>payWithAffirm()} />
+                <div className="border border-gray-500 rounded px-[7px] h-[44px] w-full flex items-center justify-center">
+                  <img src={affirmLogo} className='h-[100%] object-contain' onClick={()=>payWithAffirm()} />
+                </div>
               </div>
             </div>
             <div style={{display: enablePayment ? 'none':'block'}}>
               <button onClick={handlePaymentClick} className="w-full px-4 py-2 mt-4 text-white bg-red rounded border border-red hover:bg-white hover:text-red" >Proceed to Payment </button>
             </div>
+            
             {popupCC && (
               <div id="overlay" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={handleClose}>
-                <div className="bg-white rounded-lg shadow-lg p-6 relative" onClick={(e) => e.stopPropagation()}> 
-                 <Authorize name={`${userInfo.name}  ${userInfo.lastName}`}/>
-                  <button className="absolute top-[25px] left-[35px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)}>
-                    <i className="bi bi-x-circle"></i>
+                <div className="bg-white rounded-t-3xl sm:rounded-lg shadow-lg p-6 relative h-[95%] mt-[10%] sm:mt-[10px] w-full sm:h-auto sm:w-auto animate-slideUp" onClick={(e) => e.stopPropagation()}>
+                  <Authorize name={`${userInfo.name}  ${userInfo.lastName}`} />
+                  <button className="absolute top-[25px] left-[35px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)} >
+                    <i className="bi bi-x-lg"></i>
                   </button>
                 </div>
               </div>
             )}
+
           </div>
+          
           <div className="rounded ">
             <div className="border border-gray-200 rounded px-[30px] py-[10px] mb-[10px]">
               <p className="font-semibold text-[20px] mb-[10px]"> Shipping Information: </p>

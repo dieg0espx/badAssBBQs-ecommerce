@@ -8,6 +8,15 @@ module.exports = {
       colors: {
         'red': '#980f0f', // Add custom color
       },
+      keyframes: {
+        slideUp: {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0%)' },
+        },
+      },
+      animation: {
+        slideUp: 'slideUp 0.7s',
+      },
     },
   },
   plugins: [

@@ -3,6 +3,7 @@ import { useAcceptJs } from 'react-acceptjs';
 import axios from 'axios';
 import logo from '../images/authorizeLogo.png'
 import { toUppercase } from '../Utils/Helpers';
+import { SwipeableButton } from "react-swipeable-button";
 
 const PaymentForm = (props) => {
   const authData = {
@@ -25,24 +26,25 @@ const PaymentForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault(); // Prevent default only if it's a form submission event
     setStatus('Processing payment...');
+  
     try {
       if (!cardData.cardNumber || !cardData.month || !cardData.year || !cardData.cardCode) {
         setStatus('Please fill in all required fields.');
         return;
       }
-
+  
       const response = await dispatchData({ cardData });
       if (response.messages.resultCode === 'Ok') {
         const { opaqueData } = response;
-
+  
         try {
           const backendResponse = await axios.post(
             'https://server-badassbbqs.vercel.app/api/payment',
             { opaqueData, amount: '100.00' }
           );
-
+  
           if (backendResponse.status === 200) {
             setStatus(`Payment successful! Transaction ID: ${backendResponse.data.transactionId}`);
           } else {
@@ -58,7 +60,7 @@ const PaymentForm = (props) => {
       setStatus(`Payment error: ${err.message}`);
     }
   };
-
+  
   const formatCardNumber = (number) =>
     number.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
   
@@ -69,7 +71,7 @@ const PaymentForm = (props) => {
         <img src={logo} className='max-w-[200px] ml-auto'/>
         {/* Credit Card Preview */}
         <div className="w-full flex items-center justify-center">
-          <div className="w-full h-[240px] bg-red text-white rounded-lg p-6 shadow-md relative">
+          <div className="w-full h-[230px] bg-red text-white rounded-lg p-6 shadow-2xl relative">
             {/* Card Header */}
             <div className="flex justify-between items-center">
               <div className="text-sm uppercase tracking-wide font-semibold">Credit Card</div>
@@ -111,22 +113,17 @@ const PaymentForm = (props) => {
           </div>
         </div>
         {/* Payment Form */}
-        <div className="w-full p-8 border border-gray-200 rounded-md">
+        <div>
           {status && (
-            <p
-              className={`text-center mb-4 ${
-                status.toLowerCase().includes('failed') ? 'text-red-500' : 'text-green-500'
-              }`}
-            >
-              {status}
-            </p>
+            <p className={`text-center mb-4 ${   status.toLowerCase().includes('failed') ? 'text-red-500' : 'text-green-500' }`}> {status} </p>
           )}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex space-x-4">
+          <form onSubmit={handleSubmit} className='w-full'>
+          <div  className="w-full px-[20px] py-[30px] border border-gray-200 rounded-md mb-[20px]">
+            <div className="flex space-x-4 mb-[30px]">
               <div className="w-3/4">
               <label className="block text-sm font-medium text-gray-700">Card Number</label>
               <input
-                type="text"
+                type="tel"
                 name="cardNumber"
                 value={formatCardNumber(cardData.cardNumber)} // Dynamically format the value for display
                 onChange={handleChange}
@@ -139,7 +136,7 @@ const PaymentForm = (props) => {
               <div className="w-1/4">
                 <label className="block text-sm font-medium text-gray-700">CVV</label>
                 <input
-                  type="text"
+                  type="tel"
                   name="cardCode"
                   value={cardData.cardCode}
                   onChange={handleChange}
@@ -192,7 +189,8 @@ const PaymentForm = (props) => {
                 </select>
               </div>
             </div>
-            <button
+          </div>
+          <button
               type="submit"
               className={`w-full py-3 text-white font-semibold rounded-lg border border-red ${
                 loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red hover:bg-white hover:text-red'
@@ -200,7 +198,7 @@ const PaymentForm = (props) => {
               disabled={loading || error}
             >
               {loading ? 'Processing...' : 'Pay Now'}
-            </button>
+          </button>
           </form>
         </div>
       </div>
