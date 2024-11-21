@@ -72,7 +72,7 @@ const PaymentForm = () => {
 
       try {
         const backendResponse = await axios.post(
-          "http://localhost:8080/api/payment", // Replace with your backend endpoint
+          "https://server-badassbbqs.vercel.app/api/payment", // Replace with your backend endpoint
           {
             opaqueData,
             amount: "10.00", // Replace with dynamic amount if needed
