@@ -153,8 +153,17 @@ const PaymentForm = (props) => {
               <input
                 type="tel"
                 name="year"
-                value={cardData.year}
-                onChange={handleChange}
+                value={cardData.year.slice(2)} // Display only the last two digits
+                onChange={(e) => {
+                  const { value } = e.target;
+                  if (/^\d{0,2}$/.test(value)) { // Ensure input is only up to two digits
+                    setCardData((prev) => ({
+                      ...prev,
+                      year: value ? `20${value}` : "", // Prepend "20" to the input value
+                    }));
+                  }
+                }}
+
                 placeholder="YYYY"
                 required
                 maxLength={4}
@@ -164,7 +173,7 @@ const PaymentForm = (props) => {
             <div className="w-1/3">
                <label className='block text-center text-[12px] text-gray-400 mb-[5px]'>CVV</label>
                 <input
-                  type="text"
+                  type="tel"
                   name="cardCode"
                   value={cardData.cardCode}
                   onChange={handleChange}
