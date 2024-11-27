@@ -44,7 +44,7 @@ const ProductImagesContainer = ({ Image, Other_image }) => {
       {/* Main image for larger screens */}
       <div className="w-full hidden md:block">
         <img
-          src={currentImage}
+          src={currentImage.split('?i10c=img.resize(width:250,height:250')[0]}
           alt="Current Product"
           className="w-full h-auto object-contain rounded-lg"
         />
