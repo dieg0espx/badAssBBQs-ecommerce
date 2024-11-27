@@ -8,18 +8,20 @@ import instagram from '../images/instagram.png'
 import spotify from '../images/spotify.png'
 import logoNegative from '../images/logo-negative.png'
 import { Link } from 'react-router-dom';
+import Reviews from './Reviews';
 
 function Footer() {
   return (
     <div className='w-full mt-5'>
-      <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-10'> Why Choose BadAssBBQs </h2>
+      {/* <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-10'> Why Choose BadAssBBQs </h2>
       <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Learn more about us <i className="bi bi-chevron-right"></i> </Link>
-      <img src={banner8} className='w-full mx-auto mt-5' alt="Promotional Banner8"/>
-      <img src={stars} className='block mt-10 mx-auto'/>
-      <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-5'> What Are Our Customers Saying ? </h2>
-      <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Read Customers Reviews <i className="bi bi-chevron-right"></i> </Link>
+      <img src={banner8} className='w-full mx-auto mt-5' alt="Promotional Banner8"/> */}
+      {/* <img src={stars} className='block mt-10 mx-auto'/> */}
+      <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-20 mb-10'> What Are Our Customers Saying ? </h2>
+      {/* <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Read Customers Reviews <i className="bi bi-chevron-right"></i> </Link> */}
+      <Reviews />
      
-      <div className='bg-[rgba(152,15,15,0.5)] pt-5 pb-[30px]'>
+      <div className='bg-[rgba(152,15,15,0.5)] pt-5 pb-[30px] mt-20'>
         <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-5'>  Join Our Email List for Sales, Recipes, Buying Guides, and More </h2>
         
         <div className='flex flex-col  xl:flex-row  w-[90%] xl:w-[40%] mx-auto justify-center align-center my-5 border border-black border-2'>

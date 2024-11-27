@@ -198,18 +198,23 @@ function Home() {
         </div>
       </div>
 
-      <img src={banner4} className='w-full mx-auto mt-10' alt="Promotional Banner4"/>
+      <Link to="/products/blaze/all">
+        <img src={banner4} className='w-full mx-auto mt-10' alt="Promotional Banner4"/>
+      </Link>
 
       {/* <img src={banner5} className='w-full mx-auto mt-5' alt="Promotional Banner5"/> */}
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Popular Brands </h2>
 
       <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr] mx-auto mb-[30px] align-center'>
-        <img src={brand0} className='mx-auto -mt-3'/>
-        {/* <img src={brand1} className='mx-auto'/> */}
+        <Link to="/products/blaze/all">
+          <img src={brand0} className='mx-auto -mt-3'/>
+        </Link>
+        
         <img src={brand2} className='mx-auto'/>
-        {/* <img src={brand3} className='mx-auto'/> */}
-        <img src={brand4} className='mx-auto'/>
+        <Link to="/products/napoleon/all">
+          <img src={brand4} className='mx-auto'/>
+        </Link>
       </div>
 
       <img src={banner6} className='w-full mx-auto mt-5' alt="Promotional Banner6"/>
@@ -228,9 +233,11 @@ function Home() {
             <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Envision your outdoor space through free expert renderings </p>
         </div>
         <div>
+          <Link to="https://www.affirm.com/user/signup" className='hover:text-red'>
             <img src={statement3} className='mx-auto'/>
             <p className='text-center font-bold'> Financing Available </p>
             <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Pay over time with financing as low as 0% APR available </p>
+          </Link>
         </div>
         <div>
             <img src={statement2} className='mx-auto'/>

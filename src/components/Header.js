@@ -211,16 +211,10 @@ function Header() {
         </div>
         <div className="flex items-center justify-end space-x-2">
           <Link
-            to="/contact"
+            to="https://www.affirm.com/user/signup"
             className="text-[10px] font-medium border-r border-black pr-2 hover:text-red"
           >
             As Low as 0% APR Financing Available**
-          </Link>
-          <Link
-            to="/contact"
-            className="text-[10px] font-medium border-r border-black pr-2 hover:text-red"
-          >
-            Free Design Service
           </Link>
           <Link
             to="/contact"
@@ -314,7 +308,7 @@ function Header() {
       </div>
       <div className="fixed b-0 l-0 w-full h-full bg-[rgba(0,0,0,0.3)] z-10" style={{display: category !== 0 ? 'block':'none'}}/>
       <div className="bg-red text-center flex items-center justify-center -mt-2  py-0.5">
-        <Link to="/contact" className="text-[15px] text-white  font-medium">
+        <Link to="/products/blaze/all" className="text-[15px] text-white  font-medium">
             Save Up to $450 on Blaze LTE + Grills & Much More <i className="bi bi-chevron-right"></i>
         </Link>
       </div>
