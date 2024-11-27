@@ -83,7 +83,7 @@ const CheckoutConfirmation = () => {
         country: orderData.country,
       },
       products: orderData.products,
-      payment_method: 'Affirm', 
+      payment_method: 'affirm', 
       status: 'Approved', 
     };
 

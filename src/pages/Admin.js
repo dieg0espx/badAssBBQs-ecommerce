@@ -152,7 +152,7 @@ function Admin() {
   },[orders])
 
   return (
-    <div className="flex justify-center w-full" style={{ height: "calc(100vh - 130px)" }}>
+    <div className="flex justify-center w-full max-w-[95%] m-auto" style={{ height: "calc(100vh - 230px)" }}>
       <div className="max-w-md mx-auto p-4 bg-white rounded border border-gray-200 py-[30px] mt-[10%] w-[50%]" style={{display: access ? 'none':'block', height: "fit-content"}}>
         <img src={Logo} className="m-auto invert mb-[20px]" alt="Logo" />
         {error && <p className="text-red text-sm mb-4 text-center">{error}</p>}
@@ -222,7 +222,7 @@ function Admin() {
                     <p className="text-[40px] text-gray-500">{totals.shipped}</p>
                     </div>
                 </div>
-                <div class="border border-gray-200 rounded-lg w-full p-4 bg-white">
+                <div class="border border-gray-200 rounded-lg w-full p-4 bg-white overflow-y-scroll" style={{ height: "calc(100vh - 385px)"  }}>
                     <div class="overflow-x-auto">
                     <table className="w-full table-auto text-left">
                         <thead class="bg-gray-50">
@@ -313,7 +313,7 @@ function Admin() {
                     <hr className="border-t border-gray-200 my-4" />
                     {/* Product Items */}
                     <h4 className="text-md font-semibold text-gray-700 mb-3">Products</h4>
-                    <div className="overflow-y-auto max-h-[200px]">
+                    <div className="overflow-y-auto max-h-[190px]">
                         {currentOrder.products.map((item, index) => (
                           <div key={index} className="border border-gray-200 flex items-center gap-4 px-4 py-2 rounded-lg mb-4">
                             <img src={item.imageUrl} className="w-16 h-16 object-cover rounded" alt="Product"/>

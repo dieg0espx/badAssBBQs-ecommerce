@@ -201,7 +201,7 @@ function Header() {
 
 
   return (
-  <div>
+  <div className="header">
 
     {/* DESKTOP VERSION */}
     <div className="fixed l-0 t-0 w-full bg-white shadow-md z-10 hidden xl:block">

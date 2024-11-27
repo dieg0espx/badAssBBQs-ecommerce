@@ -22,21 +22,19 @@ function CheckoutAuthorized() {
       top: 0,
       behavior: 'auto',
     });
-
-    sendEmailConfirmation();
     saveOrder(); // Add the order to the database
     resetPurchase();
   }, []);
 
   // Function to send email confirmation
-  const sendEmailConfirmation = async () => {
+  const sendEmailConfirmation = async (order_id) => {
     try {
       const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ orderData }),
+        body: JSON.stringify({ orderData, order_id }),
       });
       const data = await response.json();
       console.log(data);
@@ -65,7 +63,7 @@ function CheckoutAuthorized() {
       payment_method: method, 
       status: 'Approved', 
     };
-
+    sendEmailConfirmation(newOrder.order_id);
     addOrder(newOrder); // Add the order to the OrdersContext
   };
 
