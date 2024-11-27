@@ -161,40 +161,58 @@ function Home() {
 
       <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr]  w-[80%] mx-auto'>
         <div className='group mb-10'>
-            <img src={department0} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Gas%20Grills" className='block text-center group-hover:text-red'> Freestanding Gas Grills </Link>
+          <Link to="/products/all/Gas%20Grills" className='block text-center group-hover:text-red'>
+            <img src={department0} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Freestanding Gas Grills</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department1} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Built-In Gas Griddles & Flat Top Grills" className='block text-center group-hover:text-red'> Gas Griddles </Link>
+          <Link to="/products/all/Built-In Gas Griddles & Flat Top Grills" className='block text-center group-hover:text-red'>
+            <img src={department1} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Gas Griddles</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department2} className='mx-auto mb-2 w-[50%]'/> 
-            <Link to="/products/all/Built-In%20Pellet%20Grills" className='block text-center group-hover:text-red'> Pallet Grills </Link>
+          <Link to="/products/all/Built-In%20Pellet%20Grills" className='block text-center group-hover:text-red'>
+            <img src={department2} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Pallet Grills</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department3} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Kamado%20Grills%20&%20Smokers" className='block text-center group-hover:text-red'> Kamado Grills </Link>
+          <Link to="/products/all/Kamado%20Grills%20&%20Smokers" className='block text-center group-hover:text-red'>
+            <img src={department3} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Kamado Grills</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department4} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/BBQ%20Grilling%20Tools%20&%20Accessories" className='block text-center group-hover:text-red'> Grill Accessories </Link>
+          <Link to="/products/all/BBQ%20Grilling%20Tools%20&%20Accessories" className='block text-center group-hover:text-red'>
+            <img src={department4} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Grill Accessories</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department5} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Built-In%20Gas%20Grills" className='block text-center group-hover:text-red'> Built-In Gas Grills </Link>
+          <Link to="/products/all/Built-In%20Gas%20Grills" className='block text-center group-hover:text-red'>
+            <img src={department5} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Built-In Gas Grills</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department6} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Outdoor%20Kitchen%20Cabinets%20&%20Storage" className='block text-center group-hover:text-red'> Outdoor Kitchen Storage </Link>
+          <Link to="/products/all/Outdoor%20Kitchen%20Cabinets%20&%20Storage" className='block text-center group-hover:text-red'>
+            <img src={department6} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Outdoor Kitchen Storage</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department7} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/Outdoor%20Compact%20Refrigerators" className='block text-center group-hover:text-red'> Outdoor Compact Refrigerator </Link>
+          <Link to="/products/all/Outdoor%20Compact%20Refrigerators" className='block text-center group-hover:text-red'>
+            <img src={department7} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Outdoor Compact Refrigerator</p>
+          </Link>
         </div>
         <div className='group mb-10'>
-            <img src={department9} className='mx-auto mb-2 w-[50%]'/>
-            <Link to="/products/all/all" className='block text-center group-hover:text-red'> Sales & Offers </Link>
+          <Link to="/products/all/all" className='block text-center group-hover:text-red'>
+            <img src={department9} className='mx-auto mb-2 w-[50%]' />
+            <p className='group-hover:text-red'>Sales & Offers</p>
+          </Link>
         </div>
       </div>
 
