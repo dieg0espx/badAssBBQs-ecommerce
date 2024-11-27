@@ -153,7 +153,7 @@ function Admin() {
 
   return (
     <div className="flex justify-center w-full max-w-[95%] m-auto" style={{ height: "calc(100vh - 230px)" }}>
-      <div className="max-w-md mx-auto p-4 bg-white rounded border border-gray-200 py-[30px] mt-[10%] w-[50%]" style={{display: access ? 'none':'block', height: "fit-content"}}>
+      <div className="max-w-md mx-auto p-4 bg-white rounded border border-gray-200 py-[30px] mt-[10%] w-[90%] lg:w-[50%]" style={{display: access ? 'none':'block', height: "fit-content"}}>
         <img src={Logo} className="m-auto invert mb-[20px]" alt="Logo" />
         {error && <p className="text-red text-sm mb-4 text-center">{error}</p>}
         <form onSubmit={handleSubmit}>
