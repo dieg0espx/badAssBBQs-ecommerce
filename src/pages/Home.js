@@ -175,7 +175,7 @@ function Home() {
         <div className='group mb-10'>
           <Link to="/products/all/Built-In%20Pellet%20Grills" className='block text-center group-hover:text-red'>
             <img src={department2} className='mx-auto mb-2 w-[50%]' />
-            <p className='group-hover:text-red'>Pallet Grills</p>
+            <p className='group-hover:text-red'>Pellet Grills</p>
           </Link>
         </div>
         <div className='group mb-10'>
