@@ -27,6 +27,8 @@ const PaymentForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
+    console.log('Handle Submit');
+    
     e.preventDefault();
     setStatus('Processing payment...');
 
@@ -35,10 +37,15 @@ const PaymentForm = (props) => {
       if (!cardData.cardNumber || !cardData.month || !cardData.year || !cardData.cardCode) {
         setStatus('Please fill in all required fields.');
         return;
+      } else {
+        console.log(cardData);
+        
       }
 
       // Dispatch the card data to Accept.js
       const response = await dispatchData({ cardData });
+      console.log(response);
+      
 
       // Check if the response is successful
       if (response.messages.resultCode === 'Ok') {
@@ -50,7 +57,8 @@ const PaymentForm = (props) => {
             'https://server-badassbbqs.vercel.app/api/payment', // Replace with your backend endpoint
             {
               opaqueData,
-              amount: props.totalCost, // Replace with the actual amount
+              // amount: props.totalCost,
+              amount:1,
             }
           );
 
