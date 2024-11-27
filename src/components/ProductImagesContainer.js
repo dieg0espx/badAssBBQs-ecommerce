@@ -56,7 +56,7 @@ const ProductImagesContainer = ({ Image, Other_image }) => {
           {imageUrls.map((url, index) => (
             <div key={index}>
               <img
-                src={url}
+                src={url.split('?i10c=img.resize(width:250,height:250')[0]}
                 alt={Other_image[url] || `Slide ${index + 1}`}
                 className="w-full h-auto object-contain rounded-lg"
               />
