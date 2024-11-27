@@ -73,7 +73,7 @@ const CheckoutConfirmation = () => {
     console.log('Saving NEW ORDER ...');
     
     const newOrder = {
-      order_id: await generateOrderId(), // Generate a unique order ID
+      order_id: generateOrderId(), // Generate a unique order ID
       user: {
         name: orderData.name,
         email: orderData.email,
