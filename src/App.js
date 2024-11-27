@@ -48,7 +48,9 @@ function App() {
             <Route path='/defective-product' element={<DefectiveProduct />} />
             <Route path='/return-policy' element={<ReturnPolicy />} />
             <Route path='/contact' element={<Contact />} />
-            <Route path='/order-status' element={<OrderStatus />} />
+
+            <Route path='/order-status/' element={<OrderStatus />} />
+            <Route path='/order-status/:id' element={<OrderStatus />} />
             
             {/* ====== AUTHORIZE & PAYPAL CONFIRMATION ====== */}
             <Route path="/checkout-authorized/:method" element={<CheckoutAuthorized />} />
