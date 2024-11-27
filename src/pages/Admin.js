@@ -235,19 +235,21 @@ function Admin() {
                           </tr>
                         </thead>
                         <tbody>
-                          {orders.map((order) => (
-                            <tr key={order.id} className="border-t hover:bg-gray-200" onClick={()=>onOrderSelect(order.id)} >
-                              <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.order_id}</td>
-                              <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-bold">{order.user.name}</td>
-                              <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.user.email.toLowerCase()}</td>
-                              <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              <p className={`inline-block px-3 py-1 text-sm font-semibold rounded-full w-full ${getStatusClass(order.status)}`}>
-                                  {order.status}
-                              </p>
-                              </td>
-                              <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(order.created_at)}</td>
-                            </tr>
-                          ))}
+                          {orders.map((order) => 
+                            order.user.name && ( // Check if name is not empty
+                              <tr key={order.id} className="border-t hover:bg-gray-200" onClick={() => onOrderSelect(order.id)}>
+                                <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.order_id}</td>
+                                <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-bold">{order.user.name}</td>
+                                <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.user.email.toLowerCase()}</td>
+                                <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  <p className={`inline-block px-3 py-1 text-sm font-semibold rounded-full w-full ${getStatusClass(order.status)}`}>
+                                    {order.status}
+                                  </p>
+                                </td>
+                                <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">{formatDate(order.created_at)}</td>
+                              </tr>
+                            )
+                          )}
                         </tbody>
                       </table>
                     </div>
