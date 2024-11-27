@@ -38,29 +38,47 @@ export const ProductsProvider = ({ children }) => {
   // Function to load products for a specific brand
   const loadProductsByBrand = async (brandName) => {
     try {
+      const uniqueIds = new Set(); // Set to track unique product IDs
       const productsData = await import(`../data/${brandName}.json`);
-      const sortedProducts = productsData.default.sort((a, b) => a.Id - b.Id);
+  
+      const uniqueProducts = productsData.default.filter((product) => {
+        if (!uniqueIds.has(product.Id)) {
+          uniqueIds.add(product.Id); // Add ID to the set
+          return true; // Keep the product
+        }
+        return false; // Skip duplicate product
+      });
+  
+      const sortedProducts = uniqueProducts.sort((a, b) => a.Id - b.Id);
       setProducts(sortedProducts);
     } catch (error) {
       console.error(`Could not load products for brand ${brandName}:`, error);
     }
   };
+  
 
   const loadAllProducts = async () => {
     const allProducts = [];
+    const uniqueIds = new Set(); // Set to track unique product IDs
   
     for (const brand of listOfBrands) {
       try {
         const productsData = await import(`../data/${brand}.json`);
-        allProducts.push(...productsData.default);
+        for (const product of productsData.default) {
+          if (!uniqueIds.has(product.Id)) {
+            uniqueIds.add(product.Id); // Add ID to the set
+            allProducts.push(product); // Add product to the array
+          }
+        }
       } catch (error) {
         console.error(`Could not load products for brand ${brand}:`, error);
       }
     }
-    // console.log("TOT PRODUCTS: " + allProducts.length);
-    
+  
+    // Sort the products by ID
     return allProducts.sort((a, b) => a.Id - b.Id);
   };
+  
   
 
 

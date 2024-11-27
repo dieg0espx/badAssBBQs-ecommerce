@@ -221,7 +221,7 @@ const Reviews = () => {
       <Slider {...settings} className="my-2 relative z-0 mx-auto max-w-[1400px]">
         {reviewsData.map((review, index) => (
           <div key={index} className="">
-            <div className="flex flex-col pt-6 pb-4 px-5 rounded border border-gray-200 h-[240px] mx-[5px] m-auto">
+            <div className="flex flex-col pt-6 pb-4 px-5 rounded border border-gray-200 h-[245px] mx-[5px] m-auto">
               <div className="grid grid-cols-[1fr_3fr] mb-[10px]">
                 <img
                   src={profilePicture}
@@ -237,7 +237,7 @@ const Reviews = () => {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-600 italic text-[15px] sm:text-[11px] md:text-[12px] lg:text-[15px]  ">"{review.testimonial}"</p>
+              <p className="text-gray-600 italic text-[18px] sm:text-[11px] md:text-[12px] lg:text-[15px]  ">"{review.testimonial}"</p>
               <div className="flex items-center mt-auto">
                 {Array.from({ length: 5 }, (_, i) => {
                   if (i < Math.floor(review.stars)) {
@@ -305,7 +305,7 @@ const Reviews = () => {
       <Slider {...settings2} className="my-2 relative z-0 mx-auto max-w-[1400px]">
         {reviewsData.map((review, index) => (
           <div key={index} className="">
-            <div className="flex flex-col pt-6 pb-4 px-5 rounded border border-gray-200 h-[240px] mx-[5px] m-auto">
+            <div className="flex flex-col pt-6 pb-4 px-5 rounded border border-gray-200 h-[245px] mx-[5px] m-auto">
               <div className="grid grid-cols-[1fr_3fr] mb-[10px]">
                 <img
                   src={profilePicture}
@@ -321,7 +321,7 @@ const Reviews = () => {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-600 italic text-[15px] sm:text-[11px] md:text-[12px] lg:text-[15px]  ">"{review.testimonial}"</p>
+              <p className="text-gray-600 italic text-[18px] sm:text-[11px] md:text-[12px] lg:text-[15px]  ">"{review.testimonial}"</p>
               <div className="flex items-center mt-auto">
                 {Array.from({ length: 5 }, (_, i) => {
                   if (i < Math.floor(review.stars)) {

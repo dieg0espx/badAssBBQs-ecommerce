@@ -221,33 +221,33 @@ function Home() {
 
       <h2 className='text-center text-[23px] xl:text-[35px] font-bold my-10'> Get More at BadAssBBQs </h2>
 
-      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr]  gap-[50px] xl:gap-[20px] mx-auto mb-20 max-w-[100%] xl:max-w-[90%]'>
+      <div className='grid grid-cols-[1fr_1fr]  md:grid-cols-[1fr_1fr_1fr]  lg:grid-cols-[1fr_1fr_1fr_1fr_1fr]  gap-[50px] xl:gap-[20px] mx-auto mb-20 max-w-[80%] xl:max-w-[90%]'>
         <div>
             <img src={statement5} className='mx-auto'/>
             <p className='text-center font-bold'> Ask an Expert </p>
-            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Shop with our experts and buy with confidence </p>
+            <p className='text-center max-w-[90%] xl:max-w-[100%] mx-auto text-[11px] lg:text-[15px]'> Shop with our experts and buy with confidence </p>
         </div>
         <div>
             <img src={statement4} className='mx-auto'/>
             <p className='text-center font-bold'> Free Design Sevices </p>
-            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Envision your outdoor space through free expert renderings </p>
+            <p className='text-center max-w-[90%] xl:max-w-[100%] mx-auto text-[11px] lg:text-[15px]'> Envision your outdoor space through free expert renderings </p>
         </div>
         <div>
           <Link to="https://www.affirm.com/user/signup" className='hover:text-red'>
             <img src={statement3} className='mx-auto'/>
             <p className='text-center font-bold'> Financing Available </p>
-            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Pay over time with financing as low as 0% APR available </p>
+            <p className='text-center max-w-[90%] xl:max-w-[100%] mx-auto text-[11px] lg:text-[15px]'> Pay over time with financing as low as 0% APR available </p>
           </Link>
         </div>
         <div>
             <img src={statement2} className='mx-auto'/>
             <p className='text-center font-bold'> Honest Expert Reviews </p>
-            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Shop smarter with objective, in-depth product assessments </p>
+            <p className='text-center max-w-[90%] xl:max-w-[100%] mx-auto text-[11px] lg:text-[15px]'> Shop smarter with objective, in-depth product assessments </p>
         </div>
         <div>
             <img src={statement1} className='mx-auto'/>
             <p className='text-center font-bold'> Fast, Free Shipping </p>
-            <p className='text-center max-w-[60%] xl:max-w-[100%] mx-auto'> Receive orders in no time - at no additional cost over $49 </p>
+            <p className='text-center max-w-[90%] xl:max-w-[100%] mx-auto text-[11px] lg:text-[15px]'> Receive orders in no time - at no additional cost over $49 </p>
         </div>
       </div>
 

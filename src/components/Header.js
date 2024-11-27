@@ -337,7 +337,7 @@ function Header() {
       </div>
       <SearchBar />
       <div className="bg-red text-center flex items-center justify-center py-[7px] mt-3 w-full">
-        <Link to="/contact" className="text-[12px] text-white  font-medium">
+        <Link to="/products/blaze/all" className="text-[12px] text-white  font-medium">
             Save Up to $450 on Blaze LTE + Grills & Much More <i className="bi bi-chevron-right"></i>
         </Link>
       </div>

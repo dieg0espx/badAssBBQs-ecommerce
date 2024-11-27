@@ -27,7 +27,8 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div> 
+    <div className="max-w-[100vw] overflow-x-hidden">
+
       <ProductsProvider>
       <CartProvider>
       <PurchaseProvider>
