@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { usePurchase } from '../context/PurchaseContext';
 import { useOrdersContext } from '../context/OrdersContext';
@@ -11,8 +11,10 @@ function CheckoutAuthorized() {
   const { orderData, resetPurchase } = usePurchase();
   const { addOrder } = useOrdersContext();
 
-  // Add a ref to prevent duplicate execution
+
+  // Ref to prevent duplicate execution
   const hasRun = useRef(false);
+  const order_id = generateOrderId();
 
   useEffect(() => {
     if (hasRun.current) return; // Skip if it has already run
@@ -20,16 +22,20 @@ function CheckoutAuthorized() {
 
     window.scrollTo({
       top: 0,
-      behavior: 'auto',
+      behavior: 'smooth', // Smoother scrolling
     });
-    saveOrder(); // Add the order to the database
-    resetPurchase();
+
+    try {
+      saveOrder(); // Add the order to the database
+      resetPurchase();
+    } catch (error) {
+      console.error('Error during checkout process:', error);
+    }
   }, []);
 
   // Function to send email confirmation
-  const sendEmailConfirmation = async (order_id) => {    
+  const sendEmailConfirmation = async () => {
     console.log('SENDING EMAIL : ' + order_id);
-    
     try {
       const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
@@ -39,7 +45,7 @@ function CheckoutAuthorized() {
         body: JSON.stringify({ orderData, order_id }),
       });
       const data = await response.json();
-      console.log(data);
+      console.log('Email response:', data);
     } catch (error) {
       console.error('Error sending email confirmation:', error);
     }
@@ -48,9 +54,8 @@ function CheckoutAuthorized() {
   // Function to save the order to the database
   const saveOrder = async () => {
     console.log('Saving NEW ORDER ...');
-    
     const newOrder = {
-      order_id: await generateOrderId(), // Generate a unique order ID
+      order_id, // Generate a unique order ID
       user: {
         name: orderData.name,
         email: orderData.email,
@@ -62,11 +67,16 @@ function CheckoutAuthorized() {
         country: orderData.country,
       },
       products: orderData.products,
-      payment_method: method, 
-      status: 'Approved', 
+      payment_method: method,
+      status: 'Approved',
     };
-    sendEmailConfirmation(newOrder.order_id);
-    addOrder(newOrder); // Add the order to the OrdersContext
+
+    try {
+      await sendEmailConfirmation();
+      addOrder(newOrder); // Add the order to the OrdersContext
+    } catch (error) {
+      alert('Error saving order:', error);
+    }
   };
 
   return (
