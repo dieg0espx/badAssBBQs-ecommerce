@@ -46,22 +46,24 @@ const CheckoutConfirmation = () => {
   useEffect(() => {
     if (orderData) {
       console.log(orderData);
-      sentEmailConfirmation();
       saveOrder()
       resetPurchase();
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [orderData]);
 
-  const sentEmailConfirmation = async () => {
+  const sendEmailConfirmation = async (order_id) => {
+    console.log('SENDING EMAIL : ' + order_id);
     try {
       const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderData }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ orderData, order_id }),
       });
       const data = await response.json();
-      console.log(data);
+      console.log('Email response:', data);
     } catch (error) {
       console.error('Error sending email confirmation:', error);
     }
@@ -88,6 +90,7 @@ const CheckoutConfirmation = () => {
     };
 
     addOrder(newOrder); // Add the order to the OrdersContext
+    await sendEmailConfirmation(newOrder.order_id);
   };
 
 
