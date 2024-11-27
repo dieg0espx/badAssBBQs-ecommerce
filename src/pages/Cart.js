@@ -23,7 +23,8 @@ function Cart() {
 
 
   return (
-    <div>
+    <div className='min-h-[80vh]'>      
+    <p className="font-bold text-[30px] text-center sm:text-left px-10 pt-5 pb-0"> My Cart </p> 
       {cartItems.length === 0 ? (
       <>
         <div className='h-[70vh] xl:h-[100vh] flex items-center justify-center flex-col gap-[10px]'>
@@ -35,7 +36,7 @@ function Cart() {
         <hr></hr>
       </>
       ) : (
-      <div className='p-5 xl:p-10 flex gap-[10px] flex-col lg:flex-row'>
+      <div className='p-5 xl:p-10 flex gap-[10px] flex-col lg:flex-row'>        
         <div className='basis-[70%]'>
           {cartItems.map((item, index) => (
             <div key={index} className="border border-gray-200 flex w-full flex-col md:flex-row gap-10 items-center px-[30px] py-[20px] rounded mb-[10px]">

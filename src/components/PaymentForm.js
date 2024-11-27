@@ -58,6 +58,7 @@ const PaymentForm = (props) => {
             setStatus(
               `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
             );
+            window.location.href = '/checkout-authorized'
           } else {
             throw new Error('Unexpected backend response.');
           }
@@ -83,7 +84,7 @@ const PaymentForm = (props) => {
     <div>
       <img src={logo} alt="Authorize Logo" className="max-w-[200px] ml-auto" />
        {/* Credit Card Preview */}
-       <div className="w-full flex items-center justify-center">
+       <div className="w-full flex items-center justify-center mb-[15px]">
           <div className="w-full h-[230px] bg-red text-white rounded-lg p-6 shadow-2xl relative">
             <div className="flex justify-between items-center">
               <div className="text-sm uppercase tracking-wide font-semibold">Credit Card</div>
