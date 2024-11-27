@@ -28,62 +28,61 @@ const PaymentForm = (props) => {
 
   const handleSubmit = async (e) => {
     console.log('Handle Submit');
-    
     e.preventDefault();
     setStatus('Processing payment...');
 
     try {
-      // Validate card data before dispatching
-      if (!cardData.cardNumber || !cardData.month || !cardData.year || !cardData.cardCode) {
-        setStatus('Please fill in all required fields.');
-        return;
-      } else {
-        console.log(cardData);
-        
-      }
-
-      // Dispatch the card data to Accept.js
-      const response = await dispatchData({ cardData });
-      console.log(response);
-      
-
-      // Check if the response is successful
-      if (response.messages.resultCode === 'Ok') {
-        const { opaqueData } = response;
-
-        try {
-          // Send opaqueData to your backend server for further processing
-          const backendResponse = await axios.post(
-            'https://server-badassbbqs.vercel.app/api/payment', // Replace with your backend endpoint
-            {
-              opaqueData,
-              // amount: props.totalCost,
-              amount:1,
-            }
-          );
-
-          if (backendResponse.status === 200) {
-            setStatus(
-              `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
-            );
-            window.location.href = '/checkout-authorized/authorize'
-          } else {
-            throw new Error('Unexpected backend response.');
-          }
-        } catch (backendError) {
-          const errorMessage =
-            backendError.response?.data?.error || 'Failed to process payment on the server.';
-          setStatus(`Payment failed: ${errorMessage}`);
+        // Validate card data before dispatching
+        if (!cardData.cardNumber || !cardData.month || !cardData.year || !cardData.cardCode) {
+            setStatus('Please fill in all required fields.');
+            return;
+        } else {
+            console.log('Card Data:', cardData);
         }
-      } else {
-        // Handle errors returned by Accept.js
-        setStatus(`Payment failed: ${response.messages.message[0].text}`);
-      }
+
+        // Dispatch the card data to Accept.js
+        const response = await dispatchData({ cardData });
+        console.log('Dispatch Data Response:', response);
+
+        if (response && response.messages && response.messages.resultCode === 'Ok') {
+            const { opaqueData } = response;
+            console.log('Opaque Data:', opaqueData);
+
+            try {
+                const backendResponse = await axios.post(
+                    'https://server-badassbbqs.vercel.app/api/payment',
+                    {
+                        opaqueData,
+                        amount: 1,
+                    }
+                );
+                console.log('Backend Response:', backendResponse);
+
+                if (backendResponse.status === 200) {
+                    setStatus(
+                        `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
+                    );
+                    window.location.href = '/checkout-authorized/authorize';
+                } else {
+                    throw new Error('Unexpected backend response.');
+                }
+            } catch (backendError) {
+                console.error('Backend Error:', backendError);
+                const errorMessage =
+                    backendError.response?.data?.error || 'Failed to process payment on the server.';
+                setStatus(`Payment failed: ${errorMessage}`);
+            }
+        } else {
+            const errorMessage = response?.messages?.message?.[0]?.text || 'Unexpected error during dispatch.';
+            setStatus(`Payment failed: ${errorMessage}`);
+        }
     } catch (err) {
-      // Handle unexpected errors during dispatch
-      setStatus(`Payment error: ${err.message}`);
+        console.error('Error during dispatch:', err); // Log the full error
+        const errorMessage = err.message || 'An unexpected error occurred.';
+        setStatus(`Payment error: ${errorMessage}`);
     }
-  };
+};
+
 
   const formatCardNumber = (number) =>
     number.replace(/\s/g, "").replace(/(\d{4})(?=\d)/g, "$1 ");
