@@ -158,7 +158,7 @@ const reviewsData = [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4, // Show 3 slides on medium screens
+          slidesToShow: 3, // Show 3 slides on medium screens
           slidesToScroll: 1,
           dots: false,
         },
@@ -166,14 +166,14 @@ const reviewsData = [
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3, // Show 2 slides on smaller screens
+          slidesToShow: 2, // Show 2 slides on smaller screens
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 550,
         settings: {
-          slidesToShow: 2, // Show 1 slide on extra small screens
+          slidesToShow: 1, // Show 1 slide on extra small screens
           slidesToScroll: 1,
         },
       },
@@ -192,7 +192,7 @@ const reviewsData = [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4, // Show 3 slides on medium screens
+          slidesToShow: 3, // Show 3 slides on medium screens
           slidesToScroll: 1,
           dots: false,
         },
@@ -200,14 +200,14 @@ const reviewsData = [
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3, // Show 2 slides on smaller screens
+          slidesToShow: 2, // Show 2 slides on smaller screens
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 550,
         settings: {
-          slidesToShow: 2, // Show 1 slide on extra small screens
+          slidesToShow: 1, // Show 1 slide on extra small screens
           slidesToScroll: 1,
         },
       },
@@ -237,7 +237,7 @@ const Reviews = () => {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-600 italic">"{review.testimonial}"</p>
+              <p className="text-gray-600 italic text-[15px] sm:text-[11px] md:text-[12px] lg:text-[15px]  ">"{review.testimonial}"</p>
               <div className="flex items-center mt-auto">
                 {Array.from({ length: 5 }, (_, i) => {
                   if (i < Math.floor(review.stars)) {
@@ -321,7 +321,7 @@ const Reviews = () => {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-600 italic">"{review.testimonial}"</p>
+              <p className="text-gray-600 italic text-[15px] sm:text-[11px] md:text-[12px] lg:text-[15px]  ">"{review.testimonial}"</p>
               <div className="flex items-center mt-auto">
                 {Array.from({ length: 5 }, (_, i) => {
                   if (i < Math.floor(review.stars)) {
@@ -386,6 +386,7 @@ const Reviews = () => {
           </div>
         ))}
       </Slider>
+
     </div>  
   );
 };
