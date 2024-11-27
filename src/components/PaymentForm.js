@@ -27,6 +27,12 @@ const PaymentForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
+    console.log('API LOGIN ID');
+    console.log(authData.apiLoginID);
+    console.log('CLIENT KEY');
+    console.log(authData.clientKey);
+    
+  
     console.log('Handle Submit');
     e.preventDefault();
     setStatus('Processing payment...');
