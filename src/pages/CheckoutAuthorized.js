@@ -14,7 +14,6 @@ function CheckoutAuthorized() {
 
   // Ref to prevent duplicate execution
   const hasRun = useRef(false);
-  const order_id = generateOrderId();
 
   useEffect(() => {
     if (hasRun.current) return; // Skip if it has already run
@@ -34,7 +33,7 @@ function CheckoutAuthorized() {
   }, []);
 
   // Function to send email confirmation
-  const sendEmailConfirmation = async () => {
+  const sendEmailConfirmation = async (order_id) => {
     console.log('SENDING EMAIL : ' + order_id);
     try {
       const response = await fetch(`${serverURL}/newPurchase`, {
@@ -55,7 +54,7 @@ function CheckoutAuthorized() {
   const saveOrder = async () => {
     console.log('Saving NEW ORDER ...');
     const newOrder = {
-      order_id, // Generate a unique order ID
+      order_id: generateOrderId(), // Generate a unique order ID
       user: {
         name: orderData.name,
         email: orderData.email,
@@ -72,8 +71,8 @@ function CheckoutAuthorized() {
     };
 
     try {
-      await sendEmailConfirmation();
       addOrder(newOrder); // Add the order to the OrdersContext
+      await sendEmailConfirmation(newOrder.order_id);
     } catch (error) {
       alert('Error saving order:', error);
     }
