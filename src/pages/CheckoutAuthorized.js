@@ -27,7 +27,7 @@ function CheckoutAuthorized() {
   }, []);
 
   // Function to send email confirmation
-  const sendEmailConfirmation = async (order_id) => {
+  const sendEmailConfirmation = async (order_id) => {    
     try {
       const response = await fetch(`${serverURL}/newPurchase`, {
         method: 'POST',
