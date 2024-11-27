@@ -42,7 +42,7 @@ function App() {
 
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/checkout-authorized" element={<CheckoutAuthorized />} />
+            
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/shipping-policy' element={<ShippingPolicy />} />
             <Route path='/defective-product' element={<DefectiveProduct />} />
@@ -50,6 +50,9 @@ function App() {
             <Route path='/contact' element={<Contact />} />
             <Route path='/order-status' element={<OrderStatus />} />
             
+            {/* ====== AUTHORIZE & PAYPAL CONFIRMATION ====== */}
+            <Route path="/checkout-authorized/:method" element={<CheckoutAuthorized />} />
+            {/* ====== AFFIRM PAYMENT CONFIRMATION ====== */}
             <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>} />
 
             <Route path='/admin' element={<Admin />} />

@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import { useParams } from "react-router-dom";
 import { usePurchase } from '../context/PurchaseContext';
 import { useOrdersContext } from '../context/OrdersContext';
 import gif from '../images/gifEcommerce.gif';
 import { generateOrderId } from '../Utils/Helpers';
 
 function CheckoutAuthorized() {
+  const { method } = useParams(); // Get the method parameter from the URL
   const serverURL = process.env.REACT_APP_SERVER_URL;
   const { orderData, resetPurchase } = usePurchase();
   const { addOrder } = useOrdersContext();
@@ -60,7 +62,7 @@ function CheckoutAuthorized() {
         country: orderData.country,
       },
       products: orderData.products,
-      payment_method: 'Paypal', 
+      payment_method: method, 
       status: 'Approved', 
     };
 

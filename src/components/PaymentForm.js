@@ -50,7 +50,7 @@ const PaymentForm = (props) => {
             'https://server-badassbbqs.vercel.app/api/payment', // Replace with your backend endpoint
             {
               opaqueData,
-              amount: '10.00', // Replace with the actual amount
+              amount: props.totalCost, // Replace with the actual amount
             }
           );
 
@@ -58,7 +58,7 @@ const PaymentForm = (props) => {
             setStatus(
               `Payment successful! Transaction ID: ${backendResponse.data.transactionId}`
             );
-            window.location.href = '/checkout-authorized'
+            window.location.href = '/checkout-authorized/authorize'
           } else {
             throw new Error('Unexpected backend response.');
           }

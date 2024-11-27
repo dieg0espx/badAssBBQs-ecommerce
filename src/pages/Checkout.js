@@ -267,7 +267,7 @@ const Checkout = () => {
             {popupCC && (
               <div id="overlay" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={handleClose}>
                 <div className="bg-white rounded-t-3xl sm:rounded-lg shadow-lg p-6 relative h-[95%] mt-[10%] sm:mt-[10px] w-full sm:h-auto sm:w-[450px] animate-slideUp" onClick={(e) => e.stopPropagation()}>
-                  <Authorize name={`${userInfo.name}  ${userInfo.lastName}`} />
+                  <Authorize name={`${userInfo.name}  ${userInfo.lastName}`} totalCost={totalCost}/>
                   <button className="absolute top-[25px] left-[35px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)} >
                     <i className="bi bi-x-lg"></i>
                   </button>

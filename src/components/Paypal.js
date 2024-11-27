@@ -29,7 +29,7 @@ const Paypal = ({total}) => {
     const onApprove = (data, actions) => {
         return actions.order.capture().then(function (details) {
             actions.close && actions.close();
-            navigate('/checkout-authorized');
+            navigate('/checkout-authorized/paypal');
         });
     };
 
