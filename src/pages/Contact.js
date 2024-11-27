@@ -164,7 +164,7 @@ const ContactPage = () => {
         <div className="contact-info border border-gray-200 p-6 rounded-lg">
           <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
           <p className="text-[20px] mb-2">
-            <span className="font-semibold">Email:</span> <a href="mailto:info@badassbbqs.com" className="text-blue-500">info@badassbbqs.com</a>
+            <span className="font-semibold">Email:</span> <a href="mailto:info@badassbbqs.com" className="text-blue-500">sales@badassbbqs.com</a>
           </p>
           <p className="text-[20px] mb-6">
             <span className="font-semibold">Phone:</span> <a href="tel:877-659-2619" className="text-blue-500">877-659-2619</a>
