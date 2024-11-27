@@ -131,10 +131,9 @@ function ProductList() {
           <option value="green_mountain">Green Mountain</option>
           <option value="napoleon">Napoleon</option>
           <option value="american_fyre_design">American Fyre Design</option>
-          <option value="breeo">Breeo</option>
           <option value="the_outdoor_plus">The Outdoor Plus</option>
           <option value="twin_eagles">Twin Eagles</option>
-
+          <option value="mont_alpi">Mont Alpi</option>
           <option value="primo">Primo</option>
           <option value="summerset">Summerset</option>
           <option value="ledge_lounger">Ledge Lounger</option>
