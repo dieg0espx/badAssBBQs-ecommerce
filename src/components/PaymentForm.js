@@ -27,10 +27,10 @@ const PaymentForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('API LOGIN ID');
-    console.log(authData.apiLoginID);
-    console.log('CLIENT KEY');
-    console.log(authData.clientKey);
+    // console.log('API LOGIN ID');
+    // console.log(authData.apiLoginID);
+    // console.log('CLIENT KEY');
+    // console.log(authData.clientKey);
     
   
     console.log('Handle Submit');
@@ -59,7 +59,7 @@ const PaymentForm = (props) => {
                     'https://server-badassbbqs.vercel.app/api/payment',
                     {
                         opaqueData,
-                        amount: 1,
+                        amount: props.totalCost,
                     }
                 );
                 console.log('Backend Response:', backendResponse);
