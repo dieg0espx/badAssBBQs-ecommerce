@@ -76,7 +76,7 @@ function Cart() {
 
             <div className='flex justify-between mb-[15px]'>
               <p className='text-[18px]'> <b>Shipping</b></p>
-              <p className='text-[18px] text-green-800 font-semibold'>{totalCost > 49 ? "FREE" : 'TBD' } </p>
+              <p className='text-[18px] text-green-800 font-semibold'>{totalCost > 49 ? "FREE" : '$6.95 USD' } </p>
             </div>
 
             <div className='flex justify-between mb-[15px]'>

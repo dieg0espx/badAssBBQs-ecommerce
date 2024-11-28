@@ -190,7 +190,7 @@ const Checkout = () => {
       <div className="bg-white p-[10px] md:p-[20px] rounded border border-gray-200 w-[90%]">
         <div className="flex flex-col sm:flex-row justify-between mb-[30px]">
           <p className="font-bold text-[30px] text-center sm:text-auto">CheckOut</p> 
-          <p className="font-bold text-[30px] text-center sm:text-auto">{formatCurrency(totalCost)}</p> 
+          <p className="font-bold text-[30px] text-center sm:text-auto">{formatCurrency(totalCost > 49 ? totalCost : totalCost + 6.95)}</p> 
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
           <div className="border border-gray-200 rounded p-[20px]">
@@ -254,7 +254,7 @@ const Checkout = () => {
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
                 <p className="h-[43px] bg-white text-center text-gray-800 border border-gray-500 rounded text-[15px] leading-[40px]" onClick={()=>setPopupCC(true)}> <i className="bi bi-credit-card-2-front"></i> Credit Card </p>
-                <Paypal total={totalCost}  className='cursor-not-allowed'/> 
+                <Paypal total={totalCost  > 49 ? totalCost : totalCost + 6.95}  className='cursor-not-allowed'/> 
                 <div className="border border-gray-500 rounded px-[7px] h-[44px] w-full flex items-center justify-center">
                   <img src={affirmLogo} className='h-[100%] object-contain' onClick={()=>payWithAffirm()} />
                 </div>
@@ -267,7 +267,7 @@ const Checkout = () => {
             {popupCC && (
               <div id="overlay" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={handleClose}>
                 <div className="bg-white rounded-t-3xl sm:rounded-lg shadow-lg p-6 relative h-[95%] mt-[10%] sm:mt-[10px] w-full sm:h-auto sm:w-[450px] animate-slideUp" onClick={(e) => e.stopPropagation()}>
-                  <Authorize name={`${userInfo.name}  ${userInfo.lastName}`} totalCost={totalCost}/>
+                  <Authorize name={`${userInfo.name}  ${userInfo.lastName}`} totalCost={totalCost > 49 ? totalCost : totalCost + 6.95}/>
                   <button className="absolute top-[25px] left-[35px] text-gray-500 text-[20px] hover:text-gray-800" onClick={() => setPopupCC(false)} >
                     <i className="bi bi-x-lg"></i>
                   </button>
