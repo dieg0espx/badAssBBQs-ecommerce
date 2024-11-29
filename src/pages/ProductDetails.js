@@ -57,62 +57,62 @@ const ProductDetails = () => {
 
 
 
-  useEffect(() => {
-    if (product) {
-      const fetchSimilarProducts = async () => {
-        const similar = await analyzeProductsByModel(product.brand, product.Model);
-        setSimilarProducts(similar);
-      };
-      fetchSimilarProducts();
-    }
-  }, [product, analyzeProductsByModel]);
+//   useEffect(() => {
+//     if (product) {
+//       const fetchSimilarProducts = async () => {
+//         const similar = await analyzeProductsByModel(product.brand, product.Model);
+//         setSimilarProducts(similar);
+//       };
+//       fetchSimilarProducts();
+//     }
+//   }, [product, analyzeProductsByModel]);
 
-  const analyzeSpecifications = (currentSpecs, similarSpecs) => {
-    if (!currentSpecs || !similarSpecs) return [];
+//   const analyzeSpecifications = (currentSpecs, similarSpecs) => {
+//     if (!currentSpecs || !similarSpecs) return [];
   
-    const differences = [];
-    const allKeys = new Set([...Object.keys(currentSpecs), ...Object.keys(similarSpecs)]);
+//     const differences = [];
+//     const allKeys = new Set([...Object.keys(currentSpecs), ...Object.keys(similarSpecs)]);
   
-    allKeys.forEach((key) => {
-      const currentValue = currentSpecs[key] || 'N/A';
-      const similarValue = similarSpecs[key] || 'N/A';
+//     allKeys.forEach((key) => {
+//       const currentValue = currentSpecs[key] || 'N/A';
+//       const similarValue = similarSpecs[key] || 'N/A';
   
-      // Only include differences where the current and similar values are different
-      if (currentValue !== similarValue) {
-        differences.push({
-          spec: key,
-          current: currentValue,
-          similar: similarValue,
-        });
-      }
-    });
+//       // Only include differences where the current and similar values are different
+//       if (currentValue !== similarValue) {
+//         differences.push({
+//           spec: key,
+//           current: currentValue,
+//           similar: similarValue,
+//         });
+//       }
+//     });
   
-    return differences;
-  };
+//     return differences;
+//   };
   
   
 
-useEffect(() => {
-  if (product && similarProducts.length > 0) {
-    const filteredDifferences = similarProducts.map((similarProduct) =>
-      analyzeSpecifications(product.Specifications, similarProduct.Specifications)
-    );
+// useEffect(() => {
+//   if (product && similarProducts.length > 0) {
+//     const filteredDifferences = similarProducts.map((similarProduct) =>
+//       analyzeSpecifications(product.Specifications, similarProduct.Specifications)
+//     );
 
-    // Filter out any empty arrays from the differences
-    const nonEmptyDifferences = filteredDifferences.filter((diff) => diff.length > 0);
+//     // Filter out any empty arrays from the differences
+//     const nonEmptyDifferences = filteredDifferences.filter((diff) => diff.length > 0);
 
-    setSpecDifferences(nonEmptyDifferences);
-    console.log("Filtered Differences:", nonEmptyDifferences);
-  }
-}, [product, similarProducts]);
+//     setSpecDifferences(nonEmptyDifferences);
+//     console.log("Filtered Differences:", nonEmptyDifferences);
+//   }
+// }, [product, similarProducts]);
 
-useEffect(() => {
-  if (specDifferences.length > 0) {
-    console.log("Spec Differences:", specDifferences);
-    const differenceObject = findDifferenceObject(specDifferences);
-    console.log("First Difference Object:", differenceObject);
-  }
-}, [specDifferences]);
+// useEffect(() => {
+//   if (specDifferences.length > 0) {
+//     console.log("Spec Differences:", specDifferences);
+//     const differenceObject = findDifferenceObject(specDifferences);
+//     console.log("First Difference Object:", differenceObject);
+//   }
+// }, [specDifferences]);
 
 
   
