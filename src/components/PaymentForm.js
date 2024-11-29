@@ -59,8 +59,7 @@ const PaymentForm = (props) => {
                     'https://server-badassbbqs.vercel.app/api/payment',
                     {
                         opaqueData,
-                        // amount: props.totalCost,
-                        amount:1, 
+                        amount: props.totalCost,
                     }
                 );
                 console.log('Backend Response:', backendResponse);
