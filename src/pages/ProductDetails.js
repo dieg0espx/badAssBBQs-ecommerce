@@ -21,8 +21,12 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [listRelated, setListRelated] = useState([])
- 
 
+  const { analyzeProductsByModel } = useProducts();
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [specDifferences, setSpecDifferences] = useState([]);
+
+ 
   useEffect(() => {
     const fetchProducts = async () => {
       const allProducts = await loadAllProducts(); // Load all products from context
@@ -50,6 +54,88 @@ const ProductDetails = () => {
       fetchRelatedProducts();
     }   
   },[product])
+
+
+
+  useEffect(() => {
+    if (product) {
+      const fetchSimilarProducts = async () => {
+        const similar = await analyzeProductsByModel(product.brand, product.Model);
+        setSimilarProducts(similar);
+      };
+      fetchSimilarProducts();
+    }
+  }, [product, analyzeProductsByModel]);
+
+  const analyzeSpecifications = (currentSpecs, similarSpecs) => {
+    if (!currentSpecs || !similarSpecs) return [];
+  
+    const differences = [];
+    const allKeys = new Set([...Object.keys(currentSpecs), ...Object.keys(similarSpecs)]);
+  
+    allKeys.forEach((key) => {
+      const currentValue = currentSpecs[key] || 'N/A';
+      const similarValue = similarSpecs[key] || 'N/A';
+  
+      // Only include differences where the current and similar values are different
+      if (currentValue !== similarValue) {
+        differences.push({
+          spec: key,
+          current: currentValue,
+          similar: similarValue,
+        });
+      }
+    });
+  
+    return differences;
+  };
+  
+  
+
+useEffect(() => {
+  if (product && similarProducts.length > 0) {
+    const filteredDifferences = similarProducts.map((similarProduct) =>
+      analyzeSpecifications(product.Specifications, similarProduct.Specifications)
+    );
+
+    // Filter out any empty arrays from the differences
+    const nonEmptyDifferences = filteredDifferences.filter((diff) => diff.length > 0);
+
+    setSpecDifferences(nonEmptyDifferences);
+    console.log("Filtered Differences:", nonEmptyDifferences);
+  }
+}, [product, similarProducts]);
+
+useEffect(() => {
+  if (specDifferences.length > 0) {
+    console.log("Spec Differences:", specDifferences);
+    const differenceObject = findDifferenceObject(specDifferences);
+    console.log("First Difference Object:", differenceObject);
+  }
+}, [specDifferences]);
+
+
+  
+const findDifferenceObject = (array) => {
+  // Iterate through the array to find the object with a difference
+  for (let i = 0; i < array.length; i++) {
+    const currentKeys = Object.keys(array[i].current).filter((key) => key.trim());
+    const similarKeys = Object.keys(array[i].similar).filter((key) => key.trim());
+
+    // Compare keys in current and similar
+    for (let key of currentKeys) {
+      if (similarKeys.includes(key) && array[i].current[key] !== array[i].similar[key]) {
+        return array[i]; // Return the object containing the first difference
+      }
+    }
+  }
+  return null; // Return null if no differences are found
+};
+
+
+
+
+
 
 
   if (!product) {
