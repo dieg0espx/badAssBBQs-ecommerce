@@ -27,29 +27,6 @@ const PaymentForm = (props) => {
   };
 
 
-  useEffect(() => {
-    // Load the Accept.js script when the component mounts
-    loadAcceptJsScript();
-
-    // Cleanup: Remove the script when the component unmounts (optional)
-    return () => {
-      const script = document.querySelector('script[src="https://js.authorize.net/v1/Accept.js"]');
-      if (script) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
-
-  const loadAcceptJsScript = () => {
-    const script = document.createElement("script");
-    script.src = "https://js.authorize.net/v1/Accept.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.charset = "utf-8";
-    document.body.appendChild(script);
-  };
-
-
   const handleSubmit = async (e) => {
   console.log('API LOGIN ID');
   console.log(authData.apiLoginID);
