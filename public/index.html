@@ -41,6 +41,11 @@
         l[m] = c;
       })(window, _affirm_config, 'affirm', 'checkout', 'ui', 'script', 'ready');
     </script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    script-src 'unsafe-inline' https://*.paypal.com https://*.paypalobjects.com;
+    style-src 'unsafe-inline' https://*.paypal.com; connect-src
+    https://*.paypal.com; frame-src https://*.paypal.com; img-src
+    https://*.paypal.com https://*.paypalobjects.com">
     <title>BadAssBBQS</title>
   </head>
   <body>

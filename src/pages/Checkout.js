@@ -254,8 +254,8 @@ const Checkout = () => {
             <div style={{display: enablePayment ? 'block':'none'}}>
               <p className="font-semibold text-[20px] mb-[10px] mb-[25px]"> Payment Method: </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
-                <Paypal total={totalCost  > 49 ? totalCost : totalCost + 6.95}  className='cursor-not-allowed'/> 
                 <p className="h-[43px] bg-white text-center text-gray-800 border border-gray-500 rounded text-[15px] leading-[40px]" onClick={()=>setPopupCC(true)}> <i className="bi bi-credit-card-2-front"></i> Credit Card </p>
+                <Paypal total={totalCost  > 49 ? totalCost : totalCost + 6.95}  className='cursor-not-allowed'/> 
                 <div className="border border-gray-500 rounded px-[7px] h-[44px] w-full flex items-center justify-center">
                   <img src={affirmLogo} className='h-[100%] object-contain' onClick={()=>payWithAffirm()} />
                 </div>
