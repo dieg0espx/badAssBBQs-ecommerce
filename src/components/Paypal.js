@@ -1,9 +1,14 @@
 import React from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useNavigate } from 'react-router-dom';
+
 
 const Paypal = ({total}) => {
+    const paypalClient = process.env.REACT_APP_PAYPAL_CLIENT
+    const navigate = useNavigate(); // Initialize navigate for redirection
+
     const initialOptions = {
-        "client-id": "Ad8JrQFTg3gZny0Ez2P-xd0ZCDYFWbSXjXAr95-z0P_LABYuauneCkiakhtJvAyVMTQSQDJy-RVZ9A0s",
+        "client-id": paypalClient,
         currency: "USD",
         intent: "capture"
     };
@@ -24,7 +29,7 @@ const Paypal = ({total}) => {
     const onApprove = (data, actions) => {
         return actions.order.capture().then(function (details) {
             actions.close && actions.close();
-            alert("Transaction completed by " + details.payer.name.given_name);
+            navigate('/checkout-authorized/paypal');
         });
     };
 
@@ -34,9 +39,10 @@ const Paypal = ({total}) => {
                 fundingSource="paypal"
                 style={{
                     layout: "horizontal",
-                    color: "silver",
+                    color: "white",
                     shape: "rect",
-                    label: "paypal"
+                    label: "pay",
+                    height: 43
                 }}
                 createOrder={(data, actions) => createOrder(data, actions)}
                 onApprove={(data, actions) => onApprove(data, actions)}
