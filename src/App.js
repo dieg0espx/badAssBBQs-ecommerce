@@ -26,6 +26,7 @@ import CheckoutConfirmation from './pages/CheckoutConfirmation';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <PurchaseProvider>
       <OrdersProvider>
       <Header />
+      <PayPalScriptProvider options={{ "client-id": "Ad8JrQFTg3gZny0Ez2P-xd0ZCDYFWbSXjXAr95-z0P_LABYuauneCkiakhtJvAyVMTQSQDJy-RVZ9A0s" }}>
       <div className='pt-0 xl:pt-[120px] max-w-[1400px] mx-auto'>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -65,6 +67,7 @@ function App() {
             <Route path='/test' element={<Test />} />
           </Routes>
       </div>
+      </PayPalScriptProvider>
       </OrdersProvider>
       </PurchaseProvider>
       </CartProvider >
