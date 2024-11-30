@@ -59,7 +59,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useNavigate } from 'react-router-dom';
 
 const Paypal = ({ total }) => {
-  const paypalClient = process.env.REACT_APP_PAYPAL_CLIENT;
+  const paypalClient = 'Ad8JrQFTg3gZny0Ez2P-xd0ZCDYFWbSXjXAr95-z0P_LABYuauneCkiakhtJvAyVMTQSQDJy-RVZ9A0s';
   const navigate = useNavigate();
 
   const initialOptions = {
