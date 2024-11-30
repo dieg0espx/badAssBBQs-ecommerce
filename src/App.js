@@ -20,6 +20,8 @@ import Contact from './pages/Contact';
 import OrderStatus from './pages/OrderStatus';
 import Admin from './pages/Admin';
 
+import Test from './pages/Test'
+
 import CheckoutConfirmation from './pages/CheckoutConfirmation';
 
 import Header from './components/Header';
@@ -58,6 +60,9 @@ function App() {
             <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>} />
 
             <Route path='/admin' element={<Admin />} />
+
+
+            <Route path='/test' element={<Test />} />
           </Routes>
       </div>
       </OrdersProvider>
