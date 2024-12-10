@@ -90,3 +90,9 @@ export function capitalize(str) {
   if (!str) return ''; // Check if the string is empty or undefined
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+
+export const getTimeStamp = () => {
+  const timestamp = new Date();
+  return `${timestamp.toLocaleDateString()} | ${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+};
