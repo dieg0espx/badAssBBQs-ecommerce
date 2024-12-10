@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { formatCurrency, maxString } from '../Utils/Helpers';
 import { useCart } from '../context/CartContext'; // Import useCart for cart functions
+import placeholderImage from '../images/placeholder_image.jpg'
 
 function ProductMiniature({ product, short }) {
   const navigate = useNavigate(); // Initialize useNavigate to navigate
@@ -26,6 +27,10 @@ function ProductMiniature({ product, short }) {
         alt={product.Title}
         loading="lazy"
         className="w-[80%] md:w-full mx-auto h-40 xl:h-32 object-contain mb-2 "
+        onError={(e) => {
+          e.target.onerror = null; // Prevent infinite loop in case placeholder also fails
+          e.target.src = placeholderImage
+        }}
       />
       <p
         className="text-[13px] xl:text-[15px] font-semibold text-center mb-1 cursor-pointer hover:text-red w-[90%] md:w-[95%] mx-auto 

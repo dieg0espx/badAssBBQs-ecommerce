@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import background from '../images/logo-negative.png';
 import loader from '../images/loader.gif';
 import botLogo from '../images/bot-logo.png'
+import placeholderImage from '../images/placeholder_image.jpg'
 import { capitalize, getTimeStamp } from '../Utils/Helpers';
 import { useProducts } from '../context/ProductsContext';
 
 
 const OPTIONS = ['Products', 'Contact',];
+
 
 function Chatbot() {
   const [currentMessage, setCurrentMessage] = useState('');
@@ -24,6 +26,7 @@ function Chatbot() {
 
   
   const openAiUrl = process.env.REACT_APP_APIURL;
+  
 
   // FUNCTION TO AUTO SCROLL UP
   useEffect(() => {
@@ -129,7 +132,7 @@ function Chatbot() {
     addMessage('user', product.Title);
     addMessage(
       'server',
-      `Here is the link to the product: <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+      `Click here to see the product: <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
     );
     setShowOptions(true)
   };
@@ -142,16 +145,16 @@ function Chatbot() {
 
   return (
     <div className="chat-page h-screen overflow-hidden mx-auto">
-      <div className='fixed top-0 left-0 w-full h-[80px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
-          <img src={botLogo}  className='w-[80px]'/>
+      <div className='fixed top-0 left-0 w-full h-[70px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
+          <img src={botLogo}  className='h-[90%]'/>
           <div>
             <h2 className='text-[22px] font-semibold'> AI Assistant </h2>
-            <h2 className='text-[18px] text-gray-400'> <i className="bi bi-circle-fill text-green-400"></i> Online </h2>
+            <h2 className='text-[18px] text-gray-400 items-center leading-[20px]'> <i className="bi bi-circle-fill text-green-400 text-[12px]"></i> Online </h2>
           </div>
       </div>
       <img src={background} className="filter grayscale brightness-0 contrast-100 w-[50%] max-w-[250px] fixed left-[50%] top-[30%] transform -translate-x-[45%] z-0 opacity-5" alt="Background" />
       <div className="container w-[98%] mx-auto relative z-10">
-        <div className="max-w-[800px] mx-auto bubbles h-[calc(100vh-110px)] p-4 overflow-y-scroll rounded-t-lg pt-[100px]">
+        <div className="max-w-[800px] mx-auto bubbles h-[calc(100vh)] p-4 overflow-y-scroll rounded-t-lg pt-[100px]">
           {conversation.map((msg, index) => (
             <div key={index} className={`row mb-2 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
              <div className={`py-2 px-4 rounded-2xl ${msg.sender === 'user' ? 'bg-black text-white' : 'bg-gray-200 text-black'}`}>
@@ -173,9 +176,11 @@ function Chatbot() {
                 <button
                   key={index}
                   onClick={() => handleBrandsButton(brand)}
-                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-blue-600 hover:text-white text-left"
+                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-red hover:text-white text-left text-[15px] grid grid-cols-[20px_auto_10px] h-full items-center"
                 >
+                  <i className="bi bi-grip-vertical"></i>
                   {capitalize(brand.replace(/_/g, ' '))}
+                  <i className="bi bi-chevron-compact-right"></i>
                 </button>
               ))}
               <button onClick={()=>setShowOptions(true)}> Show Menu </button>
@@ -183,19 +188,30 @@ function Chatbot() {
           )}
           {/* PRODUCTS MENU */}
           {showProductSubmenu && products.length > 0 && showProducts && (
-            <div className="grid grid-cols-1 gap-2 mt-4">
+            <div className="grid grid-cols-1 gap-2 mt-4 h-[300px] overflow-y-scroll">
               {products.map((product, index) => (
                 <button
                   key={index}
                   onClick={() => handleProductClick(product)}
-                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-blue-600 hover:text-white text-left"
+                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-red hover:text-white text-left grid grid-cols-[50px_auto] gap-[10px] items-center"
                 >
+                  <img
+                    className='rounded'
+                    src={product.Image}
+                    alt="Product Image"
+                    loading="lazy" // Enable lazy loading
+                    onError={(e) => {
+                      e.target.onerror = null; // Prevent infinite loop in case placeholder also fails
+                      e.target.src = placeholderImage
+                    }}
+                  />
+
                   {product.Title}
                 </button>
               ))}
               <button onClick={()=>setShowOptions(true)}> Show Menu </button>
             </div>
-          )}
+          )} 
 
 
           {/* MAIN MENU */}
@@ -205,7 +221,7 @@ function Chatbot() {
                 <button
                   key={option}
                   onClick={() => handleOptionClick(option)}
-                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-blue-600 hover:text-white flex items-center"
+                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-red hover:text-white flex items-center"
                 >
                   <span className="mr-2">{getEmojiForOption(option)}</span>
                   {option}

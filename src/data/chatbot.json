@@ -1,143 +1,33 @@
 {
-    "categories": {
-      "Products": {
-        "description": "Information about the products we offer.",
-        "items": [
-          {
-            "name": "Aluminum Shoring Frames",
-            "description": "Lightweight and sturdy, designed for safety with horizontal ledgers, inter-bracing options, and supports up to 10,000 pounds/leg.",
-            "available_sizes": ["6'H x 4'W", "5'H x 4'W", "4'H x 4'W"]
-          },
-          {
-            "name": "Steel Shoring Frames",
-            "description": "High-quality steel tubes, galvanized or painted, supporting loads up to 10,000 lb with a Factor of Safety of 2.5:1.",
-            "available_sizes": ["6'H x 4'W", "5'H x 4'W", "4'H x 4'W", "3'H x 4'W"]
-          },
-          {
-            "name": "Premium Steel Post Shores",
-            "description": "Featuring quick-release pins, continuous outer tubes, and available in various heights. Ideal for long-term use with labor-saving quick release pins.",
-            "available_sizes": ["No.0 – 6'", "No.1 – 10'3\"", "No.2 – 11'", "No.3 – 13'", "No.4 – 16'"]
-          },
-          {
-            "name": "Aluminum Beams",
-            "description": "Versatile aluminum beams for shoring and formwork, made from alloy 6351-T6. Reduces weight and minimizes worker strain.",
-            "available_sizes": ["20'0\"", "18'0\"", "16'0\"", "14'0\"", "13'0\"", "12'0\"", "10'6\"", "10'0\"", "9'0\"", "8'0\"", "7'0\"", "6'0\"", "5'0\"", "4'0\""]
-          },
-          {
-            "name": "Screw Jacks",
-            "description": "48mm hollow steel shaft with quick-locking T-head bolts, compatible with aluminum and timber stringers.",
-            "available_sizes": ["Aluminum U-Head", "Aluminum Base-Plate", "Steel U-Head", "Steel Base-Plate"]
-          },
-          {
-            "name": "Wood Beams",
-            "description": "Crafted from premium quality wood, providing excellent strength and durability for scaffolding structures.",
-            "available_sizes": ["14'0\"", "12'0\"", "11'0\"", "10'0\"", "9'0\"", "8'0\"", "7'0\"", "6'0\"", "5'0\""]
-          }
-        ]
-      },
-      "Contact": {
-        "phone": "778 898 5301",
-        "email": "info@ttfscaffolding.com",
-        "address": "10979 Olsen Rd, Surrey, BC V3V 3S9, Canada"
-      },
-      "Quotation": {
-        "process": "Submit your drawings. Our experts analyze every detail, calculating the required components meticulously to provide an accurate quote."
-      },
-      "Prices": "Pricing details for TTF SCAFFOLDING rental services. Pricing varies based on product type, rental duration, and project requirements. For accurate pricing, please request a quotation.",
-      "About": {
-        "description": "In TTF SCAFFOLDING, we take pride in our extensive expertise in Suspended Slab Shoring Rental and Engineering in Greater Vancouver. Our commitment to excellence and safety sets us apart as a reliable choice for construction professionals.",
-        "experience": "In TTF SCAFFOLDING, With over 8 years of experience, we deliver top-quality equipment and unparalleled service.",
-        "Quality Assurance": {
-          "materials": "Utilizing the finest materials sourced from trusted suppliers undergoing quality control assessments.",
-          "design": "Dedicated to innovation, with research and development enhancing functionality, usability, and efficiency.",
-          "testing": "Products undergo rigorous testing to ensure durability and the ability to withstand construction demands."
-        },
-        "Slab Scaffolding": {
-          "description": "Temporary support structure for pouring or repairing concrete slabs or beams.",
-          "features": [
-            "Support for wet concrete until it gains strength.",
-            "Adjustable to different heights and layouts.",
-            "Ensures worker safety and structural integrity.",
-            "Reusable components for cost-effectiveness."
-          ]
-        },
-        "Process of Slabbing": [
-          "Site Preparation: Excavation and leveling.",
-          "Formwork Installation: Setting up wood or steel forms.",
-          "Reinforcement: Adding steel rebar for strength.",
-          "Concrete Pouring: Spreading and leveling fresh concrete.",
-          "Finishing: Smoothing the surface with tools.",
-          "Curing: Keeping concrete moist for strength.",
-          "Removal of Formwork: Taking down forms after curing."
-        ],
-        "Material Preparation for Return": {
-          "instructions": [
-            {
-              "item": "Steel/Aluminum Frames",
-              "details": "25 pieces per bundle, two straps, laid on the ground."
-            },
-            {
-              "item": "U/Head & Base Plates",
-              "details": "100 pieces per pallet, shrink-wrapped with two straps, heads and feet separated."
-            },
-            {
-              "item": "Aluminum Beams",
-              "details": "30 pieces in two rows of 15, same sizes together, two straps."
-            },
-            {
-              "item": "Post Shores",
-              "details": "50 pieces, 5 rows of 10, with 2x4 between rows, two straps."
-            },
-            {
-              "item": "4x6 Wood Joist",
-              "details": "40 pieces in 5 rows of 8, same size together, two straps."
-            },
-            {
-              "item": "Coupling Pins",
-              "details": "Bag of 50, tied with steel wire. Bags supplied if needed."
-            },
-            {
-              "item": "Beam Clips",
-              "details": "Bag of 100, tied with steel wire or zap strap."
-            },
-            {
-              "item": "Cross Bars",
-              "details": "25 pieces per bundle, same sizes together, two straps."
-            }
-          ]
-        },
-        "Safety Guidelines": {
-          "guidelines": [
-            "All crew must wear harnesses and double lanyards.",
-            "Harnesses should attach to horizontal members between the knee brace and frame leg."
-          ]
-        }
-      },
-      "Delivery": {
-        "locations": [
-          "Vancouver",
-          "Burnaby",
-          "Surrey",
-          "Richmond",
-          "Langley",
-          "Coquitlam",
-          "Delta",
-          "New Westminster",
-          "North Vancouver",
-          "West Vancouver",
-          "Maple Ridge",
-          "Abbotsford",
-          "Port Coquitlam",
-          "Port Moody",
-          "White Rock",
-          "Chilliwack",
-          "Mission",
-          "Pitt Meadows"
-        ],
-        "Fast Shipping": {
-          "description": "Quick delivery to make your projects in Vancouver hassle-free, with ongoing improvements in the process."
-        }
-      }
-    }
-  }
+  "Privacy_Policy": "At Badass BBQs, we prioritize the privacy and security of our customers. We want to make it clear that our services are intended for individuals over the age of 18, and we kindly ask that those under 18 refrain from submitting personal information. Rest assured, any personal information you provide will not be sold or shared with third parties without your explicit consent. We collect personal data solely to process your purchases and ensure smooth shipping.If you have any questions or concerns, please reach out to us at info@badassbbqs.com or call us toll-free at 877-659-2619.To enhance your experience, we use third-party providers to display ads and send email alerts on our behalf. These providers may collect anonymous data about your visits to our website and interactions with our products. They may also use this information to serve targeted advertisements based on your interests. This data is gathered through common technologies like pixel tags, which are widely used across the web. For more details on how this works and to learn about your options for opting out of data collection, please visit our website at www.badassbbqs.com.We also offer the option to log into our site using third-party social media accounts, such as Facebook. By linking your social media profile to your account, you can share content on external platforms and interact with friends from those networks. When you connect your social media account, we may access certain information from your profile, including your name, profile picture, email address, gender, friends list, wall posts, and news feed.In addition to the information you provide directly, we may automatically collect data about your use of our website, such as your IP address, browser type, device information, operating system, mobile carrier, location, and browsing behavior. This helps us improve our services and tailor our offerings to better suit your preferences.We may also work with data technology companies to gather and use information about your device and online activities for targeted advertising and marketing purposes. These partners may use cookies, web beacons, and similar technologies to collect data, which may be shared with us and other third parties for advertising purposes.This privacy policy may be updated periodically. Any significant changes will be posted on our website, so we encourage you to review this policy regularly to stay informed about how we protect your personal information. It is your responsibility to stay updated on any modifications.For questions or concerns regarding this privacy policy, feel free to contact us at info@badassbbqs.com or call us toll-free at 877-659-2619",
+  "Shipping_Policy": "At Badass BBQs, we recognize that timely and reliable shipping is a crucial part of your shopping experience. To ensure your order arrives safely and on time, we partner with a variety of trusted freight carriers. While we make every effort to ensure smooth delivery, please note that once your package is in the hands of the carrier, we cannot alter the shipping address or schedule a specific delivery date. We can provide estimated delivery times based on the information provided by the carrier, but these are subject to change.If you experience any issues with your delivery, our customer service team is here to help. You can reach us at 877-659-2619 for assistance.For larger orders, we use freight carriers instead of standard couriers like UPS or FedEx. This type of delivery can be more complex, so we recommend reviewing the process ahead of time. Freight shipments are usually delivered on a pallet and may require a signature upon receipt. The carrier might also contact you to arrange a delivery window, or they may drop the package at a nearby location. You’ll receive detailed information about the delivery process in your shipping confirmation email.Please be aware that deliveries to remote or difficult-to-access locations may incur additional shipping fees. If we anticipate any delivery challenges or extra charges, one of our customer service representatives will contact you directly. If you foresee any issues with access to your delivery location, please let us know at the time of purchase so we can plan accordingly.At this time, we do not offer in-home delivery without an additional charge, and availability for such services may vary.While we strive to provide the best possible shipping experience, please note that we are not responsible for shipping costs in the event that a carrier is unable to complete the delivery to your location. Freight shipments are typically delivered curbside, and you will be responsible for moving the package to your desired location. We recommend having at least two people available to assist with unloading.We hope this information helps ensure a smooth delivery. If you have any further questions, please don’t hesitate to contact our customer service team.",
+  "Defective_Product":"In the unlikely event that you receive a defective product from Badass BBQS, most of the manufacturers we carry have excellent processes in place to assist you. Check your manual for details on how to proceed. If you need to contact us, our skilled Support team will guide you through the manufacturers warranty process. Here is what you need to know:The defective item must still be within the manufacturers warranty period.You will need to provide any serial numbers, a description of the issue, and any pictures or videos showing the problem.Badass BBQS is the expert, so we will work with you to verify that it is a defect.We will then report this to the manufacturer to start the claim.The manufacturer will review the claim and then approve or reject it.The time it takes for the manufacturer to respond may vary depending on their internal processes.If approved, the warranty process begins and service, parts, repair, or any combination of those as needed will be provided in accordance with the manufacturers warranty.Some parts or items may need to be returned to the manufacturer for quality control. We will let you know if this is the case.Badass BBQS is not responsible for reimbursement of any labor costs or project delays that may occur due to the receipt of defective goods. We recommend that you wait to schedule installation until after your order has arrived and items have been fully inspected.All shipments should be opened and inspected within 48 hours of delivery in accordance with our Delivery Inspection policy. It is recommended that you check for visible defects as well as damage at this time to prevent any delays in using your item(s).If your item has a defect outside of the warranty period:We will not be able to facilitate a claim with the manufacturer.Any replacement parts or whole units at this point can be purchased by you through Badass BBQS. Contact us for pricing and availability.Please note that parts or whole replacement units may not be available for discontinued items.",
+  "Return_Policy":"At Badass BBQ, we want to ensure that youre completely satisfied with your purchase. If for any reason youre not, were here to help find a solution.Please note that in order to qualify for a return, all items must be in new and unused condition, in their original packaging, and returned within 30 days of delivery.Unfortunately, the following items are not eligible for returns:Items that have been used or assembledClearance itemsWarehouse deal itemsCustom-made, special-order, and made-to-order productsItems marked as non-returnable in the product descriptionItems returned outside of the 30-day return periodTo initiate a return, please use the Submit a Return Request button. Please keep in mind that:Shipping costs for both directions will be deducted from the refundYou will receive an email confirmation of your request with further details on the return processAn itemized Return Authorization, return shipping labels, and instructions will be sent to you upon approval. Returns must be shipped within 30 days of receiving approvalIf your return is being shipped via freight truck, we will require a photo of the item before authorizationReturns must be properly packaged in their original outer and inner packaging, including all original parts, manuals, pieces, and packing slipsOnce we receive and inspect the return, your refund will be processed. The time for refund processing will depend on the payment method used for the original orderAny items returned outside of this process or the 30-day period are not eligible for a refundAny items returned without prior authorization will not be eligible for a refund.The Outdoor Plus (TOP) return policy:No returns on made-to-order goods.No returns on custom features, NO EXCEPTIONS.If a product is delivered incorrectly, it is the recipients responsibility to notify TOP within 48 hours. TOP is not responsible for incorrect or damaged packages and shipments 48 hours after they have been received.Please call (909) 460-5579 or email: support@theoutdoorplus.com for help with warranty, replacements, returns, or if you have any support related questions.",
+  "Contact": {
+    "phone": "(877) 659-2619",
+    "email": "sales@badassbbqs.com"
+  },
+  "Brands":[
+    "Alfresco",
+    "American Made Grills",
+    "Aog",
+    "Artisan",
+    "Blackstone",
+    "Blaze",
+    "Bromic Heating",
+    "Coyote",
+    "Delta",
+    "Fire Magic",
+    "Fontana",
+    "Green Mountain",
+    "Napoleon",
+    "American Fyre Design",
+    "The Outdoor Plus",
+    "Twin Eagles",
+    "Primo",
+    "Summerset",
+    "Ledge Lounger",
+    "Mont Alpi"
+  ]
+}
   

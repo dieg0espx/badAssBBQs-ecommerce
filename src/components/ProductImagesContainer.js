@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import placeholderImage from '../images/placeholder_image.jpg'
 
 const ProductImagesContainer = ({ Image, Other_image }) => {
   const [currentImage, setCurrentImage] = useState(Image);
@@ -37,6 +38,10 @@ const ProductImagesContainer = ({ Image, Other_image }) => {
             alt={Other_image[url] || `Thumbnail ${index + 1}`}
             className="w-20 h-20 object-contain mb-2 cursor-pointer rounded"
             onMouseEnter={() => setCurrentImage(url)}
+            onError={(e) => {
+              e.target.onerror = null; // Prevent infinite loop in case placeholder also fails
+              e.target.src = placeholderImage
+            }}
           />
         ))}
       </div>
@@ -47,6 +52,10 @@ const ProductImagesContainer = ({ Image, Other_image }) => {
           src={currentImage.split('?i10c=img.resize(width:250,height:250')[0]}
           alt="Current Product"
           className="w-full h-auto object-contain rounded-lg"
+          onError={(e) => {
+            e.target.onerror = null; // Prevent infinite loop in case placeholder also fails
+            e.target.src = placeholderImage
+          }}
         />
       </div>
 
@@ -59,6 +68,10 @@ const ProductImagesContainer = ({ Image, Other_image }) => {
                 src={url.split('?i10c=img.resize(width:250,height:250')[0]}
                 alt={Other_image[url] || `Slide ${index + 1}`}
                 className="w-full h-auto object-contain rounded-lg"
+                onError={(e) => {
+                  e.target.onerror = null; // Prevent infinite loop in case placeholder also fails
+                  e.target.src = placeholderImage
+                }}
               />
             </div>
           ))}
