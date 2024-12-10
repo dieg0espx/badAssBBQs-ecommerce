@@ -1,193 +1,142 @@
-import React, {useContext, useEffect, useState} from 'react';
-import { Link } from "react-router-dom";
-import Slider from 'react-slick'; // Import the Slider component from react-slick
-import { useParams } from 'react-router-dom';
-import { useProducts } from '../context/ProductsContext'; // Import the custom hook\
-import { formatCurrency, formatPrice, toCamelCase } from '../Utils/Helpers'; // Assuming this is your formatting function
-import ProductImagesContainer from '../components/ProductImagesContainer';
-import Footer from '../components/Footer';
-import AddToCartQuantity from '../components/AddToCartQuantity';
-import Categories from '../components/Categories';
-import AskExpert from '../components/AsxExpert'
-import ProductMiniature from '../components/ProductMiniature';
-import ProductDescription from '../components/ProductDescription';
-import Loader from '../components/Loader';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Slider from "react-slick";
+import { useProducts } from "../context/ProductsContext";
+import ProductImagesContainer from "../components/ProductImagesContainer";
+import AddToCartQuantity from "../components/AddToCartQuantity";
+import Categories from "../components/Categories";
+import AskExpert from "../components/AsxExpert";
+import ProductMiniature from "../components/ProductMiniature";
+import ProductDescription from "../components/ProductDescription";
+import Loader from "../components/Loader";
+import { toCamelCase, formatCurrency } from "../Utils/Helpers";
 
 
 const ProductDetails = () => {
-  const { loadAllProducts } = useProducts();
-  const { relatedProducts } = useProducts();
+  const { loadAllProducts, relatedProducts, analyzeProductsByModel } = useProducts();
   const [products, setProducts] = useState([]);
-  const { id } = useParams();
-  const [quantity, setQuantity] = useState(1);
-  const [listRelated, setListRelated] = useState([])
-
-  const { analyzeProductsByModel } = useProducts();
+  const [listRelated, setListRelated] = useState([]);
   const [similarProducts, setSimilarProducts] = useState([]);
   const [specDifferences, setSpecDifferences] = useState([]);
+  const { id } = useParams();
+  const [quantity, setQuantity] = useState(1);
+  
+  const [dropdownData, setDropdownData] = useState({}); // Stores dropdown titles and options
+  const [selectedOptions, setSelectedOptions] = useState({}); // Tracks selected options
 
- 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const allProducts = await loadAllProducts(); // Load all products from context
-      setProducts(allProducts);
-    };
-    fetchProducts();
-  }, [loadAllProducts]);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'auto',
-    });
-  }, [id]);
-  // GETTING RELATED PRODUCTS
-  const product = products.find((item) => `${item.brand}-${item.Id}` === id);
-  useEffect(()=>{
-    if(product){
-      const fetchRelatedProducts = async () => {
-        const category = product.Category.filter(cat => cat !== "Home").slice(-2);
-        const amount = 15;
-        const products = await relatedProducts(category, amount);
-        setListRelated(products)
-      };
-      fetchRelatedProducts();
-    }   
-  },[product])
+    const fetchData = async () => {
+      try {
+        const allProducts = await loadAllProducts();
+        setProducts(allProducts);
 
+        const currentProduct = allProducts.find((item) => `${item.brand}-${item.Id}` === id);
+        if (currentProduct) {
+          const category = currentProduct.Category.filter((cat) => cat !== "Home").slice(-2);
+          const related = await relatedProducts(category, 15);
+          setListRelated(related);
 
+          // const similar = await analyzeProductsByModel(currentProduct.brand, currentProduct.Model);
+          // setSimilarProducts(similar || []);
 
-//   useEffect(() => {
-//     if (product) {
-//       const fetchSimilarProducts = async () => {
-//         const similar = await analyzeProductsByModel(product.brand, product.Model);
-//         setSimilarProducts(similar);
-//       };
-//       fetchSimilarProducts();
-//     }
-//   }, [product, analyzeProductsByModel]);
-
-//   const analyzeSpecifications = (currentSpecs, similarSpecs) => {
-//     if (!currentSpecs || !similarSpecs) return [];
-  
-//     const differences = [];
-//     const allKeys = new Set([...Object.keys(currentSpecs), ...Object.keys(similarSpecs)]);
-  
-//     allKeys.forEach((key) => {
-//       const currentValue = currentSpecs[key] || 'N/A';
-//       const similarValue = similarSpecs[key] || 'N/A';
-  
-//       // Only include differences where the current and similar values are different
-//       if (currentValue !== similarValue) {
-//         differences.push({
-//           spec: key,
-//           current: currentValue,
-//           similar: similarValue,
-//         });
-//       }
-//     });
-  
-//     return differences;
-//   };
-  
-  
-
-// useEffect(() => {
-//   if (product && similarProducts.length > 0) {
-//     const filteredDifferences = similarProducts.map((similarProduct) =>
-//       analyzeSpecifications(product.Specifications, similarProduct.Specifications)
-//     );
-
-//     // Filter out any empty arrays from the differences
-//     const nonEmptyDifferences = filteredDifferences.filter((diff) => diff.length > 0);
-
-//     setSpecDifferences(nonEmptyDifferences);
-//     console.log("Filtered Differences:", nonEmptyDifferences);
-//   }
-// }, [product, similarProducts]);
-
-// useEffect(() => {
-//   if (specDifferences.length > 0) {
-//     console.log("Spec Differences:", specDifferences);
-//     const differenceObject = findDifferenceObject(specDifferences);
-//     console.log("First Difference Object:", differenceObject);
-//   }
-// }, [specDifferences]);
-
-
-  
-const findDifferenceObject = (array) => {
-  // Iterate through the array to find the object with a difference
-  for (let i = 0; i < array.length; i++) {
-    const currentKeys = Object.keys(array[i].current).filter((key) => key.trim());
-    const similarKeys = Object.keys(array[i].similar).filter((key) => key.trim());
-
-    // Compare keys in current and similar
-    for (let key of currentKeys) {
-      if (similarKeys.includes(key) && array[i].current[key] !== array[i].similar[key]) {
-        return array[i]; // Return the object containing the first difference
+          // if (similar && similar.length > 0) {
+          //   const differences = similar.map((similarProduct) =>
+          //     analyzeSpecifications(currentProduct.Specifications, similarProduct.Specifications, similarProduct.Model)
+          //   );
+          //   setSpecDifferences(differences);
+          // }
+        }
+      } catch (error) {
+        console.error("Error loading data:", error);
       }
-    }
-  }
-  return null; // Return null if no differences are found
-};
+    };
+    fetchData();
+  }, [id, loadAllProducts, relatedProducts, analyzeProductsByModel]);
 
+  const product = products.find((item) => `${item.brand}-${item.Id}` === id);
 
+  // const analyzeSpecifications = (currentSpecs, similarSpecs, model) => {
+  //   if (!currentSpecs || !similarSpecs) return [];
+  
+  //   const differences = [];
+  //   const allKeys = new Set([...Object.keys(currentSpecs), ...Object.keys(similarSpecs)]);
+  
+  //   allKeys.forEach((key) => {
+  //     const currentValue = currentSpecs[key] || 'N/A';
+  //     const similarValue = similarSpecs[key] || 'N/A';
+  //     if (currentValue !== similarValue) {
+  //       differences.push({ key, current: currentValue, similar: similarValue, similarModel: model });
+  //     }
+  //   });
+  
+  //   return differences;
+  // };
+  
 
+  // useEffect(() => {
+  //   if (specDifferences.length > 0) {
+  //     const dropdownOptions = {};
 
+  //     for (let i = 0; i < specDifferences[0].length; i++) {
+  //       const key = Object.keys(specDifferences[0][i].current)[0]; // Get the key
+  //       const currentValue = Object.values(specDifferences[0][i].current)[0]; // Access current value
+  //       const similarValue = Object.values(specDifferences[0][i].similar)[0]; // Access similar value
 
+  //       if (currentValue !== similarValue && key !== '' && key !== 'Weight') {
+  //         if (!dropdownOptions[key]) {
+  //           dropdownOptions[key] = new Set(); // Use Set to avoid duplicates
+  //         }
+  //         dropdownOptions[key].add(currentValue);
+  //         dropdownOptions[key].add(similarValue);
+  //       }
+  //     }
 
+  //     // Convert Set to Array for each key and update state
+  //     const formattedDropdownData = Object.fromEntries(
+  //       Object.entries(dropdownOptions).map(([key, values]) => [key, Array.from(values)])
+  //     );
 
-  if (!product) {
-    return <Loader />;
-  }
+  //     setDropdownData(formattedDropdownData);
+  //   }
+  // }, [specDifferences]);
 
-  // Function to format specifications into a list
-  const formatSpecifications = (specString) => {
-    return specString.split(';').map((spec) => {
-      const [name, value] = spec.split(':').map((s) => s.trim());
-      return { name, value };
-    }).filter(spec => spec.name && spec.value); // Filter out any empty specifications
-  };
+  // const handleSelectChange = (key, value) => {
+  //   setSelectedOptions((prev) => ({
+  //     ...prev,
+  //     [key]: value,
+  //   }));
+
+  //   // Find and log the similar product
+  //   const similarProduct = specDifferences[0].find((difference) => {
+  //     const similarValue = Object.values(difference.similar)[0];
+  //     return Object.keys(difference.current)[0] === key && similarValue === value;
+  //   });
+
+  //   if (similarProduct) {
+  //     console.log("Selected Similar Product:", similarProduct);
+  //   }
+  // };
+  
+  
+
 
   const settings = {
-    dots: false, // Show dots for navigation
-    infinite: true, // Infinite loop sliding
-    speed: 500, // Slide speed
-    slidesToShow: 5, // Number of slides to show at once
-    slidesToScroll: 1, // Number of slides to scroll on each navigation
-    autoplay: true, // Enable automatic sliding
-    autoplaySpeed: 3000, // Duration between slides
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3, // Show 3 slides on medium screens
-          slidesToScroll: 1,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2, // Show 2 slides on smaller screens
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2, // Show 1 slide on extra small screens
-          slidesToScroll: 1,
-        },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1, dots: true } },
+      { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
     ],
   };
 
-
-
-  
-
+  if (!product) return <Loader />;
 
   return (
     <div className="p-6 max-w-6xl mx-auto overflow-x-hidden">
@@ -230,6 +179,30 @@ const findDifferenceObject = (array) => {
               <p className="affirm-as-low-as mb-[20px]" data-page-type="cart" data-amount={product.Price*100}></p>
 
               <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} product={product}/>
+
+
+              {/* ====== OPTIONS DROPDOWN ==== */}
+              {/* <div className="mt-[20px] w-[80%]">
+                {Object.entries(dropdownData).map(([title, options]) => (
+                  <div key={title}>
+                    <label htmlFor={title} className="block mb-[3px] text-sm font-medium text-gray-700">
+                      {title}
+                    </label>
+                    <select
+                      id={title}
+                      className="p-2 border border-gray-300 rounded w-full"
+                      value={selectedOptions[title] || ""}
+                      onChange={(e) => handleSelectChange(title, e.target.value)}
+                    >
+                      {options.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div> */}
               
 
 

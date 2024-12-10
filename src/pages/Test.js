@@ -1,10 +1,11 @@
 import React from 'react'
 import Stripe from '../components/Stripe'
+import ProductSearch from '../components/ProductSearch'
 
 function Test() {
   return (
     <div>
-        <Stripe />
+        <ProductSearch />
     </div>
   )
 }
