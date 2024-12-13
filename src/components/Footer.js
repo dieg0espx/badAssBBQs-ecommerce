@@ -9,10 +9,12 @@ import spotify from '../images/spotify.png'
 import logoNegative from '../images/logo-negative.png'
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
+import BtnChat from './BtnChat';
 
 function Footer() {
   return (
     <div className='footer w-full mt-5'>
+      <BtnChat />
       {/* <h2 className='text-center text-[23px] xl:text-[35px] font-bold mt-10'> Why Choose BadAssBBQs </h2>
       <Link to='/contact' className='block text-center text-[20px] hover:text-red mb-10'> Learn more about us <i className="bi bi-chevron-right"></i> </Link>
       <img src={banner8} className='w-full mx-auto mt-5' alt="Promotional Banner8"/> */}

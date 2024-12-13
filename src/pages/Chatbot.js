@@ -145,12 +145,15 @@ function Chatbot() {
 
   return (
     <div className="chat-page h-screen overflow-hidden mx-auto">
-      <div className='fixed top-0 left-0 w-full h-[70px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
+      <div className='fixed top-0 left-0 w-full h-[50px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
           <img src={botLogo}  className='h-[90%]'/>
           <div>
-            <h2 className='text-[22px] font-semibold'> AI Assistant </h2>
-            <h2 className='text-[18px] text-gray-400 items-center leading-[20px]'> <i className="bi bi-circle-fill text-green-400 text-[12px]"></i> Online </h2>
+            <h2 className='text-[15px] font-semibold'> AI Assistant </h2>
+            <h2 className='text-[15px] text-gray-400 items-center leading-[20px]'> <i className="bi bi-circle-fill text-green-400 text-[10px]"></i> Online </h2>
           </div>
+          <a href="tel:8776592619" className='block ml-auto'>
+            <i class="bi bi-telephone-plus ml-auto text-gray-400 hover:text-red cursor-pointer"></i>
+          </a>
       </div>
       <img src={background} className="filter grayscale brightness-0 contrast-100 w-[50%] max-w-[250px] fixed left-[50%] top-[30%] transform -translate-x-[45%] z-0 opacity-5" alt="Background" />
       <div className="container w-[98%] mx-auto relative z-10">
