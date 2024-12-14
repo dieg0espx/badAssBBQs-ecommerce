@@ -228,7 +228,7 @@ async function rawAnswer(question, data) {
       {/* BACKGROUND */}
       <img src={background} className="filter grayscale brightness-0 contrast-100 w-[50%] max-w-[250px] fixed left-[50%] top-[30%] transform -translate-x-[45%] z-0 opacity-5" alt="Background" />
       {/* CHAT */}
-      <div className="container w-full mx-auto relative z-10">
+      <div className="container w-full mx-auto relative z-10 mt-[50px] mb-[100px]">
         <div className="max-w-[800px] mx-auto bubbles p-4 h-[calc(100vh-150px)] overflow-y-scroll">
           {conversation.map((msg, index) => (
             <div key={index} className={`row mb-2 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
