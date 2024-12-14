@@ -38,3 +38,23 @@
 }
 
 
+
+/* CustomStyles.css */
+@keyframes spinning82341 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  position: fixed;
+  left: 20px;
+  bottom:130px;
+  background-image: linear-gradient(rgb(186, 66, 255) 35%, rgb(0, 225, 255));
+  box-shadow: 0 -5px 20px rgb(186, 66, 255), 0 5px 20px rgb(0, 225, 255);
+  animation: spinning82341 1.7s linear infinite;
+}
+
+.spinner1 {
+  filter: blur(10px);
+}

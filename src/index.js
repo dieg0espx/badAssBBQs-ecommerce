@@ -14,14 +14,14 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  
     <BrowserRouter>
       {/* Wrap your app in the Stripe Elements provider */}
       <Elements stripe={stripePromise}>
         <App />
       </Elements>
     </BrowserRouter>
-  </React.StrictMode>
+  
 );
 
 // For performance measurement (optional)

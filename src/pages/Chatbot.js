@@ -5,10 +5,9 @@ import botLogo from '../images/bot-logo.png'
 import placeholderImage from '../images/placeholder_image.jpg'
 import { capitalize, getTimeStamp } from '../Utils/Helpers';
 import { useProducts } from '../context/ProductsContext';
-
-
+import dataChatbot from '../data/chatbot.json'
+import AILoader from '../components/AILoader';
 const OPTIONS = ['Products', 'Contact',];
-
 
 function Chatbot() {
   const [currentMessage, setCurrentMessage] = useState('');
@@ -32,6 +31,15 @@ function Chatbot() {
   useEffect(() => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }, [conversation]);
+
+  useEffect(() => {
+    setData(dataChatbot)
+    addMessage(
+      'server',
+      "Hello! I'm your AI Assistant 🤖.  \n How can I help you today?"
+    );
+  }, []);
+
   // FUNCTION TO CREATE NEW MESSAGE 
   const addMessage = (sender, text = '') => {
     setConversation((prev) => [...prev, { sender, text: String(text), timestamp: getTimeStamp() }]);
@@ -136,28 +144,79 @@ function Chatbot() {
     );
     setShowOptions(true)
   };
-  
-  
-  
-  
 
-  
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey && currentMessage.trim() !== '') {
+    event.preventDefault(); // Prevent default behavior
+    addMessage('user', currentMessage); // Add user message to the conversation
+    rawAnswer(currentMessage, data); // Pass the currentMessage and data to rawAnswer
+    setCurrentMessage(''); // Clear the input field
+    }
+};
 
+
+async function rawAnswer(question, data) {
+    const prompt = `
+    You are an expert assistant. Answer the question below intelligently:
+    - If the question is directly related to the provided data, use the relevant parts of the data to answer.
+    - If the question is not related to the data, respond based on general knowledge and ignore the provided data.
+    - Do not include programming terms like JSON, keys, or objects in your response.
+    - Use bullet points or short sentences for clarity and readability.
+    - Concrete answer.
+    - Highlight important elements or keys using **bold text** when necessary. For example: **key**.
+    - Do not include symbols like {}, [], :, <>, or anything that a non-technical person might find confusing.
+    - Always present the information in a way that a regular person can easily understand.
+    
+    Here is the data (use only if relevant):
+    ${JSON.stringify(data, null, 2)}
+    
+    Question: ${question}
+    `;
+    
+    
+    try {
+        setIsLoading(true);
+        const response = await fetch(openAiUrl + '/generate-text', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: prompt })
+    });
+
+    if (!response.ok) {
+        setIsLoading(false)
+        throw new Error('Failed to generate text');
+    }
+
+    const responseData = await response.json();
+    const generatedText = responseData.trimStart(); // Trim the leading spaces
+    console.log(generatedText);
+    addMessage('server', generatedText);
+    } catch (error) {
+    console.error('Error generating text:', error);
+    return 'Sorry, something went wrong while generating the response.';
+    }
+}
+  
   return (
     <div className="chat-page h-screen overflow-hidden mx-auto">
-      <div className='fixed top-0 left-0 w-full h-[50px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
+      {/* HEADER */}
+      <div className='w-full h-[50px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
           <img src={botLogo}  className='h-[90%]'/>
           <div>
             <h2 className='text-[15px] font-semibold'> AI Assistant </h2>
             <h2 className='text-[15px] text-gray-400 items-center leading-[20px]'> <i className="bi bi-circle-fill text-green-400 text-[10px]"></i> Online </h2>
           </div>
           <a href="tel:8776592619" className='block ml-auto'>
-            <i class="bi bi-telephone-plus ml-auto text-gray-400 hover:text-red cursor-pointer"></i>
+            <i className="bi bi-telephone-plus ml-auto text-gray-400 hover:text-red cursor-pointer"></i>
           </a>
       </div>
+      {/* BACKGROUND */}
       <img src={background} className="filter grayscale brightness-0 contrast-100 w-[50%] max-w-[250px] fixed left-[50%] top-[30%] transform -translate-x-[45%] z-0 opacity-5" alt="Background" />
-      <div className="container w-[98%] mx-auto relative z-10">
-        <div className="max-w-[800px] mx-auto bubbles h-[calc(100vh)] p-4 overflow-y-scroll rounded-t-lg pt-[100px]">
+      {/* CHAT */}
+      <div className="container w-full mx-auto relative z-10">
+        <div className="max-w-[800px] mx-auto bubbles p-4 h-[calc(100vh-150px)] overflow-y-scroll">
           {conversation.map((msg, index) => (
             <div key={index} className={`row mb-2 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
              <div className={`py-2 px-4 rounded-2xl ${msg.sender === 'user' ? 'bg-black text-white' : 'bg-gray-200 text-black'}`}>
@@ -169,7 +228,7 @@ function Chatbot() {
            </div>
           ))}
           
-          {isLoading && <img src={loader} className="w-20 mx-auto" alt="Loading..." />}
+          {isLoading && <AILoader />}
 
           
           {/* BRANDS MENU */}
@@ -232,9 +291,18 @@ function Chatbot() {
               ))}
             </div>
           )}
-
-
         </div>
+      </div>
+      
+      {/* TEXTAREA */}
+      <div className='h-[100px]'>
+        <textarea 
+          className='w-full h-full p-[10px] border-t border-gray-200 outline-0 resize-none' 
+          onChange={(e) => setCurrentMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          value={currentMessage}
+          placeholder="Ask me something ..."
+        />
       </div>
     </div>
   );
