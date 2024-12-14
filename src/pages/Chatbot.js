@@ -27,11 +27,6 @@ function Chatbot() {
   
   const openAiUrl = process.env.REACT_APP_APIURL;
   
-  // FUNCTION TO AUTO SCROLL UP
-  useEffect(() => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  }, [conversation]);
-
   useEffect(() => {
     setData(dataChatbot)
     addMessage(
@@ -308,7 +303,8 @@ async function rawAnswer(question, data) {
       {/* TEXTAREA */}
       <div className='h-[100px] fixed bottom-0 left-0 w-full z-50'>
         <textarea 
-          className='w-full h-full p-[10px] border-t border-gray-200 outline-0 resize-none' 
+          className='w-full h-full p-[10px] border-t border-gray-200 outline-0 resize-none appearance-none' 
+          style={{ WebkitTapHighlightColor: 'transparent' }}
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           value={currentMessage}
