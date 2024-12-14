@@ -2,7 +2,7 @@ import React from 'react'
 
 function BtnChat() {
     const handleClick = () => {
-        const url = 'http://localhost:3000/chatbot'; 
+        const url = 'https://badassbbqs.com/chatbot'; 
         window.open(url, '_blank', 'width=400,height=600');
     };
 
