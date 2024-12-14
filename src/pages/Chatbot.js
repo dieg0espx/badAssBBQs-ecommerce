@@ -7,7 +7,7 @@ import { capitalize, getTimeStamp } from '../Utils/Helpers';
 import { useProducts } from '../context/ProductsContext';
 import dataChatbot from '../data/chatbot.json'
 import AILoader from '../components/AILoader';
-const OPTIONS = ['Products', 'Contact',];
+const OPTIONS = ['Products', 'Contact', 'Delivery'];
 
 function Chatbot() {
   const [currentMessage, setCurrentMessage] = useState('');
@@ -22,11 +22,11 @@ function Chatbot() {
   const [showProductSubmenu, setShowProductSubmenu] = useState(false);
   const [showBrands, setShowBrands] = useState(true)
   const [showProducts, setShowProducts] = useState(true)
+  const [showMenu, setShowMenu] = useState(false)
 
   
   const openAiUrl = process.env.REACT_APP_APIURL;
   
-
   // FUNCTION TO AUTO SCROLL UP
   useEffect(() => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -68,6 +68,14 @@ function Chatbot() {
         const brands = getBrands();
         addMessage('server', 'Here are the available brands. Please select one:');
         setSubmenuOptions(brands);
+        break;
+      case 'Delivery':
+        addMessage(
+          'server',
+          'Please verify the current status of your package by visiting the following link:\n\n' +
+          '<a href="https://badassbbqs.com/order-status">Go Order Status &#x2794</a>'
+        )
+        setShowOptions(true)
         break;
     
       default:
@@ -152,7 +160,12 @@ function Chatbot() {
     rawAnswer(currentMessage, data); // Pass the currentMessage and data to rawAnswer
     setCurrentMessage(''); // Clear the input field
     }
-};
+  };
+  const newQuestion = () => {
+    addMessage('user', currentMessage); // Add user message to the conversation
+    rawAnswer(currentMessage, data); // Pass the currentMessage and data to rawAnswer
+    setCurrentMessage(''); // Clear the input field
+  }
 
 
 async function rawAnswer(question, data) {
@@ -278,15 +291,15 @@ async function rawAnswer(question, data) {
 
           {/* MAIN MENU */}
           {showOptions && (
-            <div className="grid grid-cols-2 gap-2 mt-4">
+            <div className="mt-4" style={{display: showMenu ? 'block':'none'}}>
              {OPTIONS.map((option) => (
                 <button
-                  key={option}
-                  onClick={() => handleOptionClick(option)}
-                  className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-red hover:text-white flex items-center"
-                >
-                  <span className="mr-2">{getEmojiForOption(option)}</span>
-                  {option}
+                key={option}
+                onClick={() => handleOptionClick(option)}
+                className="bg-gray-200 text-gray-700 py-3 px-4 rounded-2xl hover:bg-red hover:text-white flex items-center w-full mb-[10px]"
+              >
+                <span className="mr-2">{getEmojiForOption(option)}</span>
+                {option}
                 </button>
               ))}
             </div>
@@ -303,6 +316,16 @@ async function rawAnswer(question, data) {
           value={currentMessage}
           placeholder="Ask me something ..."
         />
+         <button 
+          onClick={()=>setShowMenu(!showMenu)}
+          className="fixed right-[15px] bottom-[60px]"> 
+          <i className="bi bi-view-list"></i>                   
+        </button>
+        <button 
+          onClick={()=>newQuestion()}
+          className="fixed right-[10px] bottom-[20px]"> 
+          <i className="bi bi-arrow-up-circle-fill text-[30px]"></i>                   
+        </button>
       </div>
     </div>
   );
