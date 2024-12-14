@@ -215,7 +215,7 @@ async function rawAnswer(question, data) {
   return (
     <div className="chat-page h-screen overflow-hidden mx-auto">
       {/* HEADER */}
-      <div className='w-full h-[50px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px]'>
+      <div className='w-full h-[50px] bg-white shadow-md  px-[30px] z-20 flex items-center gap-[20px] fixed top-0 left-0'>
           <img src={botLogo}  className='h-[90%]'/>
           <div>
             <h2 className='text-[15px] font-semibold'> AI Assistant </h2>
@@ -308,7 +308,7 @@ async function rawAnswer(question, data) {
       </div>
       
       {/* TEXTAREA */}
-      <div className='h-[100px] fixed bottom-0 left-0 w-full'>
+      <div className='h-[100px] fixed bottom-0 left-0 w-full z-50'>
         <textarea 
           className='w-full h-full p-[10px] border-t border-gray-200 outline-0 resize-none' 
           onChange={(e) => setCurrentMessage(e.target.value)}
