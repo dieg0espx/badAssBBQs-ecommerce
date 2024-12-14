@@ -58,3 +58,9 @@
 .spinner1 {
   filter: blur(10px);
 }
+
+textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+

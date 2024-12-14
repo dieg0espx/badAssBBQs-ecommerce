@@ -258,7 +258,6 @@ async function rawAnswer(question, data) {
                   <i className="bi bi-chevron-compact-right"></i>
                 </button>
               ))}
-              <button onClick={()=>setShowOptions(true)}> Show Menu </button>
             </div>
           )}
           {/* PRODUCTS MENU */}
@@ -284,7 +283,6 @@ async function rawAnswer(question, data) {
                   {product.Title}
                 </button>
               ))}
-              <button onClick={()=>setShowOptions(true)}> Show Menu </button>
             </div>
           )} 
 
