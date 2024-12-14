@@ -25,12 +25,16 @@ import CheckoutConfirmation from './pages/CheckoutConfirmation';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Login from './pages/Login';
+
+import ProtectedRoute from './pages/ProtectedRoute';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const location = useLocation();
 
   // Paths where both the Header and Footer should be hidden
-  const noHeaderFooterPaths = ['/chatbot'];
+  const noHeaderFooterPaths = ['/chatbot', '/login', '/dashboard'];
 
   const shouldShowHeaderFooter = !noHeaderFooterPaths.includes(location.pathname);
 
@@ -57,15 +61,21 @@ function App() {
                   <Route path="/return-policy" element={<ReturnPolicy />} />
                   <Route path="/contact" element={<Contact />} />
 
-                  <Route path="/order-status/" element={<OrderStatus />} />
+                  <Route path="/order-status" element={<OrderStatus />} />
                   <Route path="/order-status/:id" element={<OrderStatus />} />
 
                   <Route path="/checkout-authorized/:method" element={<CheckoutAuthorized />} />
                   <Route path="/checkout-confirmation" element={<CheckoutConfirmation />} />
 
                   <Route path="/admin" element={<Admin />} />
+                  <Route path="/login" element={<Login />} />
                   <Route path="/test" element={<Test />} />
                   <Route path="/chatbot" element={<Chatbot />} />
+
+                  {/* Protected Route */}
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                  </Route>
                 </Routes>
               </div>
               {/* Conditionally render the Footer */}

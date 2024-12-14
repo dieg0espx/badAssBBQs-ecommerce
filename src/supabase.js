@@ -11,3 +11,4 @@ if (!REACT_APP_SUPABASE_URL || !REACT_APP_SUPABASE_ANON_KEY) {
 const supabase = createClient(REACT_APP_SUPABASE_URL, REACT_APP_SUPABASE_ANON_KEY);
 
 export default supabase;
+
