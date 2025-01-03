@@ -10,8 +10,36 @@ import logoNegative from '../images/logo-negative.png'
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
 import BtnChat from './BtnChat';
+import { useState } from 'react';
+import supabase  from '../supabase';
 
 function Footer() {
+  
+  const [email, setEmail] = useState('');
+
+  function validateEmail(email) {
+    // Regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  
+  const handleJoin = async () => {
+    if(validateEmail(email)){
+      const { data, error } = await supabase
+      .from('mailingList')
+      .insert([
+        { email: email},
+      ])
+      .select()
+      alert('Thank you for joining our mailing list')
+      setEmail('')
+    } else {
+      alert('Please enter a valid email address')
+      return 
+    }
+  }
+
   return (
     <div className='footer w-full mt-5'>
       <BtnChat />
@@ -33,8 +61,13 @@ function Footer() {
             className="block outline-0  w-full mx-auto  py-5 px-3 bg-transparent rounded-none placeholder-black text-center"
             type="text"
             placeholder="Enter Your Email Address"
+            value={email || ''} // Ensure value is never undefined
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <button className='bg-red px-10 text-[20px] text-white font-bold'> Join </button>
+          <button 
+            className='bg-red px-10 text-[20px] text-white font-bold'
+            onClick={handleJoin}
+          > Join </button>
         </div>
 
         <div className='flex w-auto mx-auto justify-center align-center space-x-5'>
