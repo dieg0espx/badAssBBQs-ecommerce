@@ -24,6 +24,13 @@ const ProductDetails = () => {
   const [dropdownData, setDropdownData] = useState({}); // Stores dropdown titles and options
   const [selectedOptions, setSelectedOptions] = useState({}); // Tracks selected options
 
+  useEffect(() => {
+    const onLoad = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.addEventListener('load', onLoad);
+    return () => window.removeEventListener('load', onLoad);
+  }, []);
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,16 +43,6 @@ const ProductDetails = () => {
           const category = currentProduct.Category.filter((cat) => cat !== "Home").slice(-2);
           const related = await relatedProducts(category, 15);
           setListRelated(related);
-
-          // const similar = await analyzeProductsByModel(currentProduct.brand, currentProduct.Model);
-          // setSimilarProducts(similar || []);
-
-          // if (similar && similar.length > 0) {
-          //   const differences = similar.map((similarProduct) =>
-          //     analyzeSpecifications(currentProduct.Specifications, similarProduct.Specifications, similarProduct.Model)
-          //   );
-          //   setSpecDifferences(differences);
-          // }
         }
       } catch (error) {
         console.error("Error loading data:", error);
@@ -56,71 +53,7 @@ const ProductDetails = () => {
 
   const product = products.find((item) => `${item.brand}-${item.Id}` === id);
 
-  // const analyzeSpecifications = (currentSpecs, similarSpecs, model) => {
-  //   if (!currentSpecs || !similarSpecs) return [];
-  
-  //   const differences = [];
-  //   const allKeys = new Set([...Object.keys(currentSpecs), ...Object.keys(similarSpecs)]);
-  
-  //   allKeys.forEach((key) => {
-  //     const currentValue = currentSpecs[key] || 'N/A';
-  //     const similarValue = similarSpecs[key] || 'N/A';
-  //     if (currentValue !== similarValue) {
-  //       differences.push({ key, current: currentValue, similar: similarValue, similarModel: model });
-  //     }
-  //   });
-  
-  //   return differences;
-  // };
-  
-
-  // useEffect(() => {
-  //   if (specDifferences.length > 0) {
-  //     const dropdownOptions = {};
-
-  //     for (let i = 0; i < specDifferences[0].length; i++) {
-  //       const key = Object.keys(specDifferences[0][i].current)[0]; // Get the key
-  //       const currentValue = Object.values(specDifferences[0][i].current)[0]; // Access current value
-  //       const similarValue = Object.values(specDifferences[0][i].similar)[0]; // Access similar value
-
-  //       if (currentValue !== similarValue && key !== '' && key !== 'Weight') {
-  //         if (!dropdownOptions[key]) {
-  //           dropdownOptions[key] = new Set(); // Use Set to avoid duplicates
-  //         }
-  //         dropdownOptions[key].add(currentValue);
-  //         dropdownOptions[key].add(similarValue);
-  //       }
-  //     }
-
-  //     // Convert Set to Array for each key and update state
-  //     const formattedDropdownData = Object.fromEntries(
-  //       Object.entries(dropdownOptions).map(([key, values]) => [key, Array.from(values)])
-  //     );
-
-  //     setDropdownData(formattedDropdownData);
-  //   }
-  // }, [specDifferences]);
-
-  // const handleSelectChange = (key, value) => {
-  //   setSelectedOptions((prev) => ({
-  //     ...prev,
-  //     [key]: value,
-  //   }));
-
-  //   // Find and log the similar product
-  //   const similarProduct = specDifferences[0].find((difference) => {
-  //     const similarValue = Object.values(difference.similar)[0];
-  //     return Object.keys(difference.current)[0] === key && similarValue === value;
-  //   });
-
-  //   if (similarProduct) {
-  //     console.log("Selected Similar Product:", similarProduct);
-  //   }
-  // };
-  
-  
-
-
+ 
   const settings = {
     dots: false,
     infinite: true,

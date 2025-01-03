@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 
 // Import Stripe
 import { Elements } from '@stripe/react-stripe-js';
@@ -16,6 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
     <BrowserRouter>
+      <ScrollToTop />
       {/* Wrap your app in the Stripe Elements provider */}
       <Elements stripe={stripePromise}>
         <App />
