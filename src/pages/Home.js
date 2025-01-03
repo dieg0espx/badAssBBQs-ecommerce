@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Slider from 'react-slick'; // Import the Slider component from react-slick
-import banner2 from '../images/banner2.png';
+import banner2 from '../images/Banner2.png';
 import banner3 from '../images/banner3.png';
 import banner4 from '../images/banner4.png';
 import banner5 from '../images/banner5.png';
