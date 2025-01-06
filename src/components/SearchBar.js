@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useProducts } from '../context/ProductsContext';
 import placeholderImage from '../images/placeholder_image.jpg'
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function SearchBar() {
@@ -9,6 +10,8 @@ function SearchBar() {
   const [showList, setShowList] = useState(false);
   const [finding, setFinding] = useState('')
   const [results, setResults] = useState([])
+  const navigate = useNavigate(); // React Router hook for navigation
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,7 +33,7 @@ function SearchBar() {
       });
       
       setResults(filteredProducts)
-      console.log("Filtered Products:", filteredProducts); // Print filtered products in the console
+      // console.log("Filtered Products:", filteredProducts); // Print filtered products in the console
     } else {
       setShowList(false);
     }
@@ -52,6 +55,16 @@ function SearchBar() {
     };
   }, [showList]);
 
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/finding/${finding}`); // Navigate to the finding page
+      setShowList(false); // Close the dropdown
+    }
+  }
+
+
+
   return (
     <div className='w-[90%] xl:min-w-full'>
       <input
@@ -59,7 +72,11 @@ function SearchBar() {
         type="text"
         placeholder="Search in BadAssBBQS"
         onChange={(e)=>setFinding(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
+      <Link to={`/finding/${finding}`} >
+        <i className="bi bi-search -ml-10" onClick={()=>setShowList(false)}></i>
+      </Link>
       {showList && (
         <div className='fixed bg-white w-[90%] xl:max-w-[485px] border border-gray-200 max-h-[300px] rounded-b border-t-0 overflow-y-scroll'>
          {results.map((result, index) => (
@@ -74,7 +91,7 @@ function SearchBar() {
                   }}
                 />
                 <p> {result.Title} </p>
-                <i class="bi bi-chevron-compact-right"></i>
+                <i class="bi bi-chevron-compact-right"></i> 
             </div>
          ))}
         </div>

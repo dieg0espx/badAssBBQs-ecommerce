@@ -22,6 +22,7 @@ import Admin from './pages/Admin';
 import Chatbot from './pages/Chatbot';
 import Test from './pages/Test';
 import CheckoutConfirmation from './pages/CheckoutConfirmation';
+import Finding from './pages/Finding';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -29,6 +30,7 @@ import Login from './pages/Login';
 
 import ProtectedRoute from './pages/ProtectedRoute';
 import Dashboard from './pages/Dashboard';
+
 
 function App() {
   const location = useLocation();
@@ -66,6 +68,8 @@ function App() {
 
                   <Route path="/checkout-authorized/:method" element={<CheckoutAuthorized />} />
                   <Route path="/checkout-confirmation" element={<CheckoutConfirmation />} />
+
+                  <Route path="/finding/:search" element={<Finding />} />
 
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/login" element={<Login />} />
