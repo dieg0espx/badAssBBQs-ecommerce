@@ -88,7 +88,7 @@ const ProductDetails = () => {
             <ProductImagesContainer Image={product.Image} Other_image={product.Other_image} />
           </div>    
           {/* Right Side - Product Information */}
-          <div className="flex flex-col justify-between mt-10">
+          <div className="flex flex-col justify-between">
             <div>
               <div className="items-center hidden sm:flex">
                 <p className="text-md text-gray-600 mr-2">ID: {product.Id}</p> 
@@ -98,6 +98,8 @@ const ProductDetails = () => {
               <h1 className="text-3xl font-bold mb-2 hidden md:flex">{product.Title}</h1>
               
               <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red hidden xl:flex">{toCamelCase(product.brand)}</Link>
+
+              
               
               <p className="text-[15px] font-light text-gray-500 line-through -mb-2">
                 {formatCurrency(product.Price*1.02)}
@@ -107,9 +109,10 @@ const ProductDetails = () => {
                 {formatCurrency(product.Price)}
               </p>
 
+        
               <p className='font-bold'> In Stock </p>
-              <p className='text-gray-500 mb-5'> {product.brand == 'the_outdoor_plus'? "This item leaves our warehouse within 4 - 6 weeks":"This item leaves our warehouse within 24 Hours"}  </p>
-              <p className="affirm-as-low-as mb-[20px]" data-page-type="cart" data-amount={product.Price*100}></p>
+              <p className='text-gray-500'> {product.brand == 'the_outdoor_plus'? "This item leaves our warehouse within 4 - 6 weeks":"This item leaves our warehouse within 24 Hours"}  </p>
+              <p class="affirm-as-low-as text-[15px] my-[20px]" data-page-type="product" data-amount={product.Price*100}></p>
 
               <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} product={product}/>
 
