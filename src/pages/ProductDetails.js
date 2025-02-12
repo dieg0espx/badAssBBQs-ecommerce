@@ -109,7 +109,7 @@ const ProductDetails = () => {
                 {formatCurrency(product.Price*1.02)}
               </p>
 
-              <p className="text-[30px] font-semibold text-black mb-4">
+              <p className="text-[30px] font-semibold text-black mb-4 mt-[20px] md:mt-0">
                 {formatCurrency(product.Price)}
               </p>
 
