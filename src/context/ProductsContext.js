@@ -223,7 +223,17 @@ export const ProductsProvider = ({ children }) => {
       if (currentSpecs[specKey] !== newSpecs[specKey]) {
         
         // Skip specific specs that should not be compared
-        const excludedSpecs = ["Hose Included", "Main Grilling Area"];
+        const excludedSpecs = [
+          "Hose Included",
+           "Main Grilling Area",
+           "Made In USA",
+           "Collection",
+           "Height",
+           "Depth",
+           "Weight",
+           "Width", 
+           "Includes Paper Towel Holder",
+        ];
         if (excludedSpecs.includes(specKey)) return;
         
         if(!newSpecs[specKey]) return
