@@ -105,11 +105,11 @@ const ProductDetails = () => {
               
               <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red hidden xl:flex">{toCamelCase(product.brand)}</Link>
       
-              <p className="text-[15px] font-light text-gray-500 line-through -mb-2">
+              <p className="text-[15px] font-light text-gray-500 line-through -mb-2 mt-[40px] md:mt-0">
                 {formatCurrency(product.Price*1.02)}
               </p>
 
-              <p className="text-[30px] font-semibold text-black mb-4 mt-[20px] md:mt-0">
+              <p className="text-[30px] font-semibold text-black mb-4 ">
                 {formatCurrency(product.Price)}
               </p>
 
