@@ -221,9 +221,20 @@ export const ProductsProvider = ({ children }) => {
     // Compare Specifications
     Object.keys(currentSpecs).forEach((specKey) => {
       if (currentSpecs[specKey] !== newSpecs[specKey]) {
-        data[specKey] = { newSpecification: specKey, newValue: newSpecs[specKey] || "N/A" };
+        
+        // Skip specific specs that should not be compared
+        const excludedSpecs = ["Hose Included", "Main Grilling Area"];
+        if (excludedSpecs.includes(specKey)) return;
+        
+        if(!newSpecs[specKey]) return
+        
+        data[specKey] = { 
+          newSpecification: specKey, 
+          newValue: newSpecs[specKey] || "N/A" 
+        };
       }
     });
+    
     return data;
   };
   
