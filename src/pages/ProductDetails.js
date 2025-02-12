@@ -14,16 +14,14 @@ import { toCamelCase, formatCurrency, getAlfrescoVariantDefinition } from "../Ut
 
 const ProductDetails = () => {
   const navigate = useNavigate();
-  const { loadAllProducts, relatedProducts, analyzeProductsByModel, getProductUrl } = useProducts();
+  const { loadAllProducts, relatedProducts, analyzeProductsByModel, getProductUrl, getDifferentSpecifications } = useProducts();
   const [products, setProducts] = useState([]);
   const [listRelated, setListRelated] = useState([]);
-  const [similarProducts, setSimilarProducts] = useState([]);
-  const [specDifferences, setSpecDifferences] = useState([]);
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
-  
-  const [dropdownData, setDropdownData] = useState({}); // Stores dropdown titles and options
-  const [selectedOptions, setSelectedOptions] = useState({}); // Tracks selected options
+  const [dropdowns, setDropdowns] = useState()
+  const [allVariations, setAllVariations] = useState([])
+  const [currently, setCurrently] = useState([]);
 
   useEffect(() => {
     const onLoad = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -38,12 +36,13 @@ const ProductDetails = () => {
         setProducts(allProducts);
 
         const currentProduct = allProducts.find((item) => `${item.brand}-${item.Id}` === id);
-        console.log(currentProduct);
+        // console.log(currentProduct);
         
         if (currentProduct) {
           const category = currentProduct.Category.filter((cat) => cat !== "Home").slice(-2);
           const related = await relatedProducts(category, 15);
           setListRelated(related);
+      
         }
       } catch (error) {
         console.error("Error loading data:", error);
@@ -69,11 +68,139 @@ const ProductDetails = () => {
     ],
   };
 
+
+  useEffect(()=>{
+    if(product){
+      findVariations()
+    }
+  },[product])
+
   const goToVariation = async(model) => {
     const productUrl = await getProductUrl(product.brand, model);
     window.location.href = productUrl
   };
 
+  const findVariations = async() => {
+    let allVariations = [];
+
+    if (!product || !product.Model ) {
+      console.error("Product or Model is undefined");
+      return;
+    }
+  
+    // Extract the part of Model up to and including the second '-'
+    const modelParts = product.Model.split("-");
+    const baseModel = modelParts.length > 2 ? modelParts.slice(0, 2).join("-") + "-" : product.Model;
+  
+    const variations = products
+      .filter((item) => item.Model && item.Model.startsWith(baseModel))
+      .map((item) => item.Model);
+
+    for(let i = 0 ; i < variations.length; i++){
+      if(product.Model == variations[i]) {continue}
+      allVariations.push(await getDifferentSpecifications(product.Model, variations[i]))
+    }
+
+    
+    console.log(allVariations);
+    setAllVariations(allVariations)
+    organizeDropdownData((allVariations))
+  };
+
+  const organizeDropdownData = (variations) => {
+    let dropdowns = {};
+  
+    variations.forEach((variation) => {
+      Object.keys(variation).forEach((key) => {
+        if (key !== "model") {
+          // Extract specification name and value
+          const specName = variation[key].newSpecification;
+          const specValue = variation[key].newValue;
+  
+          if (!dropdowns[specName]) {
+            dropdowns[specName] = new Set(); // Use Set to store unique values
+          }
+          dropdowns[specName].add(specValue);
+        }
+      });
+    });
+  
+    // Convert sets to arrays for dropdown options
+    Object.keys(dropdowns).forEach((key) => {
+      dropdowns[key] = Array.from(dropdowns[key]).sort();
+    });
+    setDropdowns(dropdowns)
+    return dropdowns;
+  };
+
+
+
+  const selectedVariation = (spec, value) => {
+    // Step 1: Update `currently` state and immediately use updated value
+    setCurrently((prevCurrently) => {
+      const updatedCurrently = prevCurrently.map((item) =>
+        item.spec === spec ? { ...item, value } : item
+      );
+  
+      // Step 2: Loop through all variations to find the matching product
+      for (let a = 0; a < allVariations.length; a++) {
+        let checkingModel = allVariations[a].model;
+  
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].Model === checkingModel) {
+            
+            // Check if ALL currently selected specifications match the product
+            const allMatch = updatedCurrently.every((currentSpec) => {
+              // Find the specification in the product
+              const productSpecObj = products[i].Specifications.find(
+                (s) => Object.keys(s)[0] === currentSpec.spec
+              );
+              
+              // Check if the product specification value matches the selected value
+              return productSpecObj && Object.values(productSpecObj)[0] === currentSpec.value;
+            });
+  
+            if (allMatch) {
+              console.log("Matching Model:", products[i].Model);
+              goToVariation(products[i].Model)
+              break; // Stop searching once a match is found
+            }
+          }
+        }
+      }
+  
+      return updatedCurrently; // Ensure state is correctly updated
+    });
+  };
+  
+    
+  
+  
+  
+  
+  
+  
+  useEffect(() => {
+    if (dropdowns && product?.Specifications) {
+      const newCurrently = Object.keys(dropdowns).map((specName) => {
+        const currentSpecObj = product.Specifications.find(spec => Object.keys(spec)[0] === specName);
+        return {
+          spec: specName,
+          value: currentSpecObj ? Object.values(currentSpecObj)[0] : "N/A",
+        };
+      });
+
+      setCurrently(newCurrently);
+    }
+  }, [dropdowns, product]);
+
+useEffect(() => {
+  console.log("Current Selections:", currently);
+}, [currently]);
+
+
+  
+  
   if (!product) return <Loader />;
 
   return (
@@ -113,58 +240,36 @@ const ProductDetails = () => {
                 {formatCurrency(product.Price)}
               </p>
 
-              {/* HERE GOES THE VARIANTS */}
-              <div className="my-[20px] flex flex-col gap-[10px]">
-                {product.Variations.map((variation)=>(
-                  <div>
-                  <p className="text-[10px] font-bold ml-[10px]"> {variation.variationName} </p>
-                  <select 
-                    className="w-[200px] border border-gray-150 rounded p-[5px] outline-0"
-                    onChange={(e)=>goToVariation(e.target.value)}
-                  >
-                    <option value={variation.variationModel}> {variation.currentValue} </option>
-                    <option value={variation.variationModel}> {variation.variationValue} </option>
-                  </select>
-                  </div>
-                ))}
+              <div className="mb-[30px] flex flex-col gap-[10px]">
+                {dropdowns && Object.keys(dropdowns).map((specName) => {
+                  // Find the current value from product.Specifications array
+                  const currentSpecObj = product.Specifications.find(spec => Object.keys(spec)[0] === specName);
+                  const currentValue = currentSpecObj ? Object.values(currentSpecObj)[0] : "N/A";
+
+                  return (
+                    <div key={specName}>
+                      <p className="text-[12px] font-semibold ml-[5px] text-red">{specName}</p>
+                      <select 
+                        onChange={(e)=>selectedVariation(specName, e.target.value)}
+                        className="border border-gray-100 w-[300px] p-[5px] rounded"
+                      >
+                        <option value={currentValue}>{currentValue}</option> {/* Current value as first option */}
+                        {dropdowns[specName].map((value) => (
+                          <option key={value} value={value}>{value}</option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
               </div>
-    
-
-
 
 
         
               <p className='font-bold'> In Stock </p>
               <p className='text-gray-500'> {product.brand == 'the_outdoor_plus'? "This item leaves our warehouse within 4 - 6 weeks":"This item leaves our warehouse within 24 Hours"}  </p>
-              <p class="affirm-as-low-as text-[15px] my-[20px]" data-page-type="product" data-amount={product.Price*100}></p>
+              <p className="affirm-as-low-as text-[15px] my-[20px]" data-page-type="product" data-amount={product.Price*100}></p>
 
               <AddToCartQuantity quantity={quantity} setQuantity={setQuantity} product={product}/>
-
-
-              {/* ====== OPTIONS DROPDOWN ==== */}
-              {/* <div className="mt-[20px] w-[80%]">
-                {Object.entries(dropdownData).map(([title, options]) => (
-                  <div key={title}>
-                    <label htmlFor={title} className="block mb-[3px] text-sm font-medium text-gray-700">
-                      {title}
-                    </label>
-                    <select
-                      id={title}
-                      className="p-2 border border-gray-300 rounded w-full"
-                      value={selectedOptions[title] || ""}
-                      onChange={(e) => handleSelectChange(title, e.target.value)}
-                    >
-                      {options.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ))}
-              </div> */}
-              
-
 
             </div>
           </div>

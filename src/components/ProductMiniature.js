@@ -50,7 +50,7 @@ function ProductMiniature({ product, short }) {
         </p>
       </div>
 
-      <p class="affirm-as-low-as text-[12px] w-[90%] mx-auto text-center" data-page-type="product" data-amount={product.Price*100}></p>
+      <p className="affirm-as-low-as text-[12px] w-[90%] mx-auto text-center" data-page-type="product" data-amount={product.Price*100}></p>
     
       <div className="px-2" style={{ display: short ? 'none' : 'block' }}>
         <p className="text-[15px] text-green-800  font-medium">

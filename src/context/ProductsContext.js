@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // Create context
 const ProductsContext = createContext();
@@ -11,7 +11,7 @@ export const useProducts = () => {
 // ProductsProvider component
 export const ProductsProvider = ({ children }) => {
   const listOfBrands = [
-    'alfresco_full',
+    'alfresco',
     'american_made_grills',
     'aog',
     'artisan',
@@ -34,6 +34,7 @@ export const ProductsProvider = ({ children }) => {
   ];
 
   const [products, setProducts] = useState([]);
+
 
   // Function to load products for a specific brand
   const loadProductsByBrand = async (brandName) => {
@@ -73,7 +74,6 @@ export const ProductsProvider = ({ children }) => {
         console.error(`Could not load products for brand ${brand}:`, error);
       }
     }
-
     return allProducts.sort((a, b) => a.Id - b.Id);
   };
 
@@ -190,6 +190,44 @@ export const ProductsProvider = ({ children }) => {
       return null;
     }
   };
+
+  const getDifferentSpecifications = async (currentModel, newModel) => {
+    let productList = await loadAllProducts();
+  
+    // Find products by Model
+    const currentProduct = productList.find((item) => item.Model === currentModel);
+    const newProduct = productList.find((item) => item.Model === newModel);
+  
+    if (!currentProduct || !newProduct) {
+      console.error("One or both products not found.");
+      return null;
+    }
+  
+    let data = { model: newModel };
+  
+    // Convert Specifications array into an object for easier lookup
+    const convertSpecsArrayToObject = (specArray) => {
+      return specArray.reduce((acc, spec) => {
+        const key = Object.keys(spec)[0]; // Get the first key in each object
+        const value = spec[key];
+        if (key) acc[key] = value;
+        return acc;
+      }, {});
+    };
+  
+    const currentSpecs = convertSpecsArrayToObject(currentProduct.Specifications || []);
+    const newSpecs = convertSpecsArrayToObject(newProduct.Specifications || []);
+  
+    // Compare Specifications
+    Object.keys(currentSpecs).forEach((specKey) => {
+      if (currentSpecs[specKey] !== newSpecs[specKey]) {
+        data[specKey] = { newSpecification: specKey, newValue: newSpecs[specKey] || "N/A" };
+      }
+    });
+    return data;
+  };
+  
+  
   
 
 
@@ -204,7 +242,8 @@ export const ProductsProvider = ({ children }) => {
         getBrands,
         analyzeProductsByModel, 
         searchProductsByName, 
-        getProductUrl
+        getProductUrl, 
+        getDifferentSpecifications
       }}
     >
       {children}
