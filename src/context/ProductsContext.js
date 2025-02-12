@@ -11,7 +11,7 @@ export const useProducts = () => {
 // ProductsProvider component
 export const ProductsProvider = ({ children }) => {
   const listOfBrands = [
-    'alfresco',
+    'alfresco_full',
     'american_made_grills',
     'aog',
     'artisan',
@@ -107,7 +107,6 @@ export const ProductsProvider = ({ children }) => {
     }
   };
   
-  
 
   const getRandomProducts = async (num) => {
     const allProducts = await loadAllProducts();
@@ -170,6 +169,29 @@ export const ProductsProvider = ({ children }) => {
       .slice(0, maxResults); // Limit results
   };
 
+  const getProductUrl = async (brand, model) => {
+    console.log('Getting Product URL...');
+  
+    let productList = products;
+  
+    if (!productList.length) {
+      console.warn('Products array is empty. Loading all products...');
+      productList = await loadAllProducts();
+    }
+
+    const product = productList.find(
+      (p) => p.Model?.toLowerCase() === model.toLowerCase() && p.brand?.toLowerCase() === brand.toLowerCase()
+    );
+  
+    if (product) {
+      return `/product/${brand}-${product.Id}`;
+    } else {
+      console.warn(`Product with model "${model}" not found for brand "${brand}"`);
+      return null;
+    }
+  };
+  
+
 
   return (
     <ProductsContext.Provider
@@ -181,7 +203,8 @@ export const ProductsProvider = ({ children }) => {
         relatedProducts,
         getBrands,
         analyzeProductsByModel, 
-        searchProductsByName
+        searchProductsByName, 
+        getProductUrl
       }}
     >
       {children}

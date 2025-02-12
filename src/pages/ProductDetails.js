@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { useProducts } from "../context/ProductsContext";
 import ProductImagesContainer from "../components/ProductImagesContainer";
@@ -9,11 +9,12 @@ import AskExpert from "../components/AsxExpert";
 import ProductMiniature from "../components/ProductMiniature";
 import ProductDescription from "../components/ProductDescription";
 import Loader from "../components/Loader";
-import { toCamelCase, formatCurrency } from "../Utils/Helpers";
+import { toCamelCase, formatCurrency, getAlfrescoVariantDefinition } from "../Utils/Helpers";
 
 
 const ProductDetails = () => {
-  const { loadAllProducts, relatedProducts, analyzeProductsByModel } = useProducts();
+  const navigate = useNavigate();
+  const { loadAllProducts, relatedProducts, analyzeProductsByModel, getProductUrl } = useProducts();
   const [products, setProducts] = useState([]);
   const [listRelated, setListRelated] = useState([]);
   const [similarProducts, setSimilarProducts] = useState([]);
@@ -30,8 +31,6 @@ const ProductDetails = () => {
     return () => window.removeEventListener('load', onLoad);
   }, []);
   
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,6 +38,8 @@ const ProductDetails = () => {
         setProducts(allProducts);
 
         const currentProduct = allProducts.find((item) => `${item.brand}-${item.Id}` === id);
+        console.log(currentProduct);
+        
         if (currentProduct) {
           const category = currentProduct.Category.filter((cat) => cat !== "Home").slice(-2);
           const related = await relatedProducts(category, 15);
@@ -53,7 +54,6 @@ const ProductDetails = () => {
 
   const product = products.find((item) => `${item.brand}-${item.Id}` === id);
 
- 
   const settings = {
     dots: false,
     infinite: true,
@@ -69,11 +69,17 @@ const ProductDetails = () => {
     ],
   };
 
+  const goToVariation = async(model) => {
+    const productUrl = await getProductUrl(product.brand, model);
+    window.location.href = productUrl
+  };
+
   if (!product) return <Loader />;
 
   return (
     <div className="p-6 max-w-6xl mx-auto overflow-x-hidden">
         <Categories categories={product.Category} />
+      
         
         <div className='block sm:hidden'>
           <p className="text-md text-gray-600 mr-2">ID: {product.Id}  <span>|</span> Model: {product.Model}</p> 
@@ -82,7 +88,7 @@ const ProductDetails = () => {
         </div>
 
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0 space-x-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10 pl-0 space-x-5 items-center">
           {/* Left Side - Product Image */}
           <div className="block justify-center items-start ">
             <ProductImagesContainer Image={product.Image} Other_image={product.Other_image} />
@@ -98,9 +104,7 @@ const ProductDetails = () => {
               <h1 className="text-3xl font-bold mb-2 hidden md:flex">{product.Title}</h1>
               
               <Link to={'/products/'+ product.brand + '/all'} className="block mb-5 hover:underline hover:text-red hidden xl:flex">{toCamelCase(product.brand)}</Link>
-
-              
-              
+      
               <p className="text-[15px] font-light text-gray-500 line-through -mb-2">
                 {formatCurrency(product.Price*1.02)}
               </p>
@@ -108,6 +112,26 @@ const ProductDetails = () => {
               <p className="text-[30px] font-semibold text-black mb-4">
                 {formatCurrency(product.Price)}
               </p>
+
+              {/* HERE GOES THE VARIANTS */}
+              <div className="my-[20px] flex flex-col gap-[10px]">
+                {product.Variations.map((variation)=>(
+                  <div>
+                  <p className="text-[10px] font-bold ml-[10px]"> {variation.variationName} </p>
+                  <select 
+                    className="w-[200px] border border-gray-150 rounded p-[5px] outline-0"
+                    onChange={(e)=>goToVariation(e.target.value)}
+                  >
+                    <option value={variation.variationModel}> {variation.currentValue} </option>
+                    <option value={variation.variationModel}> {variation.variationValue} </option>
+                  </select>
+                  </div>
+                ))}
+              </div>
+    
+
+
+
 
         
               <p className='font-bold'> In Stock </p>

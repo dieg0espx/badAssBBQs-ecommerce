@@ -96,3 +96,20 @@ export const getTimeStamp = () => {
   const timestamp = new Date();
   return `${timestamp.toLocaleDateString()} | ${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 };
+
+
+
+export const getAlfrescoVariantDefinition = (variant) => {
+  const variantDefinitions = {
+    "NG": "Natural Gas",
+    "LP": "Propane",
+    "SZ": "Sear Zone",
+    "C": "Cart Model",
+    "CD": "Deluxe Cart Model",
+    "BI": "Built-In",
+    "DD": "Double Door",
+    "SC": "Soft Close"
+  };
+
+  return variantDefinitions[variant] || "Unknown Variant";
+};
