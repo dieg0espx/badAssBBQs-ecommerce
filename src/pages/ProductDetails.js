@@ -16,6 +16,8 @@ import AmericanMadeGrills from "../components/Variants/AmericanMadeGrills";
 import Aog from "../components/Variants/Aog";
 import Artisan from "../components/Variants/Artisan";
 import Blaze from "../components/Variants/Blaze";
+import Breeo from "../components/Variants/Breeo";
+import Delta from "../components/Variants/Delta";
 
 
 const ProductDetails = () => {
@@ -116,6 +118,8 @@ const ProductDetails = () => {
               {product.brand == 'artisan' && ( <Artisan product={product}/> )}
               {/* HERE GOES BLACKSTONE */}
               {product.brand == 'blaze' && ( <Blaze product={product}/> )}
+              {product.brand == 'breeo' && ( <Breeo product={product}/> )}
+              {product.brand == 'delta' && ( <Delta product={product}/> )}
               
 
               <p className='font-bold'> In Stock </p>

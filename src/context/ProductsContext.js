@@ -17,6 +17,7 @@ export const ProductsProvider = ({ children }) => {
     'artisan',
     'blackstone',
     'blaze',
+    'breeo',
     'bromic_heating',
     'coyote',
     'delta',
