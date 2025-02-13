@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { toCamelCase, formatCurrency, getAlfrescoVariantDefinition } from "../../Utils/Helpers";
 import { useProducts } from "../../context/ProductsContext"
 
 function Alfresco({ product }) {
