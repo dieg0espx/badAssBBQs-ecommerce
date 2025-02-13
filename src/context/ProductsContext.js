@@ -239,8 +239,12 @@ export const ProductsProvider = ({ children }) => {
            "BTU",
            "Cooking Grate Material",
            "Rotisserie Burner BTUs",
-           "Side Burner"
-
+           "Side Burner",
+           "Pizza Count",
+           "Cooking Grid Dimensions",
+           "Opening Width",
+           "Total Grilling Area",
+           "Exterior Material",
            
         ];
         if (excludedSpecs.includes(specKey)) return;
