@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useProducts } from "../../context/ProductsContext"
 
-function AmericanFyreDesign({ product }) {
+function AmericanMadeGrills({ product }) {
     // Extracting necessary functions from context
     const { loadProductsByBrand, getDifferentSpecifications, goToVariation } = useProducts();
     
@@ -42,7 +42,7 @@ function AmericanFyreDesign({ product }) {
 
         // Extracts the first two parts of the model code to find related models
         const modelParts = product.Model.split("-");
-        const baseModel = modelParts.length > 2 ? modelParts.slice(0, 2).join("-") : product.Model;
+        const baseModel = modelParts[0]
 
         console.log('BASE MODEL: ' + baseModel);
         
@@ -57,9 +57,15 @@ function AmericanFyreDesign({ product }) {
 
         // Get differences in specifications between current product and variations
         for (let i = 0; i < variations.length; i++) {
-            if (product.Model === variations[i]) continue; // Skip the same model
+            if (product.Model === variations[i] || product.Model.length !== variations[i].length) continue; // Skip if models are identical or lengths differ
+        
             allVariations.push(await getDifferentSpecifications(product.brand, product.Model, variations[i]));
         }
+        console.log('All Variations:');
+        console.log(allVariations);
+        
+        
+        
 
         setAllVariations(allVariations); // Store variations in state
         organizeDropdownData(allVariations); // Organize dropdown options
@@ -187,4 +193,4 @@ function AmericanFyreDesign({ product }) {
   )
 }
 
-export default AmericanFyreDesign
+export default AmericanMadeGrills

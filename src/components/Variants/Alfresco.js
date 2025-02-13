@@ -26,7 +26,7 @@ function Alfresco({ product }) {
 
     // Fetch all products of brand 'alfresco'
     const getBrandProducts = async () => {
-        let productList = await loadProductsByBrand('alfresco');
+        let productList = await loadProductsByBrand(product.brand);
         console.log(productList);
         setProducts(productList); // Store fetched products in state
     }
