@@ -2,143 +2,145 @@ import React, { useEffect, useState } from 'react'
 import { toCamelCase, formatCurrency, getAlfrescoVariantDefinition } from "../../Utils/Helpers";
 import { useProducts } from "../../context/ProductsContext"
 
+function Alfresco({ product }) {
+    // Extracting necessary functions from context
+    const { loadProductsByBrand, getDifferentSpecifications, goToVariation } = useProducts();
+    
+    // State variables
+    const [products, setProducts] = useState([]); // Stores all products of the 'alfresco' brand
+    const [dropdowns, setDropdowns] = useState(); // Stores dropdown options for variations
+    const [allVariations, setAllVariations] = useState([]); // Stores all variations of the current product
+    const [currently, setCurrently] = useState([]); // Stores the currently selected specifications
 
-function Alfresco({product}) {
-    const { loadAllProducts, relatedProducts, analyzeProductsByModel, loadProductsByBrand, getDifferentSpecifications, goToVariation } = useProducts();
-    const [products, setProducts] = useState([])
-    const [dropdowns, setDropdowns] = useState()
-    const [allVariations, setAllVariations] = useState([])
-    const [currently, setCurrently] = useState([]);
-
-
+    // Effect to load products of the brand on mount
     useEffect(() => {
         console.log(product);
-        getBrandProducts();
-      }, []);
-      
-      useEffect(() => {
-        if (products.length > 0) {
-          findVariations();
-        }
-      }, [products]); // Now findVariations runs only after products are loaded
-      
+        getBrandProducts(); // Fetch all products from 'alfresco'
+    }, []);
 
-    const getBrandProducts = async() => {
-        let productList = await loadProductsByBrand('alfresco')
-        console.log('ALFRESCO PRODUCTS:');
+    // Effect to find variations after products are loaded
+    useEffect(() => {
+        if (products.length > 0) {
+            findVariations(); // Runs only when products are available
+        }
+    }, [products]); 
+
+    // Fetch all products of brand 'alfresco'
+    const getBrandProducts = async () => {
+        let productList = await loadProductsByBrand('alfresco');
         console.log(productList);
-        setProducts(productList)
+        setProducts(productList); // Store fetched products in state
     }
 
-    const findVariations = async() => {
-      console.log('FINDING VARIATIONS .... ');
-      
-      let allVariations = [];
+    // Find product variations based on the current product model
+    const findVariations = async () => {
+        let allVariations = [];
 
-      if (!product || !product.Model ) {
-        console.error("Product or Model is undefined");
-        return;
-      }
-    
-      // Extract the part of Model up to and including the second '-'
-      const modelParts = product.Model.split("-");
-      const baseModel = modelParts.length > 2 ? modelParts.slice(0, 2).join("-") + "-" : product.Model;
-    
-      const variations = products
-        .filter((item) => item.Model && item.Model.startsWith(baseModel))
-        .map((item) => item.Model);
-
-      for(let i = 0 ; i < variations.length; i++){
-        if(product.Model == variations[i]) {continue}
-        allVariations.push(await getDifferentSpecifications(product.brand, product.Model, variations[i]))
-      }
-
-      
-      console.log(allVariations);
-      setAllVariations(allVariations)
-      organizeDropdownData((allVariations))
-    };
-
-    const organizeDropdownData = (variations) => {
-      let dropdowns = {};
-    
-      variations.forEach((variation) => {
-        Object.keys(variation).forEach((key) => {
-          if (key !== "model") {
-            // Extract specification name and value
-            const specName = variation[key].newSpecification;
-            const specValue = variation[key].newValue;
-    
-            if (!dropdowns[specName]) {
-              dropdowns[specName] = new Set(); // Use Set to store unique values
-            }
-            dropdowns[specName].add(specValue);
-          }
-        });
-      });
-    
-      // Convert sets to arrays for dropdown options
-      Object.keys(dropdowns).forEach((key) => {
-        dropdowns[key] = Array.from(dropdowns[key]).sort();
-      });
-      setDropdowns(dropdowns)
-      return dropdowns;
-    };
-
-    const selectedVariation = (spec, value) => {
-      // Step 1: Update `currently` state and immediately use updated value
-      setCurrently((prevCurrently) => {
-        const updatedCurrently = prevCurrently.map((item) =>
-          item.spec === spec ? { ...item, value } : item
-        );
-    
-        // Step 2: Loop through all variations to find the matching product
-        for (let a = 0; a < allVariations.length; a++) {
-          let checkingModel = allVariations[a].model;
-    
-          for (let i = 0; i < products.length; i++) {
-            if (products[i].Model === checkingModel) {
-              
-              // Check if ALL currently selected specifications match the product
-              const allMatch = updatedCurrently.every((currentSpec) => {
-                // Find the specification in the product
-                const productSpecObj = products[i].Specifications.find(
-                  (s) => Object.keys(s)[0] === currentSpec.spec
-                );
-                
-                // Check if the product specification value matches the selected value
-                return productSpecObj && Object.values(productSpecObj)[0] === currentSpec.value;
-              });
-    
-              if (allMatch) {
-                console.log("Matching Model:", products[i].Model);
-                goToVariation(product.brand, products[i].Model)
-                break; // Stop searching once a match is found
-              }
-            }
-          }
+        if (!product || !product.Model) {
+            console.error("Product or Model is undefined");
+            return;
         }
-    
-        return updatedCurrently; // Ensure state is correctly updated
-      });
+
+        // Extracts the first two parts of the model code to find related models
+        const modelParts = product.Model.split("-");
+        const baseModel = modelParts.length > 2 ? modelParts.slice(0, 2).join("-") + "-" : product.Model;
+
+        // Filters products that start with the same base model
+        const variations = products
+            .filter((item) => item.Model && item.Model.startsWith(baseModel))
+            .map((item) => item.Model);
+
+        // Get differences in specifications between current product and variations
+        for (let i = 0; i < variations.length; i++) {
+            if (product.Model === variations[i]) continue; // Skip the same model
+            allVariations.push(await getDifferentSpecifications(product.brand, product.Model, variations[i]));
+        }
+
+        setAllVariations(allVariations); // Store variations in state
+        organizeDropdownData(allVariations); // Organize dropdown options
     };
-      
-    useEffect(() => {
-      if (dropdowns && product?.Specifications) {
-        const newCurrently = Object.keys(dropdowns).map((specName) => {
-          const currentSpecObj = product.Specifications.find(spec => Object.keys(spec)[0] === specName);
-          return {
-            spec: specName,
-            value: currentSpecObj ? Object.values(currentSpecObj)[0] : "N/A",
-          };
+
+    // Organizes variations into dropdown options
+    const organizeDropdownData = (variations) => {
+        let dropdowns = {};
+
+        // Loops through each variation and extracts unique specification options
+        variations.forEach((variation) => {
+            Object.keys(variation).forEach((key) => {
+                if (key !== "model") {
+                    const specName = variation[key].newSpecification;
+                    const specValue = variation[key].newValue;
+
+                    if (!dropdowns[specName]) {
+                        dropdowns[specName] = new Set(); // Uses Set to store unique values
+                    }
+                    dropdowns[specName].add(specValue);
+                }
+            });
         });
 
-        setCurrently(newCurrently);
-      }
-    }, [dropdowns, product]);
-    
+        // Convert sets to arrays for dropdown selection
+        Object.keys(dropdowns).forEach((key) => {
+            dropdowns[key] = Array.from(dropdowns[key]).sort();
+        });
+
+        setDropdowns(dropdowns);
+        return dropdowns;
+    };
+
+    // Handles selection of a variation from dropdown
+    const selectedVariation = (spec, value) => {
+        setCurrently((prevCurrently) => {
+            // Update the currently selected specifications
+            const updatedCurrently = prevCurrently.map((item) =>
+                item.spec === spec ? { ...item, value } : item
+            );
+
+            // Loop through all variations to find a matching product
+            for (let a = 0; a < allVariations.length; a++) {
+                let checkingModel = allVariations[a].model;
+
+                for (let i = 0; i < products.length; i++) {
+                    if (products[i].Model === checkingModel) {
+                        // Check if all selected specifications match the product's specifications
+                        const allMatch = updatedCurrently.every((currentSpec) => {
+                            const productSpecObj = products[i].Specifications.find(
+                                (s) => Object.keys(s)[0] === currentSpec.spec
+                            );
+                            return productSpecObj && Object.values(productSpecObj)[0] === currentSpec.value;
+                        });
+
+                        if (allMatch) {
+                            console.log("Matching Model:", products[i].Model);
+                            goToVariation(product.brand, products[i].Model); // Navigate to new variation
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return updatedCurrently; // Ensure state updates correctly
+        });
+    };
+
+    // Effect to initialize currently selected specifications based on dropdowns and product specifications
     useEffect(() => {
-      console.log("Current Selections:", currently);
+        if (dropdowns && product?.Specifications) {
+            const newCurrently = Object.keys(dropdowns).map((specName) => {
+                const currentSpecObj = product.Specifications.find(spec => Object.keys(spec)[0] === specName);
+                return {
+                    spec: specName,
+                    value: currentSpecObj ? Object.values(currentSpecObj)[0] : "N/A",
+                };
+            });
+
+            setCurrently(newCurrently);
+        }
+    }, [dropdowns, product]);
+
+    // Logs the currently selected specifications when they change
+    useEffect(() => {
+        console.log("Current Selections:", currently);
     }, [currently]);
 
   return (
