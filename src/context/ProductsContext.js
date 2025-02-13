@@ -52,6 +52,8 @@ export const ProductsProvider = ({ children }) => {
 
       const sortedProducts = uniqueProducts.sort((a, b) => a.Id - b.Id);
       setProducts(sortedProducts);
+
+      return sortedProducts
     } catch (error) {
       console.error(`Could not load products for brand ${brandName}:`, error);
     }
@@ -248,6 +250,10 @@ export const ProductsProvider = ({ children }) => {
     return data;
   };
   
+  const goToVariation = async(brand, model) => {
+    const productUrl = await getProductUrl(brand, model);
+    window.location.href = productUrl
+  };
   
   
 
@@ -264,7 +270,8 @@ export const ProductsProvider = ({ children }) => {
         analyzeProductsByModel, 
         searchProductsByName, 
         getProductUrl, 
-        getDifferentSpecifications
+        getDifferentSpecifications,
+        goToVariation, 
       }}
     >
       {children}

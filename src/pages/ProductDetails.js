@@ -14,7 +14,7 @@ import { toCamelCase, formatCurrency, getAlfrescoVariantDefinition } from "../Ut
 
 const ProductDetails = () => {
   const navigate = useNavigate();
-  const { loadAllProducts, relatedProducts, analyzeProductsByModel, getProductUrl, getDifferentSpecifications } = useProducts();
+  const { loadAllProducts, relatedProducts, analyzeProductsByModel, getProductUrl, getDifferentSpecifications, goToVariation } = useProducts();
   const [products, setProducts] = useState([]);
   const [listRelated, setListRelated] = useState([]);
   const { id } = useParams();
@@ -75,10 +75,7 @@ const ProductDetails = () => {
     }
   },[product])
 
-  const goToVariation = async(model) => {
-    const productUrl = await getProductUrl(product.brand, model);
-    window.location.href = productUrl
-  };
+
 
   const findVariations = async() => {
     let allVariations = [];
@@ -132,9 +129,6 @@ const ProductDetails = () => {
     setDropdowns(dropdowns)
     return dropdowns;
   };
-
-
-
   const selectedVariation = (spec, value) => {
     // Step 1: Update `currently` state and immediately use updated value
     setCurrently((prevCurrently) => {
@@ -162,7 +156,7 @@ const ProductDetails = () => {
   
             if (allMatch) {
               console.log("Matching Model:", products[i].Model);
-              goToVariation(products[i].Model)
+              goToVariation(product.brand, products[i].Model)
               break; // Stop searching once a match is found
             }
           }
