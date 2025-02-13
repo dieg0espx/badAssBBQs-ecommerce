@@ -235,6 +235,7 @@ export const ProductsProvider = ({ children }) => {
            "Weight",
            "Width", 
            "Includes Paper Towel Holder",
+           "BTU",
         ];
         if (excludedSpecs.includes(specKey)) return;
         
