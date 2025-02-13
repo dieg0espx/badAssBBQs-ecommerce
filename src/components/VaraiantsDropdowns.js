@@ -16,7 +16,7 @@ function VariantsDropdowns({ dropdowns, product, selectedVariation }) {
               <p className="text-[12px] font-semibold ml-[5px] text-red">{specName}</p>
               <select
                 onChange={(e) => selectedVariation(specName, e.target.value)}
-                className="border border-gray-100 w-[300px] p-[5px] rounded"
+                className="border border-gray-100  w-full xl:w-[80%] p-[5px] rounded bg-white"
               >
                 <option value={currentValue}>{currentValue}</option> {/* Current value as first option */}
                 {dropdowns[specName].map((value) => (
