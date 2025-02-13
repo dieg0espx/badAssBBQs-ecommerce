@@ -245,6 +245,8 @@ export const ProductsProvider = ({ children }) => {
            "Opening Width",
            "Total Grilling Area",
            "Exterior Material",
+           "Grill Model",
+           "Grill Type",
            
         ];
         if (excludedSpecs.includes(specKey)) return;
