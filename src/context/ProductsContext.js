@@ -193,8 +193,8 @@ export const ProductsProvider = ({ children }) => {
     }
   };
 
-  const getDifferentSpecifications = async (currentModel, newModel) => {
-    let productList = await loadAllProducts();
+  const getDifferentSpecifications = async (brand, currentModel, newModel) => {
+    let productList = await loadProductsByBrand(brand);
   
     // Find products by Model
     const currentProduct = productList.find((item) => item.Model === currentModel);
