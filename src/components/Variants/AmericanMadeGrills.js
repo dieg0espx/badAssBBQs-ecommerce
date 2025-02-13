@@ -58,15 +58,8 @@ function AmericanMadeGrills({ product }) {
         // Get differences in specifications between current product and variations
         for (let i = 0; i < variations.length; i++) {
             if (product.Model === variations[i] || product.Model.length !== variations[i].length) continue; // Skip if models are identical or lengths differ
-        
             allVariations.push(await getDifferentSpecifications(product.brand, product.Model, variations[i]));
         }
-        console.log('All Variations:');
-        console.log(allVariations);
-        
-        
-        
-
         setAllVariations(allVariations); // Store variations in state
         organizeDropdownData(allVariations); // Organize dropdown options
     };
