@@ -89,6 +89,7 @@ function Alfresco({ product }) {
 
     // Handles selection of a variation from dropdown
     const selectedVariation = (spec, value) => {
+        let found = false
         setCurrently((prevCurrently) => {
             // Update the currently selected specifications
             const updatedCurrently = prevCurrently.map((item) =>
@@ -111,13 +112,28 @@ function Alfresco({ product }) {
 
                         if (allMatch) {
                             console.log("Matching Model:", products[i].Model);
+                            found = true
                             goToVariation(product.brand, products[i].Model); // Navigate to new variation
                             break;
                         }
                     }
                 }
             }
-
+            if (!found) {
+                alert("Configuration Not Available, Try different options.");
+                // Instead of reloading the page, reset to the original product specs
+                setCurrently(
+                    Object.keys(dropdowns).map((specName) => {
+                        const currentSpecObj = product.Specifications.find(
+                            (spec) => Object.keys(spec)[0] === specName
+                        );
+                        return {
+                            spec: specName,
+                            value: currentSpecObj ? Object.values(currentSpecObj)[0] : "N/A",
+                        };
+                    })
+                );
+            }
             return updatedCurrently; // Ensure state updates correctly
         });
     };

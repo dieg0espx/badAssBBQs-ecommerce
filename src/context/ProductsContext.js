@@ -236,6 +236,8 @@ export const ProductsProvider = ({ children }) => {
            "Width", 
            "Includes Paper Towel Holder",
            "BTU",
+           "Cooking Grate Material",
+           
         ];
         if (excludedSpecs.includes(specKey)) return;
         
