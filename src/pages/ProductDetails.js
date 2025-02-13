@@ -13,6 +13,7 @@ import { toCamelCase, formatCurrency, getAlfrescoVariantDefinition } from "../Ut
 import Alfresco from "../components/Variants/Alfresco";
 import AmericanFyreDesign from "../components/Variants/AmericanFyreDesign";
 import AmericanMadeGrills from "../components/Variants/AmericanMadeGrills";
+import Aog from "../components/Variants/Aog";
 
 
 const ProductDetails = () => {
@@ -109,6 +110,7 @@ const ProductDetails = () => {
               {product.brand == 'alfresco' && ( <Alfresco product={product}/> )}
               {product.brand == 'american_fyre_design' && ( <AmericanFyreDesign product={product}/> )}
               {product.brand == 'american_made_grills' && ( <AmericanMadeGrills product={product}/> )}
+              {product.brand == 'aog' && ( <Aog product={product}/> )}
               
 
               <p className='font-bold'> In Stock </p>
