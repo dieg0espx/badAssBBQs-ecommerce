@@ -21,6 +21,9 @@ import Delta from "../components/Variants/Delta";
 import FireMagic from "../components/Variants/FireMagic";
 import Fontana from "../components/Variants/Fontana";
 import GreenMountain from "../components/Variants/GreenMountain";
+import LedgeLounger from "../components/Variants/LedgeLounger";
+import Napoleon from "../components/Variants/Napoleon";
+import TheOutdoorPlus from "../components/Variants/TheOutdoorPlus";
 
 
 const ProductDetails = () => {
@@ -126,6 +129,9 @@ const ProductDetails = () => {
               {product.brand == 'fire_magic' && ( <FireMagic product={product}/> )}
               {product.brand == 'fontana' && ( <Fontana product={product}/> )}
               {product.brand == 'green_mountain' && ( <GreenMountain product={product}/> )}
+              {product.brand == 'napoleon' && ( <Napoleon product={product}/> )}
+              {product.brand == 'the_outdoor_plus' && ( <TheOutdoorPlus product={product}/> )}
+              
               
 
               <p className='font-bold'> In Stock </p>

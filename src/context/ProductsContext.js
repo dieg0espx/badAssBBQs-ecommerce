@@ -247,6 +247,11 @@ export const ProductsProvider = ({ children }) => {
            "Exterior Material",
            "Grill Model",
            "Grill Type",
+           "Cut Out Depth",
+           "Number Of Doors",
+           "Secondary Grilling Area",
+           "Spring Assisted Hood",
+
            
         ];
         if (excludedSpecs.includes(specKey)) return;
