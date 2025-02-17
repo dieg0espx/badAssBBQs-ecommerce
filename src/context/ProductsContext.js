@@ -251,6 +251,8 @@ export const ProductsProvider = ({ children }) => {
            "Number Of Doors",
            "Secondary Grilling Area",
            "Spring Assisted Hood",
+           "Material", 
+           "Size",
 
            
         ];
