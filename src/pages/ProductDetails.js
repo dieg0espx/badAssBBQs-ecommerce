@@ -24,6 +24,7 @@ import GreenMountain from "../components/Variants/GreenMountain";
 import LedgeLounger from "../components/Variants/LedgeLounger";
 import Napoleon from "../components/Variants/Napoleon";
 import TheOutdoorPlus from "../components/Variants/TheOutdoorPlus";
+import TwinEagles from "../components/Variants/TwinEagles";
 
 
 const ProductDetails = () => {
@@ -131,6 +132,7 @@ const ProductDetails = () => {
               {product.brand == 'green_mountain' && ( <GreenMountain product={product}/> )}
               {product.brand == 'napoleon' && ( <Napoleon product={product}/> )}
               {product.brand == 'the_outdoor_plus' && ( <TheOutdoorPlus product={product}/> )}
+              {product.brand == 'twin_eagles' && ( <TwinEagles product={product}/> )}
               
               
 
